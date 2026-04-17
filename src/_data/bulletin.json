@@ -1,0 +1,68 @@
+{
+  "date": "2026-04-20",
+  "theme": "Walking in Faith",
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": ["9:00 AM", "11:00 AM"],
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1234 Faith Ave, Lancaster, CA 93535",
+    "livestream": "https://calvarychapelav.org/live",
+    "pastor": "Pastor John Smith"
+  },
+  "scripture": {
+    "verse": "Now faith is the substance of things hoped for, the evidence of things not seen.",
+    "reference": "Hebrews 11:1",
+    "sermonTitle": "Faith That Moves Mountains",
+    "sermonSeries": "Walking in Faith"
+  },
+  "announcements": [
+    {
+      "title": "Men's Bible Study",
+      "body": "Join us every Tuesday at 7:00 PM in Room 201 for our ongoing men's Bible study through the book of James.",
+      "date": "2026-04-21"
+    },
+    {
+      "title": "Women's Prayer Breakfast",
+      "body": "Ladies, don't miss our monthly prayer breakfast this Saturday at 8:30 AM in the fellowship hall. Please RSVP to the church office.",
+      "date": "2026-04-25"
+    },
+    {
+      "title": "Youth Night",
+      "body": "Teens grades 6–12 are invited to Youth Night this Friday at 6:30 PM. Games, worship, and the Word!",
+      "date": "2026-04-24"
+    }
+  ],
+  "events": [
+    {
+      "title": "Easter Sunday Celebration",
+      "date": "2026-04-20",
+      "time": "9:00 AM & 11:00 AM",
+      "description": "Join us for a special Easter celebration service with worship, message, and family activities afterward."
+    },
+    {
+      "title": "Community Outreach Day",
+      "date": "2026-04-26",
+      "time": "10:00 AM – 2:00 PM",
+      "description": "Serve alongside your church family as we bless our community. Sign up at the welcome table."
+    },
+    {
+      "title": "Marriage Enrichment Seminar",
+      "date": "2026-05-02",
+      "time": "6:00 PM",
+      "description": "A two-evening seminar for couples at all stages of marriage. Registration required — see front desk."
+    }
+  ],
+  "giving": {
+    "url": "https://calvarychapelav.org/give",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 555-0100",
+    "email": "office@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": ""
+  }
+}

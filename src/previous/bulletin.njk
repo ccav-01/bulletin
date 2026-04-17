@@ -1,0 +1,95 @@
+---
+layout: base.njk
+pagination:
+  data: previousBulletins
+  size: 1
+  alias: archivedBulletin
+permalink: "previous/{{ archivedBulletin.date }}/"
+eleventyComputed:
+  title: "{{ archivedBulletin.date | readableDate }}"
+---
+
+<header class="bulletin-hero">
+  <div class="bulletin-hero__inner">
+    <div class="bulletin-hero__date">{{ archivedBulletin.date | readableDate }}</div>
+    <h1>{{ archivedBulletin.theme }}</h1>
+    {% if archivedBulletin.welcomeMessage %}
+    <p class="bulletin-hero__welcome">{{ archivedBulletin.welcomeMessage }}</p>
+    {% endif %}
+    <div style="margin-top:1rem;">
+      <a href="/previous/" class="btn btn--outline" style="color:#fff; border-color:rgba(255,255,255,0.5);">
+        ← All Bulletins
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="bulletin-layout" style="grid-template-columns: 1fr;">
+  <div class="bulletin-sections">
+
+    {% if archivedBulletin.scripture %}
+    <section class="section-card" aria-labelledby="arch-scripture">
+      <div class="section-card__header">
+        <div class="section-card__icon" aria-hidden="true">📖</div>
+        <h2 class="section-card__title" id="arch-scripture">Message</h2>
+      </div>
+      <div class="scripture-block">
+        <p class="scripture-verse">"{{ archivedBulletin.scripture.verse }}"</p>
+        <p class="scripture-reference">— {{ archivedBulletin.scripture.reference }}</p>
+      </div>
+      <div class="sermon-info">
+        <div>
+          <div class="sermon-label">Sermon</div>
+          <div class="sermon-title">{{ archivedBulletin.scripture.sermonTitle }}</div>
+        </div>
+        {% if archivedBulletin.scripture.sermonSeries %}
+        <span class="sermon-series">{{ archivedBulletin.scripture.sermonSeries }}</span>
+        {% endif %}
+      </div>
+    </section>
+    {% endif %}
+
+    {% if archivedBulletin.announcements and archivedBulletin.announcements.length %}
+    <section class="section-card" aria-labelledby="arch-announcements">
+      <div class="section-card__header">
+        <div class="section-card__icon" aria-hidden="true">📢</div>
+        <h2 class="section-card__title" id="arch-announcements">Announcements</h2>
+      </div>
+      <ul class="announcements-list">
+        {% for item in archivedBulletin.announcements %}
+        <li class="announcement-item">
+          <div class="announcement-item__title">{{ item.title }}</div>
+          {% if item.date %}<div class="announcement-item__date">{{ item.date | readableDate }}</div>{% endif %}
+          <p class="announcement-item__body">{{ item.body }}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    {% if archivedBulletin.events and archivedBulletin.events.length %}
+    <section class="section-card" aria-labelledby="arch-events">
+      <div class="section-card__header">
+        <div class="section-card__icon" aria-hidden="true">📅</div>
+        <h2 class="section-card__title" id="arch-events">Events</h2>
+      </div>
+      <ul class="events-list">
+        {% for event in archivedBulletin.events %}
+        <li class="event-item">
+          <div class="event-item__date-block">
+            <span class="event-item__month">{{ event.date.split('-')[1] }}</span>
+            <span class="event-item__day">{{ event.date.split('-')[2] | int }}</span>
+          </div>
+          <div class="event-item__content">
+            <div class="event-item__title">{{ event.title }}</div>
+            {% if event.time %}<div class="event-item__time">🕐 {{ event.time }}</div>{% endif %}
+            {% if event.description %}<p class="event-item__desc">{{ event.description }}</p>{% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+  </div>
+</div>

@@ -1,0 +1,41 @@
+{% set tocSections = [
+  { id: "service",       label: "Service Info",  icon: "⛪" },
+  { id: "scripture",     label: "Message",       icon: "📖" },
+  { id: "announcements", label: "Announcements", icon: "📢" },
+  { id: "events",        label: "Events",        icon: "📅" }
+] %}
+
+{# Desktop sticky sidebar — sits in grid column 1 #}
+<nav class="toc" aria-label="Table of contents">
+  <div class="toc__title">This Week</div>
+  <ul class="toc__list" role="list">
+    {% for section in tocSections %}
+    <li>
+      <a href="#{{ section.id }}" class="toc__link" data-toc-target="{{ section.id }}">
+        <span class="toc__icon" aria-hidden="true">{{ section.icon }}</span>
+        {{ section.label }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  {% if prevList and prevList.length %}
+  <div class="toc__title" style="margin-top:1.25rem;">Past Bulletins</div>
+  <ul class="toc__list" role="list">
+    {% for item in prevList %}
+    <li>
+      <a href="/previous/{{ item.date }}/" class="toc__link">
+        <span class="toc__icon" aria-hidden="true">📄</span>
+        <span style="font-size:0.8rem;">{{ item.date | readableDate }}</span>
+      </a>
+    </li>
+    {% endfor %}
+    <li>
+      <a href="/previous/" class="toc__link">
+        <span class="toc__icon" aria-hidden="true">→</span>
+        All bulletins
+      </a>
+    </li>
+  </ul>
+  {% endif %}
+</nav>

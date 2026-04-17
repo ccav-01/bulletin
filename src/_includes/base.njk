@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if title %}{{ title }} — {% endif %}Calvary Chapel AV eBulletin</title>
+  <meta name="description" content="Weekly bulletin for Calvary Chapel Antelope Valley" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap"
+    media="print"
+    onload="this.media='all'"
+  />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" />
+  </noscript>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <div class="site-header__logo">
+        <span class="site-header__cross" aria-hidden="true">✝</span>
+        <div>
+          <div class="site-header__church-name">Calvary Chapel</div>
+          <div class="site-header__sub">Antelope Valley</div>
+        </div>
+      </div>
+      <nav class="site-header__nav" aria-label="Site navigation">
+        <a href="/">This Week</a>
+        <a href="/previous/">Past Bulletins</a>
+        <a href="{{ bulletin.giving.url }}" target="_blank" rel="noopener" class="btn btn--outline">Give</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__church">
+        <span class="site-header__cross" aria-hidden="true">✝</span>
+        <strong>Calvary Chapel Antelope Valley</strong>
+      </div>
+      <div class="site-footer__contact">
+        {% if bulletin.contact.phone %}<a href="tel:{{ bulletin.contact.phone }}">{{ bulletin.contact.phone }}</a>{% endif %}
+        {% if bulletin.contact.email %}<a href="mailto:{{ bulletin.contact.email }}">{{ bulletin.contact.email }}</a>{% endif %}
+        {% if bulletin.contact.website %}<a href="{{ bulletin.contact.website }}" target="_blank" rel="noopener">Website</a>{% endif %}
+      </div>
+      <p class="site-footer__copy">© {{ bulletin.date | isoDate | truncate(4, false, '') }} Calvary Chapel Antelope Valley</p>
+    </div>
+  </footer>
+
+</body>
+</html>

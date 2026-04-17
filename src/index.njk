@@ -1,0 +1,39 @@
+---
+layout: base.njk
+title: Weekly Bulletin
+---
+
+<header class="bulletin-hero">
+  <div class="bulletin-hero__inner">
+    <div class="bulletin-hero__date">{{ bulletin.date | readableDate }}</div>
+    <h1>{{ bulletin.theme }}</h1>
+    {% if bulletin.welcomeMessage %}
+    <p class="bulletin-hero__welcome">{{ bulletin.welcomeMessage }}</p>
+    {% endif %}
+  </div>
+</header>
+
+{% include "toc-mobile.njk" %}
+
+<div class="bulletin-layout">
+  {% set prevList = previousList | slice(0, 6) %}
+  {% include "toc.njk" %}
+
+  <div class="bulletin-sections">
+    {% include "sections/service.njk" %}
+    {% include "sections/scripture.njk" %}
+    {% include "sections/announcements.njk" %}
+    {% include "sections/events.njk" %}
+
+    {% if bulletin.giving and bulletin.giving.url %}
+    <section class="section-card giving-card" aria-label="Online Giving">
+      <p class="giving-card__text">
+        Thank you for your generosity and support of our ministry.
+      </p>
+      <a href="{{ bulletin.giving.url }}" target="_blank" rel="noopener" class="btn btn--accent">
+        🙏 {{ bulletin.giving.text or "Give Online" }}
+      </a>
+    </section>
+    {% endif %}
+  </div>
+</div>

@@ -1,0 +1,12 @@
+{
+  "name": "calvary-chapel-av-bulletin",
+  "version": "1.0.0",
+  "description": "Weekly e-bulletin for Calvary Chapel Antelope Valley",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

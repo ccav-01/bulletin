@@ -1,0 +1,54 @@
+{% set tocSections = [
+  { id: "service",       label: "Service Info",  icon: "⛪" },
+  { id: "scripture",     label: "Message",       icon: "📖" },
+  { id: "announcements", label: "Announcements", icon: "📢" },
+  { id: "events",        label: "Events",        icon: "📅" }
+] %}
+
+{# Mobile pill strip — sits above the layout, sticky below header #}
+<nav class="toc-mobile" aria-label="Jump to section">
+  <ul class="toc-mobile__list" role="list">
+    {% for section in tocSections %}
+    <li>
+      <a href="#{{ section.id }}" class="toc-mobile__link" data-toc-target="{{ section.id }}">
+        {{ section.icon }} {{ section.label }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+
+<script>
+(function () {
+  const targets = document.querySelectorAll('[data-toc-target]');
+  if (!targets.length || !('IntersectionObserver' in window)) return;
+
+  const sectionIds = [...new Set([...targets].map(el => el.dataset.tocTarget))];
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  function setActive(id) {
+    targets.forEach(link => {
+      link.classList.toggle('is-active', link.dataset.tocTarget === id);
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) { setActive(entry.target.id); break; }
+      }
+    },
+    { rootMargin: '-10% 0px -60% 0px', threshold: 0 }
+  );
+
+  sections.forEach(s => observer.observe(s));
+
+  targets.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.getElementById(link.dataset.tocTarget);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>

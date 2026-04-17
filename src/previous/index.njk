@@ -1,0 +1,33 @@
+---
+layout: base.njk
+title: Past Bulletins
+---
+
+<header class="page-header">
+  <h1>Past Bulletins</h1>
+  <p>Browse previous weekly bulletins from Calvary Chapel Antelope Valley.</p>
+</header>
+
+<div class="previous-layout">
+  {% if previousBulletins and previousBulletins.length %}
+  <ul class="bulletin-list">
+    {% for item in previousBulletins %}
+    <li>
+      <a href="/previous/{{ item.date }}/" class="bulletin-list-item">
+        <div>
+          <div class="bulletin-list-item__date">{{ item.date | readableDate }}</div>
+          {% if item.theme %}
+          <div class="bulletin-list-item__theme">{{ item.theme }}</div>
+          {% endif %}
+        </div>
+        <span class="bulletin-list-item__arrow" aria-hidden="true">→</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p style="text-align:center; color:var(--color-text-muted); padding:3rem 0;">
+    No past bulletins yet.
+  </p>
+  {% endif %}
+</div>
