@@ -34,9 +34,8 @@
             </a>
             <figure class="cta-qr-wrap">
               <img
-                src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data={{ cta.url | urlencode }}&color=0B0B0C&bgcolor=F7F3EC&margin=4"
+                src="{{ cta.url | qrDataUri }}"
                 alt="QR code for {{ cta.label }}"
-                loading="lazy"
               />
               <figcaption class="cta-qr-label">Scan to {{ cta.label }}</figcaption>
             </figure>
