@@ -155,6 +155,7 @@
     /* ---- Section order ---- */
     .section-order-list { margin-bottom: 0.25rem; }
     .section-order-item { display: flex; align-items: center; gap: 0.6rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.55rem 0.75rem; margin-bottom: 0.4rem; font-size: 0.875rem; font-weight: 500; color: var(--ink); cursor: grab; user-select: none; }
+    .section-order-item--disabled { opacity: 0.45; color: var(--muted); border-style: dashed; cursor: not-allowed; }
 
     /* ---- Size sliders ---- */
     .size-control { margin-bottom: 1.25rem; }
@@ -810,20 +811,42 @@ const SECTION_LABELS = {
   thisWeek:      'This Week at Calvary',
 };
 const DEFAULT_SECTION_ORDER = ['service', 'scripture', 'announcements', 'savetheDates', 'thisWeek'];
+const SECTION_ENABLED_IDS = {
+  scripture:     'f-scripture-enabled',
+  announcements: 'f-announcements-enabled',
+  savetheDates:  'f-savedates-enabled',
+  thisWeek:      'f-thisweek-enabled',
+};
+
+function isSectionActive(key) {
+  const cbId = SECTION_ENABLED_IDS[key];
+  if (!cbId) return true;
+  const cb = document.getElementById(cbId);
+  return cb ? cb.checked : true;
+}
 
 let sectionOrderSortable;
 function renderSectionOrder(order) {
   const c = document.getElementById('section-order-list');
   c.innerHTML = '';
-  (order && order.length ? order : DEFAULT_SECTION_ORDER).forEach(key => {
+  const keys = order && order.length ? order : DEFAULT_SECTION_ORDER;
+  const active = keys.filter(k => isSectionActive(k));
+  const inactive = keys.filter(k => !isSectionActive(k));
+  [...active, ...inactive].forEach(key => {
+    const disabled = !isSectionActive(key);
     const el = document.createElement('div');
-    el.className = 'section-order-item';
+    el.className = 'section-order-item' + (disabled ? ' section-order-item--disabled' : '');
     el.dataset.key = key;
     el.innerHTML = `<span style="opacity:0.4;margin-right:0.4rem;">⠿</span>${escHtml(SECTION_LABELS[key] || key)}`;
     c.appendChild(el);
   });
   if (sectionOrderSortable) sectionOrderSortable.destroy();
-  sectionOrderSortable = Sortable.create(c, { ghostClass: 'sortable-ghost', animation: 150 });
+  sectionOrderSortable = Sortable.create(c, {
+    ghostClass: 'sortable-ghost',
+    animation: 150,
+    filter: '.section-order-item--disabled',
+    onMove: evt => !evt.related.classList.contains('section-order-item--disabled'),
+  });
 }
 function getSectionOrderFromUI() {
   return [...document.querySelectorAll('#section-order-list .section-order-item')].map(el => el.dataset.key);
@@ -1122,7 +1145,10 @@ function updateSectionBody(cbId, bodyId) {
 ['scripture', 'announcements', 'savedates', 'thisweek'].forEach(key => {
   const cbId = `f-${key}-enabled`;
   const bodyId = `${key}-body`;
-  document.getElementById(cbId).addEventListener('change', () => updateSectionBody(cbId, bodyId));
+  document.getElementById(cbId).addEventListener('change', () => {
+    updateSectionBody(cbId, bodyId);
+    renderSectionOrder(getSectionOrderFromUI());
+  });
 });
 
 // ============================================================
