@@ -525,8 +525,8 @@ function validateUrls(data) {
 const authScreen  = document.getElementById('auth-screen');
 const adminShell  = document.getElementById('admin-shell');
 
-// Restore token from sessionStorage if "remember me" was previously set
-const stored = sessionStorage.getItem(SESSION_KEY);
+// Restore token — localStorage for "remember me", sessionStorage for tab-only
+const stored = localStorage.getItem(SESSION_KEY) || sessionStorage.getItem(SESSION_KEY);
 if (stored) githubToken = stored;
 
 async function handleSignIn(e) {
@@ -555,7 +555,8 @@ async function handleSignIn(e) {
     githubToken = token;
     state = await loadBulletin();
 
-    if (remember) sessionStorage.setItem(SESSION_KEY, token);
+    if (remember) localStorage.setItem(SESSION_KEY, token);
+    else sessionStorage.setItem(SESSION_KEY, token);
     populateForm(state);
     authScreen.style.display = 'none';
     adminShell.style.display = 'flex';
@@ -576,6 +577,7 @@ function showAuthError(msg) {
 document.getElementById('auth-form').addEventListener('submit', handleSignIn);
 
 document.getElementById('signout-btn').addEventListener('click', () => {
+  localStorage.removeItem(SESSION_KEY);
   sessionStorage.removeItem(SESSION_KEY);
   githubToken = '';
   document.getElementById('pat-input').value = '';
