@@ -24,11 +24,11 @@
   "savetheDatesEnabled": true,
   "thisWeekEnabled": true,
   "sectionOrder": [
-    "scripture",
     "announcements",
     "thisWeek",
     "savetheDates",
-    "service"
+    "service",
+    "scripture"
   ],
   "announcements": [
     {
@@ -170,10 +170,10 @@
     }
   ],
   "appearance": {
-    "logoDesktop": 38,
-    "logoMobile": 32,
-    "badgeDesktop": 100,
-    "badgeMobile": 80
+    "logoDesktop": 47,
+    "logoMobile": 36,
+    "badgeDesktop": 142,
+    "badgeMobile": 104
   },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
