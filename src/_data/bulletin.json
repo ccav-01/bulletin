@@ -1,20 +1,23 @@
 {
-  "date": "2026-04-20",
-  "theme": "Walking in Faith",
+  "date": "2026-04-19",
+  "theme": "The Book of Acts",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
-    "times": ["8:30 AM", "10:30 AM"],
+    "times": [
+      "8:30 AM",
+      "10:30 AM"
+    ],
     "pastor": "Pastor Josh Hueser",
     "location": "Calvary Chapel Antelope Valley",
     "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
     "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
   },
   "scripture": {
-    "verse": "Now faith is the substance of things hoped for, the evidence of things not seen.",
-    "reference": "Hebrews 11:1",
-    "sermonTitle": "Faith That Moves Mountains",
-    "sermonSeries": "Walking in Faith"
+    "verse": "",
+    "reference": "Acts 20:1-11",
+    "sermonTitle": "",
+    "sermonSeries": "The Book of Acts"
   },
   "announcements": [
     {
@@ -26,7 +29,10 @@
       "title": "Women's Prayer Breakfast",
       "body": "Ladies, don't miss our monthly prayer breakfast this Saturday at 8:30 AM in the fellowship hall. Please RSVP to the church office.",
       "ctas": [
-        { "label": "RSVP Here", "url": "https://calvarychapelav.org/give" }
+        {
+          "label": "RSVP Here",
+          "url": "https://calvarychapelav.org/give"
+        }
       ]
     },
     {
@@ -42,7 +48,10 @@
       "time": "10:00 AM – 2:00 PM",
       "description": "Serve alongside your church family as we bless our community.",
       "ctas": [
-        { "label": "Sign Up", "url": "https://calvarychapelav.org/give" }
+        {
+          "label": "Sign Up",
+          "url": "https://calvarychapelav.org/give"
+        }
       ]
     },
     {
@@ -51,7 +60,10 @@
       "time": "6:00 PM",
       "description": "A two-evening seminar for couples at all stages of marriage. Registration required.",
       "ctas": [
-        { "label": "Register", "url": "https://calvarychapelav.org/give" }
+        {
+          "label": "Register",
+          "url": "https://calvarychapelav.org/give"
+        }
       ]
     }
   ],
@@ -61,25 +73,28 @@
       "day": "Tuesday",
       "time": "7:00 PM",
       "location": "Room 201",
-      "description": ""
+      "description": "",
+      "ctas": []
     },
     {
       "title": "Women's Bible Study",
       "day": "Wednesday",
       "time": "10:00 AM",
       "location": "Fellowship Hall",
-      "description": ""
+      "description": "",
+      "ctas": []
     },
     {
       "title": "Youth Group",
       "day": "Friday",
       "time": "6:30 PM",
       "location": "Youth Room",
-      "description": ""
+      "description": "",
+      "ctas": []
     }
   ],
   "giving": {
-    "url": "https://calvarychapelav.org/give",
+    "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
   },
   "contact": {
