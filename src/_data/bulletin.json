@@ -3,11 +3,6 @@
   "theme": "Acts 20:1-17",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
-  "scriptureEnabled": true,
-  "announcementsEnabled": true,
-  "savetheDatesEnabled": true,
-  "thisWeekEnabled": true,
-  "sectionOrder": ["scripture", "announcements", "savetheDates", "thisWeek", "service"],
   "service": {
     "times": [
       "8:30 AM",
@@ -24,6 +19,17 @@
     "sermonTitle": "",
     "sermonSeries": "The Book of Acts"
   },
+  "scriptureEnabled": false,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "scripture",
+    "announcements",
+    "savetheDates",
+    "thisWeek",
+    "service"
+  ],
   "announcements": [
     {
       "title": "Women’s Spring Luncheon",
