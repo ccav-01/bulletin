@@ -17,13 +17,22 @@ permalink: /email/index.html
       .section-pad { padding-left: 16px !important; padding-right: 16px !important; }
       .date-block { display: none !important; }
     }
+    @media (prefers-color-scheme: dark) {
+      .dm-bg-dark    { background-color: #1A1A1B !important; }
+      .dm-bg-content { background-color: #242424 !important; }
+      .dm-bg-std     { background-color: #2A2520 !important; }
+      .dm-text-primary   { color: #F7F3EC !important; }
+      .dm-text-secondary { color: #A8A5A0 !important; }
+      .dm-divider        { border-bottom-color: #3A3530 !important; }
+      .dm-border-left    { border-left-color:   #3A3530 !important; }
+    }
   </style>
 </head>
 <body style="margin:0;padding:0;background-color:#F7F3EC;font-family:Georgia,'Times New Roman',serif;">
 
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F3EC">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F3EC" class="dm-bg-dark">
   <tr>
-    <td align="center" style="padding:20px 10px;">
+    <td align="center" style="padding:20px 10px;" class="dm-bg-dark">
 
       <table class="email-container" role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;">
 
@@ -47,13 +56,13 @@ permalink: /email/index.html
         {# ── WELCOME ─────────────────────────────────────────── #}
         {% if bulletin.welcomeMessage %}
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:28px 32px;" class="section-pad">
-            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:15px;line-height:1.8;text-align:center;font-style:italic;">{{ bulletin.welcomeMessage }}</p>
+          <td bgcolor="#F7F3EC" style="padding:28px 32px;" class="section-pad dm-bg-content">
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:15px;line-height:1.8;text-align:center;font-style:italic;" class="dm-text-primary">{{ bulletin.welcomeMessage }}</p>
           </td>
         </tr>
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:0 32px;" class="section-pad">
-            <div style="border-bottom:1px solid #DDD8CE;font-size:0;line-height:0;">&nbsp;</div>
+          <td bgcolor="#F7F3EC" style="padding:0 32px;" class="section-pad dm-bg-content">
+            <div style="border-bottom:1px solid #DDD8CE;font-size:0;line-height:0;" class="dm-divider">&nbsp;</div>
           </td>
         </tr>
         {% endif %}
@@ -61,20 +70,20 @@ permalink: /email/index.html
         {# ── SERVICE INFO ────────────────────────────────────── #}
         {% if bulletin.service %}
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad">
+          <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad dm-bg-content">
             <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">Sunday Service</p>
           </td>
         </tr>
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:0 32px 24px;" class="section-pad">
+          <td bgcolor="#F7F3EC" style="padding:0 32px 24px;" class="section-pad dm-bg-content">
             {% for time in bulletin.service.times %}
-            <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;">{{ time }}</p>
+            <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;" class="dm-text-primary">{{ time }}</p>
             {% endfor %}
             {% if bulletin.service.pastor %}
-            <p style="margin:8px 0 2px;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;">{{ bulletin.service.pastor }}</p>
+            <p style="margin:8px 0 2px;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;" class="dm-text-secondary">{{ bulletin.service.pastor }}</p>
             {% endif %}
             {% if bulletin.service.address %}
-            <p style="margin:2px 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;">{{ bulletin.service.address }}</p>
+            <p style="margin:2px 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;" class="dm-text-secondary">{{ bulletin.service.address }}</p>
             {% endif %}
             {% if bulletin.service.livestream %}
             <p style="margin:14px 0 0;">
@@ -109,15 +118,15 @@ permalink: /email/index.html
         {# ── ANNOUNCEMENTS ───────────────────────────────────── #}
         {% if bulletin.announcements and bulletin.announcements.length %}
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad">
+          <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad dm-bg-content">
             <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">Announcements</p>
           </td>
         </tr>
         {% for item in bulletin.announcements %}
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:0 32px {% if loop.last %}24px{% else %}16px{% endif %};" class="section-pad">
-            <h3 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;">{{ item.title }}</h3>
-            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.7;">{{ item.body }}</p>
+          <td bgcolor="#F7F3EC" style="padding:0 32px {% if loop.last %}24px{% else %}16px{% endif %};" class="section-pad dm-bg-content">
+            <h3 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;" class="dm-text-primary">{{ item.title }}</h3>
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.7;" class="dm-text-secondary">{{ item.body }}</p>
             {% if item.ctas and item.ctas.length %}
             <p style="margin:10px 0 0;">
               {% for cta in item.ctas %}
@@ -129,8 +138,8 @@ permalink: /email/index.html
         </tr>
         {% if not loop.last %}
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:0 32px;" class="section-pad">
-            <div style="border-bottom:1px solid #DDD8CE;font-size:0;line-height:0;">&nbsp;</div>
+          <td bgcolor="#F7F3EC" style="padding:0 32px;" class="section-pad dm-bg-content">
+            <div style="border-bottom:1px solid #DDD8CE;font-size:0;line-height:0;" class="dm-divider">&nbsp;</div>
           </td>
         </tr>
         {% endif %}
@@ -140,13 +149,13 @@ permalink: /email/index.html
         {# ── SAVE THE DATES ──────────────────────────────────── #}
         {% if bulletin.savetheDates and bulletin.savetheDates.length %}
         <tr>
-          <td bgcolor="#EDE7DB" style="padding:24px 32px 4px;" class="section-pad">
+          <td bgcolor="#EDE7DB" style="padding:24px 32px 4px;" class="section-pad dm-bg-std">
             <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">Save the Date</p>
           </td>
         </tr>
         {% for event in bulletin.savetheDates %}
         <tr>
-          <td bgcolor="#EDE7DB" style="padding:0 32px {% if loop.last %}24px{% else %}16px{% endif %};" class="section-pad">
+          <td bgcolor="#EDE7DB" style="padding:0 32px {% if loop.last %}24px{% else %}16px{% endif %};" class="section-pad dm-bg-std">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td class="date-block" width="56" valign="top" style="padding-right:16px;">
@@ -164,12 +173,12 @@ permalink: /email/index.html
                   </table>
                 </td>
                 <td valign="top">
-                  <h3 style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;">{{ event.title }}</h3>
+                  <h3 style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;" class="dm-text-primary">{{ event.title }}</h3>
                   {% if event.time %}
-                  <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;">{{ event.time }}</p>
+                  <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;" class="dm-text-secondary">{{ event.time }}</p>
                   {% endif %}
                   {% if event.description %}
-                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.6;">{{ event.description }}</p>
+                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.6;" class="dm-text-secondary">{{ event.description }}</p>
                   {% endif %}
                   {% if event.ctas and event.ctas.length %}
                   <p style="margin:8px 0 0;">
@@ -185,8 +194,8 @@ permalink: /email/index.html
         </tr>
         {% if not loop.last %}
         <tr>
-          <td bgcolor="#EDE7DB" style="padding:0 32px;" class="section-pad">
-            <div style="border-bottom:1px solid #D4CCBD;font-size:0;line-height:0;">&nbsp;</div>
+          <td bgcolor="#EDE7DB" style="padding:0 32px;" class="section-pad dm-bg-std">
+            <div style="border-bottom:1px solid #D4CCBD;font-size:0;line-height:0;" class="dm-divider">&nbsp;</div>
           </td>
         </tr>
         {% endif %}
@@ -196,13 +205,13 @@ permalink: /email/index.html
         {# ── THIS WEEK ───────────────────────────────────────── #}
         {% if bulletin.thisWeek and bulletin.thisWeek.length %}
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad">
+          <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad dm-bg-content">
             <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">This Week</p>
           </td>
         </tr>
         {% for item in bulletin.thisWeek %}
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:0 32px {% if loop.last %}24px{% else %}12px{% endif %};" class="section-pad">
+          <td bgcolor="#F7F3EC" style="padding:0 32px {% if loop.last %}24px{% else %}12px{% endif %};" class="section-pad dm-bg-content">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td width="90" valign="top">
@@ -211,10 +220,10 @@ permalink: /email/index.html
                   <p style="margin:3px 0 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:12px;">{{ item.time }}</p>
                   {% endif %}
                 </td>
-                <td valign="top" style="padding-left:16px;border-left:2px solid #DDD8CE;">
-                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:14px;font-weight:bold;">{{ item.title }}</p>
+                <td valign="top" style="padding-left:16px;border-left:2px solid #DDD8CE;" class="dm-border-left">
+                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:14px;font-weight:bold;" class="dm-text-primary">{{ item.title }}</p>
                   {% if item.location %}
-                  <p style="margin:2px 0 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:12px;">{{ item.location }}</p>
+                  <p style="margin:2px 0 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:12px;" class="dm-text-secondary">{{ item.location }}</p>
                   {% endif %}
                 </td>
               </tr>
