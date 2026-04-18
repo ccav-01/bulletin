@@ -152,6 +152,10 @@
     .archive-edit-banner { display: none; background: #fff8e7; border: 1px solid var(--ochre); border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 1rem; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
     .archive-edit-banner__text { font-size: 0.875rem; color: var(--ink); font-weight: 600; }
 
+    /* ---- Section order ---- */
+    .section-order-list { margin-bottom: 0.25rem; }
+    .section-order-item { display: flex; align-items: center; gap: 0.6rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.55rem 0.75rem; margin-bottom: 0.4rem; font-size: 0.875rem; font-weight: 500; color: var(--ink); }
+
     @media (max-width: 640px) {
       .admin-sidebar { display: none; }
       .field-row { grid-template-columns: 1fr; }
@@ -255,6 +259,12 @@
         <div class="archive-edit-banner" id="archive-edit-banner">
           <div class="archive-edit-banner__text">✏️ Editing Archive: <span class="archive-edit-banner__date"></span></div>
           <button class="btn btn--ghost btn--sm" id="exit-archive-btn">← Back to Current Bulletin</button>
+        </div>
+
+        <div class="field">
+          <label>Section Order</label>
+          <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem;">Drag to rearrange the order sections appear in the bulletin.</p>
+          <div id="section-order-list" class="section-order-list"></div>
         </div>
 
         <div class="publish-actions">
@@ -630,6 +640,7 @@ function populateForm(data) {
   document.getElementById('f-announcements-enabled').checked = data.announcementsEnabled !== false;
   document.getElementById('f-savedates-enabled').checked     = data.savetheDatesEnabled !== false;
   document.getElementById('f-thisweek-enabled').checked      = data.thisWeekEnabled !== false;
+  renderSectionOrder(data.sectionOrder || DEFAULT_SECTION_ORDER);
   renderAnnouncements(data.announcements || []);
   renderSavedates(data.savetheDates || data.events || []);
   renderThisweek(data.thisWeek || []);
@@ -670,6 +681,7 @@ function extractForm() {
     announcementsEnabled: document.getElementById('f-announcements-enabled').checked,
     savetheDatesEnabled:  document.getElementById('f-savedates-enabled').checked,
     thisWeekEnabled:      document.getElementById('f-thisweek-enabled').checked,
+    sectionOrder: getSectionOrderFromUI(),
     announcements: getAnnouncementsFromUI(),
     savetheDates: getSavedatesFromUI(),
     thisWeek: getThisweekFromUI(),
@@ -683,6 +695,36 @@ function extractForm() {
       youtube: document.getElementById('f-youtube').value,
     },
   };
+}
+
+// ============================================================
+// Section order
+// ============================================================
+const SECTION_LABELS = {
+  service:       'Service Info',
+  scripture:     'Scripture & Sermon',
+  announcements: 'Announcements',
+  savetheDates:  'Save the Dates',
+  thisWeek:      'This Week at Calvary',
+};
+const DEFAULT_SECTION_ORDER = ['service', 'scripture', 'announcements', 'savetheDates', 'thisWeek'];
+
+let sectionOrderSortable;
+function renderSectionOrder(order) {
+  const c = document.getElementById('section-order-list');
+  c.innerHTML = '';
+  (order && order.length ? order : DEFAULT_SECTION_ORDER).forEach(key => {
+    const el = document.createElement('div');
+    el.className = 'section-order-item';
+    el.dataset.key = key;
+    el.innerHTML = `<span class="list-item__handle" title="Drag to reorder" style="cursor:grab;">⠿</span>${escHtml(SECTION_LABELS[key] || key)}`;
+    c.appendChild(el);
+  });
+  if (sectionOrderSortable) sectionOrderSortable.destroy();
+  sectionOrderSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
+}
+function getSectionOrderFromUI() {
+  return [...document.querySelectorAll('#section-order-list .section-order-item')].map(el => el.dataset.key);
 }
 
 // ============================================================
@@ -950,6 +992,7 @@ document.getElementById('archive-btn').addEventListener('click', async () => {
       service: current.service,
       scripture: { verse: '', reference: '', sermonTitle: '', sermonSeries: current.scripture?.sermonSeries || '' },
       scriptureEnabled: true, announcementsEnabled: true, savetheDatesEnabled: true, thisWeekEnabled: true,
+      sectionOrder: current.sectionOrder || DEFAULT_SECTION_ORDER,
       announcements: [], savetheDates: [], thisWeek: [], giving: current.giving, contact: current.contact,
     };
     await putFile(BULLETIN_PATH, JSON.stringify(blank, null, 2), `Start new bulletin for ${nextDate}`);

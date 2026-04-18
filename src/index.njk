@@ -21,19 +21,20 @@ title: Weekly Bulletin
   {% include "toc.njk" %}
 
   <div class="bulletin-sections">
-    {% include "sections/service.njk" %}
-    {% if bulletin.scriptureEnabled !== false %}
-      {% include "sections/scripture.njk" %}
-    {% endif %}
-    {% if bulletin.announcementsEnabled !== false %}
-      {% include "sections/announcements.njk" %}
-    {% endif %}
-    {% if bulletin.savetheDates and bulletin.savetheDates.length and bulletin.savetheDatesEnabled !== false %}
-      {% include "sections/savedates.njk" %}
-    {% endif %}
-    {% if bulletin.thisWeek and bulletin.thisWeek.length and bulletin.thisWeekEnabled !== false %}
-      {% include "sections/thisweek.njk" %}
-    {% endif %}
+    {% set sectionOrder = bulletin.sectionOrder or ["service", "scripture", "announcements", "savetheDates", "thisWeek"] %}
+    {% for section in sectionOrder %}
+      {% if section === "service" %}
+        {% include "sections/service.njk" %}
+      {% elif section === "scripture" and bulletin.scriptureEnabled !== false %}
+        {% include "sections/scripture.njk" %}
+      {% elif section === "announcements" and bulletin.announcementsEnabled !== false %}
+        {% include "sections/announcements.njk" %}
+      {% elif section === "savetheDates" and bulletin.savetheDates and bulletin.savetheDates.length and bulletin.savetheDatesEnabled !== false %}
+        {% include "sections/savedates.njk" %}
+      {% elif section === "thisWeek" and bulletin.thisWeek and bulletin.thisWeek.length and bulletin.thisWeekEnabled !== false %}
+        {% include "sections/thisweek.njk" %}
+      {% endif %}
+    {% endfor %}
 
     {% if bulletin.giving and bulletin.giving.url %}
     <section class="section-card giving-card" aria-label="Online Giving">

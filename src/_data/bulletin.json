@@ -7,6 +7,7 @@
   "announcementsEnabled": true,
   "savetheDatesEnabled": true,
   "thisWeekEnabled": true,
+  "sectionOrder": ["scripture", "announcements", "savetheDates", "thisWeek", "service"],
   "service": {
     "times": [
       "8:30 AM",
