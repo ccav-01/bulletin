@@ -68,8 +68,8 @@ async function main() {
   const fromName = "Calvary Chapel AV";
   const replyTo = bulletin.contact?.email || "ccav@calvarychapelav.org";
 
-  // Look for an existing draft campaign with this exact title
-  const search = await request("GET", "/campaigns?status=draft&count=200");
+  // Look for any existing campaign with this exact title (any status)
+  const search = await request("GET", "/campaigns?count=200");
   if (search.status !== 200) {
     console.error("Failed to list campaigns:", search.body);
     process.exit(1);
