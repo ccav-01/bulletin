@@ -142,6 +142,16 @@
     .import-dropzone:hover, .import-dropzone.dragover { border-color: var(--ochre); background: rgba(200,146,46,0.06); color: var(--ochre); }
     .import-file-name { font-size: 0.8rem; color: var(--success); font-weight: 600; min-height: 1.25em; margin-bottom: 0.75rem; }
 
+    /* ---- Archive list ---- */
+    .archive-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 0.5rem; }
+    .archive-row__date { font-weight: 700; font-size: 0.9rem; color: var(--ink); }
+    .archive-row__theme { font-size: 0.8rem; color: var(--muted); margin-top: 0.15rem; }
+    .archive-row__actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+
+    /* ---- Archive edit banner ---- */
+    .archive-edit-banner { display: none; background: #fff8e7; border: 1px solid var(--ochre); border-radius: var(--radius); padding: 0.75rem 1rem; margin-bottom: 1rem; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+    .archive-edit-banner__text { font-size: 0.875rem; color: var(--ink); font-weight: 600; }
+
     @media (max-width: 640px) {
       .admin-sidebar { display: none; }
       .field-row { grid-template-columns: 1fr; }
@@ -217,6 +227,7 @@
           <li><a href="#" data-section="savedates">Save the Dates</a></li>
           <li><a href="#" data-section="thisweek">This Week at Calvary</a></li>
           <li><a href="#" data-section="giving">Giving &amp; Contact</a></li>
+          <li><a href="#" data-section="archives">&#x1F4DA; Archives</a></li>
         </ul>
       </nav>
     </aside>
@@ -239,6 +250,11 @@
         <div class="field">
           <label for="f-welcome">Welcome Message</label>
           <textarea id="f-welcome" rows="3" placeholder="A warm greeting for the congregation..."></textarea>
+        </div>
+
+        <div class="archive-edit-banner" id="archive-edit-banner">
+          <div class="archive-edit-banner__text">✏️ Editing Archive: <span class="archive-edit-banner__date"></span></div>
+          <button class="btn btn--ghost btn--sm" id="exit-archive-btn">← Back to Current Bulletin</button>
         </div>
 
         <div class="publish-actions">
@@ -402,6 +418,13 @@
         <div class="field"><label for="f-youtube">YouTube URL</label><input type="url" id="f-youtube" /></div>
       </section>
 
+      <!-- ARCHIVES -->
+      <section class="editor-section" id="section-archives">
+        <div class="section-title">Archived Bulletins</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.25rem;">Click <strong>Edit</strong> to load an archived bulletin into the editor, or <strong>Delete</strong> to permanently remove it.</p>
+        <div id="archives-list"></div>
+      </section>
+
     </main>
   </div>
 </div>
@@ -410,16 +433,18 @@
 // ============================================================
 // Constants
 // ============================================================
-const GITHUB_REPO   = 'ccav-01/bulletin';
-const GITHUB_BRANCH = 'main';
-const BULLETIN_PATH = 'src/_data/bulletin.json';
-const SESSION_KEY   = 'bulletin_admin_token';
+const GITHUB_REPO    = 'ccav-01/bulletin';
+const GITHUB_BRANCH  = 'main';
+const BULLETIN_PATH  = 'src/_data/bulletin.json';
+const PREVIOUS_PATH  = 'src/_data/previous';
+const SESSION_KEY    = 'bulletin_admin_token';
 
 // ============================================================
 // State
 // ============================================================
 let state = {};
 let githubToken = '';
+let editingArchivePath = null;
 
 // ============================================================
 // GitHub API
@@ -558,13 +583,19 @@ if (githubToken) {
 // ============================================================
 // Navigation
 // ============================================================
+function navigateTo(sectionId) {
+  document.querySelectorAll('[data-section]').forEach(l => l.classList.remove('active'));
+  const link = document.querySelector(`[data-section="${sectionId}"]`);
+  if (link) link.classList.add('active');
+  document.querySelectorAll('.editor-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section-' + sectionId).classList.add('active');
+}
+
 document.querySelectorAll('[data-section]').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
-    document.querySelectorAll('[data-section]').forEach(l => l.classList.remove('active'));
-    link.classList.add('active');
-    document.querySelectorAll('.editor-section').forEach(s => s.classList.remove('active'));
-    document.getElementById('section-' + link.dataset.section).classList.add('active');
+    navigateTo(link.dataset.section);
+    if (link.dataset.section === 'archives') loadArchiveList();
   });
 });
 
@@ -874,18 +905,27 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
   const data = extractForm();
   const errors = validateUrls(data);
   if (errors.length) {
-    setStatus('Cannot publish — fix these URLs first:\n' + errors.join(' | '), 'error', '❌');
+    setStatus('Cannot save — fix these URLs first:\n' + errors.join(' | '), 'error', '❌');
     return;
   }
-  setStatus('Publishing bulletin…', 'info', '⏳');
   const btn = document.getElementById('publish-btn');
   btn.disabled = true;
-  try {
-    await putFile(BULLETIN_PATH, JSON.stringify(data, null, 2), `Update bulletin for ${data.date}`);
-    setStatus('Published! GitHub Actions is rebuilding the site (~60 seconds).', 'success', '✅');
-    state = data;
-  } catch (err) { setStatus('Error publishing: ' + err.message, 'error', '❌'); }
-  finally { btn.disabled = false; }
+  if (editingArchivePath) {
+    setStatus('Saving archive…', 'info', '⏳');
+    try {
+      await putFile(editingArchivePath, JSON.stringify(data, null, 2), `Update archived bulletin for ${data.date}`);
+      setStatus(`Archive for ${data.date} saved. Site will rebuild shortly.`, 'success', '✅');
+    } catch (err) { setStatus('Error saving archive: ' + err.message, 'error', '❌'); }
+    finally { btn.disabled = false; }
+  } else {
+    setStatus('Publishing bulletin…', 'info', '⏳');
+    try {
+      await putFile(BULLETIN_PATH, JSON.stringify(data, null, 2), `Update bulletin for ${data.date}`);
+      setStatus('Published! GitHub Actions is rebuilding the site (~60 seconds).', 'success', '✅');
+      state = data;
+    } catch (err) { setStatus('Error publishing: ' + err.message, 'error', '❌'); }
+    finally { btn.disabled = false; }
+  }
 });
 
 // ============================================================
@@ -938,6 +978,118 @@ function updateSectionBody(cbId, bodyId) {
   const cbId = `f-${key}-enabled`;
   const bodyId = `${key}-body`;
   document.getElementById(cbId).addEventListener('change', () => updateSectionBody(cbId, bodyId));
+});
+
+// ============================================================
+// Archives
+// ============================================================
+async function loadArchiveList() {
+  const listEl = document.getElementById('archives-list');
+  listEl.innerHTML = '<p style="color:var(--muted);font-size:0.875rem;">Loading…</p>';
+  try {
+    const files = await ghFetch(`contents/${PREVIOUS_PATH}?ref=${GITHUB_BRANCH}`);
+    const jsonFiles = files.filter(f => f.name.endsWith('.json')).sort((a, b) => b.name.localeCompare(a.name));
+    if (!jsonFiles.length) {
+      listEl.innerHTML = '<p style="color:var(--muted);font-size:0.875rem;">No archived bulletins found.</p>';
+      return;
+    }
+    listEl.innerHTML = '';
+    jsonFiles.forEach(file => {
+      const date = file.name.replace('.json', '');
+      const row = document.createElement('div');
+      row.className = 'archive-row';
+      row.innerHTML = `
+        <div>
+          <div class="archive-row__date">${escHtml(date)}</div>
+          <div class="archive-row__theme" id="arch-theme-${escHtml(date)}">Loading…</div>
+        </div>
+        <div class="archive-row__actions">
+          <button class="btn btn--ghost btn--sm">Edit</button>
+          <button class="btn btn--danger btn--sm">Delete</button>
+        </div>
+      `;
+      const [editBtn, deleteBtn] = row.querySelectorAll('button');
+      editBtn.addEventListener('click', () => editArchive(file.path, date));
+      deleteBtn.addEventListener('click', () => deleteArchive(file.path, date, row));
+      listEl.appendChild(row);
+      loadArchiveTheme(file.path, date);
+    });
+  } catch (err) {
+    listEl.innerHTML = `<p style="color:var(--danger);font-size:0.875rem;">Error loading archives: ${escHtml(err.message)}</p>`;
+  }
+}
+
+async function loadArchiveTheme(filePath, date) {
+  try {
+    const data = await ghFetch(`contents/${filePath}?ref=${GITHUB_BRANCH}`);
+    const parsed = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, '')))));
+    const el = document.getElementById(`arch-theme-${date}`);
+    if (el) el.textContent = parsed.theme || '(no theme)';
+  } catch (_) {
+    const el = document.getElementById(`arch-theme-${date}`);
+    if (el) el.textContent = '';
+  }
+}
+
+async function editArchive(filePath, date) {
+  setStatus(`Loading archive for ${date}…`, 'info', '⏳');
+  try {
+    const data = await ghFetch(`contents/${filePath}?ref=${GITHUB_BRANCH}`);
+    const parsed = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, '')))));
+    editingArchivePath = filePath;
+    populateForm(parsed);
+    navigateTo('overview');
+    updateArchiveEditMode();
+    setStatus(`Editing archive: ${date}. Make changes and click "Save Archive" when done.`, 'info', '✏️');
+  } catch (err) {
+    setStatus('Error loading archive: ' + err.message, 'error', '❌');
+  }
+}
+
+async function deleteArchive(filePath, date, rowEl) {
+  if (!confirm(`Permanently delete the archived bulletin for ${date}? This cannot be undone.`)) return;
+  setStatus(`Deleting archive for ${date}…`, 'info', '⏳');
+  try {
+    const sha = await getFileSha(filePath);
+    if (!sha) throw new Error('File not found on GitHub.');
+    const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`, {
+      method: 'DELETE',
+      headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `Delete archived bulletin for ${date}`, sha, branch: GITHUB_BRANCH }),
+    });
+    if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.message || `GitHub API ${res.status}`); }
+    rowEl.remove();
+    setStatus(`Deleted archive for ${date}.`, 'success', '✅');
+  } catch (err) {
+    setStatus('Error deleting archive: ' + err.message, 'error', '❌');
+  }
+}
+
+function updateArchiveEditMode() {
+  const banner = document.getElementById('archive-edit-banner');
+  const publishBtn = document.getElementById('publish-btn');
+  const archiveBtn = document.getElementById('archive-btn');
+  const importPanel = document.querySelector('.import-panel');
+  if (editingArchivePath) {
+    const date = editingArchivePath.split('/').pop().replace('.json', '');
+    banner.querySelector('.archive-edit-banner__date').textContent = date;
+    banner.style.display = 'flex';
+    publishBtn.textContent = 'Save Archive';
+    archiveBtn.style.display = 'none';
+    importPanel.style.display = 'none';
+  } else {
+    banner.style.display = 'none';
+    publishBtn.textContent = 'Publish Bulletin';
+    archiveBtn.style.display = '';
+    importPanel.style.display = '';
+  }
+}
+
+document.getElementById('exit-archive-btn').addEventListener('click', () => {
+  editingArchivePath = null;
+  populateForm(state);
+  updateArchiveEditMode();
+  setStatus('Back to current bulletin.', 'success', '✅');
 });
 
 // ============================================================
