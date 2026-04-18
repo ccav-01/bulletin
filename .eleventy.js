@@ -34,6 +34,11 @@ module.exports = function (eleventyConfig) {
     return d.toLocaleDateString("en-US", { month: "short" }).toUpperCase();
   });
 
+  // Day number from date string (e.g. "2026-04-20" -> "20")
+  eleventyConfig.addFilter("dayNumber", (dateStr) => {
+    return new Date(dateStr + "T12:00:00").getDate();
+  });
+
   return {
     dir: {
       input: "src",

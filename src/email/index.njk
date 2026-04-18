@@ -1,0 +1,267 @@
+---
+permalink: /email/index.html
+---
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Calvary Chapel AV — Bulletin {{ bulletin.date | readableDate }}</title>
+  <!--[if mso]>
+  <noscript><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+  <![endif]-->
+  <style>
+    @media only screen and (max-width: 600px) {
+      .email-container { width: 100% !important; }
+      .section-pad { padding-left: 16px !important; padding-right: 16px !important; }
+      .date-block { display: none !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background-color:#F7F3EC;font-family:Georgia,'Times New Roman',serif;">
+
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#F7F3EC">
+  <tr>
+    <td align="center" style="padding:20px 10px;">
+
+      <table class="email-container" role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;">
+
+        {# ── HEADER ─────────────────────────────────────────── #}
+        <tr>
+          <td bgcolor="#0B0B0C" align="center" style="padding:36px 24px 28px;" class="section-pad">
+            <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:3px;text-transform:uppercase;">Calvary Chapel Antelope Valley</p>
+            <h1 style="margin:0 0 16px;font-family:Georgia,'Times New Roman',serif;color:#F7F3EC;font-size:30px;font-weight:normal;letter-spacing:2px;">Weekly Bulletin</h1>
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#F7F3EC;font-size:15px;">{{ bulletin.date | readableDate }}</p>
+            {% if bulletin.theme %}
+            <p style="margin:8px 0 0;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:13px;font-style:italic;">{{ bulletin.theme }}</p>
+            {% endif %}
+          </td>
+        </tr>
+
+        {# ── OCHRE RULE ──────────────────────────────────────── #}
+        <tr>
+          <td bgcolor="#C8922E" style="height:3px;font-size:0;line-height:0;">&nbsp;</td>
+        </tr>
+
+        {# ── WELCOME ─────────────────────────────────────────── #}
+        {% if bulletin.welcomeMessage %}
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:28px 32px;" class="section-pad">
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:15px;line-height:1.8;text-align:center;font-style:italic;">{{ bulletin.welcomeMessage }}</p>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:0 32px;" class="section-pad">
+            <div style="border-bottom:1px solid #DDD8CE;font-size:0;line-height:0;">&nbsp;</div>
+          </td>
+        </tr>
+        {% endif %}
+
+        {# ── SERVICE INFO ────────────────────────────────────── #}
+        {% if bulletin.service %}
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad">
+            <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">Sunday Service</p>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:0 32px 24px;" class="section-pad">
+            {% for time in bulletin.service.times %}
+            <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;">{{ time }}</p>
+            {% endfor %}
+            {% if bulletin.service.pastor %}
+            <p style="margin:8px 0 2px;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;">{{ bulletin.service.pastor }}</p>
+            {% endif %}
+            {% if bulletin.service.address %}
+            <p style="margin:2px 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;">{{ bulletin.service.address }}</p>
+            {% endif %}
+            {% if bulletin.service.livestream %}
+            <p style="margin:14px 0 0;">
+              <a href="{{ bulletin.service.livestream }}" style="display:inline-block;background-color:#C8922E;color:#F7F3EC;font-family:Georgia,'Times New Roman',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:10px 22px;">Watch Livestream &rarr;</a>
+            </p>
+            {% endif %}
+          </td>
+        </tr>
+        {% endif %}
+
+        {# ── SCRIPTURE ───────────────────────────────────────── #}
+        {% if bulletin.scripture %}
+        <tr>
+          <td bgcolor="#0B0B0C" style="padding:32px 32px;" class="section-pad">
+            <p style="margin:0 0 10px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;">This Week&rsquo;s Message</p>
+            {% if bulletin.scripture.sermonTitle %}
+            <h2 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;color:#F7F3EC;font-size:22px;font-weight:normal;line-height:1.3;">{{ bulletin.scripture.sermonTitle }}</h2>
+            {% endif %}
+            {% if bulletin.scripture.verse %}
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#E8E2D8;font-size:16px;line-height:1.75;font-style:italic;">&ldquo;{{ bulletin.scripture.verse }}&rdquo;</p>
+            {% endif %}
+            {% if bulletin.scripture.reference %}
+            <p style="margin:12px 0 0;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:13px;">&mdash;&thinsp;{{ bulletin.scripture.reference }}</p>
+            {% endif %}
+            {% if bulletin.scripture.sermonSeries %}
+            <p style="margin:10px 0 0;font-family:Georgia,'Times New Roman',serif;color:#666;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Series: {{ bulletin.scripture.sermonSeries }}</p>
+            {% endif %}
+          </td>
+        </tr>
+        {% endif %}
+
+        {# ── ANNOUNCEMENTS ───────────────────────────────────── #}
+        {% if bulletin.announcements and bulletin.announcements.length %}
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad">
+            <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">Announcements</p>
+          </td>
+        </tr>
+        {% for item in bulletin.announcements %}
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:0 32px {% if loop.last %}24px{% else %}16px{% endif %};" class="section-pad">
+            <h3 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;">{{ item.title }}</h3>
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.7;">{{ item.body }}</p>
+            {% if item.ctas and item.ctas.length %}
+            <p style="margin:10px 0 0;">
+              {% for cta in item.ctas %}
+              <a href="{{ cta.url }}" style="display:inline-block;color:#C8922E;font-family:Georgia,'Times New Roman',serif;font-size:12px;text-decoration:underline;margin-right:16px;">{{ cta.label }} &rarr;</a>
+              {% endfor %}
+            </p>
+            {% endif %}
+          </td>
+        </tr>
+        {% if not loop.last %}
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:0 32px;" class="section-pad">
+            <div style="border-bottom:1px solid #DDD8CE;font-size:0;line-height:0;">&nbsp;</div>
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+        {# ── SAVE THE DATES ──────────────────────────────────── #}
+        {% if bulletin.savetheDates and bulletin.savetheDates.length %}
+        <tr>
+          <td bgcolor="#EDE7DB" style="padding:24px 32px 4px;" class="section-pad">
+            <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">Save the Date</p>
+          </td>
+        </tr>
+        {% for event in bulletin.savetheDates %}
+        <tr>
+          <td bgcolor="#EDE7DB" style="padding:0 32px {% if loop.last %}24px{% else %}16px{% endif %};" class="section-pad">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td class="date-block" width="56" valign="top" style="padding-right:16px;">
+                  <table role="presentation" width="56" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                      <td bgcolor="#C8922E" align="center" style="padding:6px 4px 2px;">
+                        <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#F7F3EC;font-size:9px;letter-spacing:2px;text-transform:uppercase;">{{ event.date | shortMonth }}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td bgcolor="#C8922E" align="center" style="padding:0 4px 8px;">
+                        <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#F7F3EC;font-size:26px;line-height:1.1;font-weight:bold;">{{ event.date | dayNumber }}</p>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td valign="top">
+                  <h3 style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;">{{ event.title }}</h3>
+                  {% if event.time %}
+                  <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;">{{ event.time }}</p>
+                  {% endif %}
+                  {% if event.description %}
+                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.6;">{{ event.description }}</p>
+                  {% endif %}
+                  {% if event.ctas and event.ctas.length %}
+                  <p style="margin:8px 0 0;">
+                    {% for cta in event.ctas %}
+                    <a href="{{ cta.url }}" style="display:inline-block;color:#C8922E;font-family:Georgia,'Times New Roman',serif;font-size:12px;text-decoration:underline;margin-right:12px;">{{ cta.label }} &rarr;</a>
+                    {% endfor %}
+                  </p>
+                  {% endif %}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        {% if not loop.last %}
+        <tr>
+          <td bgcolor="#EDE7DB" style="padding:0 32px;" class="section-pad">
+            <div style="border-bottom:1px solid #D4CCBD;font-size:0;line-height:0;">&nbsp;</div>
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+
+        {# ── THIS WEEK ───────────────────────────────────────── #}
+        {% if bulletin.thisWeek and bulletin.thisWeek.length %}
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad">
+            <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">This Week</p>
+          </td>
+        </tr>
+        {% for item in bulletin.thisWeek %}
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:0 32px {% if loop.last %}24px{% else %}12px{% endif %};" class="section-pad">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td width="90" valign="top">
+                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:12px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;">{{ item.day }}</p>
+                  {% if item.time %}
+                  <p style="margin:3px 0 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:12px;">{{ item.time }}</p>
+                  {% endif %}
+                </td>
+                <td valign="top" style="padding-left:16px;border-left:2px solid #DDD8CE;">
+                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:14px;font-weight:bold;">{{ item.title }}</p>
+                  {% if item.location %}
+                  <p style="margin:2px 0 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:12px;">{{ item.location }}</p>
+                  {% endif %}
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+
+        {# ── GIVING ──────────────────────────────────────────── #}
+        {% if bulletin.giving %}
+        <tr>
+          <td bgcolor="#0B0B0C" style="padding:32px;" align="center" class="section-pad">
+            <p style="margin:0 0 8px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;">Support Our Ministry</p>
+            <p style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;color:#E8E2D8;font-size:14px;line-height:1.6;">Thank you for your faithful giving.</p>
+            <a href="{{ bulletin.giving.url }}" style="display:inline-block;background-color:#C8922E;color:#F7F3EC;font-family:Georgia,'Times New Roman',serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:12px 28px;">{{ bulletin.giving.text or 'Give Online' }} &rarr;</a>
+          </td>
+        </tr>
+        {% endif %}
+
+        {# ── FOOTER ──────────────────────────────────────────── #}
+        <tr>
+          <td bgcolor="#1A1A1B" style="padding:28px 32px;text-align:center;" class="section-pad">
+            <p style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;color:#F7F3EC;font-size:14px;font-weight:bold;">Calvary Chapel Antelope Valley</p>
+            {% if bulletin.contact.address %}
+            <p style="margin:3px 0;font-family:Georgia,'Times New Roman',serif;color:#888;font-size:12px;">{{ bulletin.contact.address }}</p>
+            {% endif %}
+            {% if bulletin.contact.phone %}
+            <p style="margin:3px 0;font-family:Georgia,'Times New Roman',serif;color:#888;font-size:12px;">{{ bulletin.contact.phone }}</p>
+            {% endif %}
+            {% if bulletin.contact.website %}
+            <p style="margin:3px 0;">
+              <a href="{{ bulletin.contact.website }}" style="font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:12px;text-decoration:none;">{{ bulletin.contact.website }}</a>
+            </p>
+            {% endif %}
+            <p style="margin:18px 0 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:11px;">
+              <a href="*|UNSUB|*" style="color:#555;text-decoration:underline;">Unsubscribe</a>
+              &nbsp;&bull;&nbsp;
+              <a href="*|UPDATE_PROFILE|*" style="color:#555;text-decoration:underline;">Update preferences</a>
+            </p>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
