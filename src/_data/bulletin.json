@@ -4,11 +4,14 @@
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
-    "times": ["9:00 AM", "11:00 AM"],
+    "times": [
+      "8:30 AM",
+      "10:30 AM"
+    ],
+    "pastor": "Pastor Josh Hueser",
     "location": "Calvary Chapel Antelope Valley",
-    "address": "1234 Faith Ave, Lancaster, CA 93535",
-    "livestream": "https://calvarychapelav.org/live",
-    "pastor": "Pastor John Smith"
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
   },
   "scripture": {
     "verse": "Now faith is the substance of things hoped for, the evidence of things not seen.",
@@ -63,6 +66,6 @@
     "website": "https://calvarychapelav.org",
     "facebook": "",
     "instagram": "",
-    "youtube": ""
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
   }
 }
