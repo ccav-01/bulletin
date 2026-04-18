@@ -156,6 +156,34 @@
     .section-order-list { margin-bottom: 0.25rem; }
     .section-order-item { display: flex; align-items: center; gap: 0.6rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.55rem 0.75rem; margin-bottom: 0.4rem; font-size: 0.875rem; font-weight: 500; color: var(--ink); }
 
+    /* ---- Size sliders ---- */
+    .size-control { margin-bottom: 1.25rem; }
+    .size-control__header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.35rem; }
+    .size-control__label { font-size: 0.75rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .size-control__value { font-size: 0.85rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; min-width: 3.5ch; text-align: right; }
+    input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: var(--border); outline: none; cursor: pointer; padding: 0; border: none; box-shadow: none; }
+    input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--ochre); cursor: pointer; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+    input[type="range"]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: var(--ochre); cursor: pointer; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+    input[type="range"]:focus { border: none; box-shadow: none; }
+    input[type="range"]:focus::-webkit-slider-thumb { box-shadow: 0 0 0 3px rgba(200,146,46,0.25); }
+
+    /* ---- Appearance preview ---- */
+    .preview-container { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-top: 1.5rem; }
+    .preview-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); background: var(--bg); }
+    .preview-toolbar__label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    .preview-toggle { display: flex; gap: 0.35rem; }
+    .preview-toggle-btn { padding: 0.25rem 0.65rem; font-size: 0.75rem; font-weight: 600; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); color: var(--muted); cursor: pointer; transition: all 0.15s; }
+    .preview-toggle-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .preview-frame { background: var(--ink); padding: 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; transition: all 0.2s; }
+    .preview-header-bar { width: 100%; background: var(--ink); border-bottom: 1px solid rgba(247,243,236,0.1); padding: 0.5rem 1rem; display: flex; align-items: center; }
+    .preview-hero { width: 100%; background: var(--ink); border-top: 2px solid var(--ochre); padding: 1.25rem 1rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+    .preview-hero__title { font-family: system-ui, sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--paper); opacity: 0.9; }
+    .preview-hero__date { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--ochre); font-weight: 600; }
+    .preview-logo { display: block; width: auto; object-fit: contain; }
+    .preview-badge { display: block; width: auto; object-fit: contain; opacity: 0.85; }
+    .preview-mobile .preview-header-bar { padding: 0.4rem 0.75rem; }
+    .preview-mobile .preview-hero { padding: 1rem 0.75rem; }
+
     @media (max-width: 640px) {
       .admin-sidebar { display: none; }
       .field-row { grid-template-columns: 1fr; }
@@ -231,6 +259,7 @@
           <li><a href="#" data-section="savedates">Save the Dates</a></li>
           <li><a href="#" data-section="thisweek">This Week at Calvary</a></li>
           <li><a href="#" data-section="giving">Giving &amp; Contact</a></li>
+          <li><a href="#" data-section="appearance">&#x1F3A8; Appearance</a></li>
           <li><a href="#" data-section="archives">&#x1F4DA; Archives</a></li>
         </ul>
       </nav>
@@ -426,6 +455,66 @@
           <div class="field"><label for="f-instagram">Instagram URL</label><input type="url" id="f-instagram" /></div>
         </div>
         <div class="field"><label for="f-youtube">YouTube URL</label><input type="url" id="f-youtube" /></div>
+      </section>
+
+      <!-- APPEARANCE -->
+      <section class="editor-section" id="section-appearance">
+        <div class="section-title">Appearance</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.5;">Adjust the size of the logo (site header) and badge (hero area). Use separate values for desktop and mobile so neither is ever stretched.</p>
+
+        <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink);margin-bottom:0.75rem;">Logo (Header Wordmark)</div>
+        <div class="size-control">
+          <div class="size-control__header">
+            <span class="size-control__label">Desktop</span>
+            <span class="size-control__value" id="logo-desktop-val">38px</span>
+          </div>
+          <input type="range" id="f-logo-desktop" min="20" max="80" step="1" value="38" />
+        </div>
+        <div class="size-control">
+          <div class="size-control__header">
+            <span class="size-control__label">Mobile</span>
+            <span class="size-control__value" id="logo-mobile-val">32px</span>
+          </div>
+          <input type="range" id="f-logo-mobile" min="16" max="60" step="1" value="32" />
+        </div>
+
+        <hr style="border:none;border-top:1px solid var(--border);margin:1.25rem 0;" />
+
+        <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink);margin-bottom:0.75rem;">Badge (Hero Area)</div>
+        <div class="size-control">
+          <div class="size-control__header">
+            <span class="size-control__label">Desktop</span>
+            <span class="size-control__value" id="badge-desktop-val">100px</span>
+          </div>
+          <input type="range" id="f-badge-desktop" min="40" max="220" step="2" value="100" />
+        </div>
+        <div class="size-control">
+          <div class="size-control__header">
+            <span class="size-control__label">Mobile</span>
+            <span class="size-control__value" id="badge-mobile-val">80px</span>
+          </div>
+          <input type="range" id="f-badge-mobile" min="40" max="160" step="2" value="80" />
+        </div>
+
+        <div class="preview-container">
+          <div class="preview-toolbar">
+            <span class="preview-toolbar__label">Live Preview</span>
+            <div class="preview-toggle">
+              <button class="preview-toggle-btn active" id="preview-desktop-btn">Desktop</button>
+              <button class="preview-toggle-btn" id="preview-mobile-btn">Mobile</button>
+            </div>
+          </div>
+          <div class="preview-frame" id="preview-frame">
+            <div class="preview-header-bar">
+              <img src="/assets/ccav-wordmark-white.png" class="preview-logo" id="preview-logo" alt="Logo preview" style="height:38px;" />
+            </div>
+            <div class="preview-hero">
+              <img src="/assets/ccav-badge-white.png" class="preview-badge" id="preview-badge" alt="Badge preview" style="height:100px;" />
+              <div class="preview-hero__date">April 19, 2026</div>
+              <div class="preview-hero__title">Acts 20:1–17</div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ARCHIVES -->
@@ -658,6 +747,11 @@ function populateForm(data) {
   document.getElementById('f-facebook').value   = data.contact?.facebook || '';
   document.getElementById('f-instagram').value  = data.contact?.instagram || '';
   document.getElementById('f-youtube').value    = data.contact?.youtube || '';
+  setSlider('f-logo-desktop',  'logo-desktop-val',  data.appearance?.logoDesktop  ?? 38);
+  setSlider('f-logo-mobile',   'logo-mobile-val',   data.appearance?.logoMobile   ?? 32);
+  setSlider('f-badge-desktop', 'badge-desktop-val', data.appearance?.badgeDesktop ?? 100);
+  setSlider('f-badge-mobile',  'badge-mobile-val',  data.appearance?.badgeMobile  ?? 80);
+  updateAppearancePreview();
 }
 
 function extractForm() {
@@ -687,6 +781,12 @@ function extractForm() {
     announcements: getAnnouncementsFromUI(),
     savetheDates: getSavedatesFromUI(),
     thisWeek: getThisweekFromUI(),
+    appearance: {
+      logoDesktop:  parseInt(document.getElementById('f-logo-desktop').value,  10),
+      logoMobile:   parseInt(document.getElementById('f-logo-mobile').value,   10),
+      badgeDesktop: parseInt(document.getElementById('f-badge-desktop').value, 10),
+      badgeMobile:  parseInt(document.getElementById('f-badge-mobile').value,  10),
+    },
     giving: { url: document.getElementById('f-give-url').value, text: document.getElementById('f-give-text').value },
     contact: {
       phone: document.getElementById('f-phone').value,
@@ -1194,6 +1294,54 @@ importDropzone.addEventListener('dragleave', ()  => importDropzone.classList.rem
 importDropzone.addEventListener('drop', e => {
   e.preventDefault(); importDropzone.classList.remove('dragover');
   if (e.dataTransfer.files[0]) handleImportFile(e.dataTransfer.files[0]);
+});
+
+// ============================================================
+// ============================================================
+// Appearance sliders & live preview
+// ============================================================
+let previewMode = 'desktop';
+
+function setSlider(inputId, valId, value) {
+  const input = document.getElementById(inputId);
+  const display = document.getElementById(valId);
+  input.value = value;
+  display.textContent = value + 'px';
+}
+
+function updateAppearancePreview() {
+  const logoD  = parseInt(document.getElementById('f-logo-desktop').value,  10);
+  const logoM  = parseInt(document.getElementById('f-logo-mobile').value,   10);
+  const badgeD = parseInt(document.getElementById('f-badge-desktop').value, 10);
+  const badgeM = parseInt(document.getElementById('f-badge-mobile').value,  10);
+  const logo  = previewMode === 'desktop' ? logoD  : logoM;
+  const badge = previewMode === 'desktop' ? badgeD : badgeM;
+  document.getElementById('preview-logo').style.height  = logo  + 'px';
+  document.getElementById('preview-badge').style.height = badge + 'px';
+}
+
+['f-logo-desktop', 'f-logo-mobile', 'f-badge-desktop', 'f-badge-mobile'].forEach(id => {
+  const input = document.getElementById(id);
+  const valId = id.replace('f-', '').replace(/-(\w)/g, (_, c) => '-' + c) + '-val';
+  input.addEventListener('input', () => {
+    document.getElementById(valId).textContent = input.value + 'px';
+    updateAppearancePreview();
+  });
+});
+
+document.getElementById('preview-desktop-btn').addEventListener('click', () => {
+  previewMode = 'desktop';
+  document.getElementById('preview-desktop-btn').classList.add('active');
+  document.getElementById('preview-mobile-btn').classList.remove('active');
+  document.getElementById('preview-frame').classList.remove('preview-mobile');
+  updateAppearancePreview();
+});
+document.getElementById('preview-mobile-btn').addEventListener('click', () => {
+  previewMode = 'mobile';
+  document.getElementById('preview-mobile-btn').classList.add('active');
+  document.getElementById('preview-desktop-btn').classList.remove('active');
+  document.getElementById('preview-frame').classList.add('preview-mobile');
+  updateAppearancePreview();
 });
 
 // ============================================================

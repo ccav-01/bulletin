@@ -8,6 +8,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    :root {
+      --logo-h: {{ bulletin.appearance.logoDesktop or 38 }}px;
+      --logo-h-mobile: {{ bulletin.appearance.logoMobile or 32 }}px;
+      --badge-h: {{ bulletin.appearance.badgeDesktop or 100 }}px;
+      --badge-h-mobile: {{ bulletin.appearance.badgeMobile or 80 }}px;
+    }
+  </style>
   <script src="/assets/js/lucide.min.js" defer></script>
   <script>document.addEventListener('DOMContentLoaded', () => lucide.createIcons());</script>
 </head>

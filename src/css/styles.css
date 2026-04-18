@@ -245,7 +245,7 @@ h3 {
   gap: var(--space-5);
 }
 .site-header__logo img {
-  height: 38px;
+  height: var(--logo-h, 38px);
   display: block;
   width: auto;
 }
@@ -305,7 +305,7 @@ h3 {
 }
 .bulletin-hero__badge {
   margin: 0 auto var(--space-6);
-  height: 100px;
+  height: var(--badge-h, 100px);
   width: auto;
   max-width: none;
   display: block;
@@ -923,6 +923,10 @@ h3 {
 
 /* ---- Responsive ------------------------------------------- */
 @media (max-width: 768px) {
+  :root {
+    --logo-h: var(--logo-h-mobile, 32px);
+    --badge-h: var(--badge-h-mobile, 80px);
+  }
   .bulletin-layout {
     grid-template-columns: 1fr;
     padding: var(--space-5) var(--space-4);
