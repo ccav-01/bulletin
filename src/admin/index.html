@@ -123,6 +123,14 @@
     .publish-actions__desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
     .publish-actions__buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
+    /* ---- JSON Import ---- */
+    .import-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-top: 1rem; }
+    .import-panel__title { font-weight: 700; color: var(--ink); font-size: 0.95rem; margin-bottom: 0.4rem; }
+    .import-panel__desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+    .import-dropzone { border: 2px dashed var(--border); border-radius: var(--radius); padding: 1.25rem 1rem; text-align: center; font-size: 0.85rem; color: var(--muted); cursor: pointer; transition: border-color 0.15s, background 0.15s; margin-bottom: 0.5rem; }
+    .import-dropzone:hover, .import-dropzone.dragover { border-color: var(--ochre); background: rgba(200,146,46,0.06); color: var(--ochre); }
+    .import-file-name { font-size: 0.8rem; color: var(--success); font-weight: 600; min-height: 1.25em; margin-bottom: 0.75rem; }
+
     @media (max-width: 640px) {
       .admin-sidebar { display: none; }
       .field-row { grid-template-columns: 1fr; }
@@ -232,6 +240,20 @@
             <button class="btn btn--primary" id="publish-btn">Publish Bulletin</button>
             <button class="btn btn--outline" id="archive-btn">Archive &amp; Start New Week</button>
           </div>
+        </div>
+
+        <div class="import-panel">
+          <div class="import-panel__title">Import from JSON</div>
+          <p class="import-panel__desc">
+            Upload a JSON file to bulk-update <strong>Scripture &amp; Sermon</strong>, <strong>Announcements</strong>, <strong>Save the Dates</strong>, and <strong>This Week at Calvary</strong>. Only sections present in the file are updated — everything else stays the same.<br><br>
+            <strong>Workflow tip:</strong> Download the template below, paste it along with your paper bulletin text into an AI assistant, and ask it to fill out the JSON. Then upload the result here.
+          </p>
+          <div class="import-dropzone" id="import-dropzone" role="button" tabindex="0" aria-label="Upload JSON file">
+            <input type="file" id="import-file-input" accept=".json,application/json" style="display:none;" />
+            &#x1F4C2; Click to select a .json file, or drag &amp; drop it here
+          </div>
+          <div class="import-file-name" id="import-file-name"></div>
+          <button class="btn btn--ghost btn--sm" id="download-template-btn">&#x2B07; Download Template</button>
         </div>
       </section>
 
@@ -850,6 +872,120 @@ function getNextSunday(dateStr) {
 function escHtml(str) {
   return String(str).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
+
+// ============================================================
+// JSON Import
+// ============================================================
+function handleImportFile(file) {
+  if (!file || !file.name.endsWith('.json')) {
+    setStatus('Please select a valid .json file.', 'error', '❌');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      applyJsonImport(data, file.name);
+    } catch {
+      setStatus('Could not parse JSON — check the file format and try again.', 'error', '❌');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function applyJsonImport(data, filename) {
+  const updated = [];
+  if (data.scripture) {
+    document.getElementById('f-verse').value        = data.scripture.verse        || '';
+    document.getElementById('f-reference').value    = data.scripture.reference    || '';
+    document.getElementById('f-sermon-title').value = data.scripture.sermonTitle  || '';
+    document.getElementById('f-sermon-series').value= data.scripture.sermonSeries || '';
+    updated.push('Scripture & Sermon');
+  }
+  if (data.announcements) { renderAnnouncements(data.announcements); updated.push('Announcements'); }
+  if (data.savetheDates)  { renderSavedates(data.savetheDates);       updated.push('Save the Dates'); }
+  if (data.thisWeek)      { renderThisweek(data.thisWeek);            updated.push('This Week at Calvary'); }
+
+  if (!updated.length) {
+    setStatus('No recognized sections found. Make sure the JSON matches the template format.', 'error', '❌');
+    return;
+  }
+  document.getElementById('import-file-name').textContent = `✓ ${filename} — updated: ${updated.join(', ')}`;
+  setStatus(`Imported ${updated.join(', ')}. Review the sections, then publish when ready.`, 'success', '✅');
+}
+
+const importDropzone = document.getElementById('import-dropzone');
+importDropzone.addEventListener('click', () => document.getElementById('import-file-input').click());
+importDropzone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') document.getElementById('import-file-input').click(); });
+document.getElementById('import-file-input').addEventListener('change', e => { if (e.target.files[0]) handleImportFile(e.target.files[0]); e.target.value = ''; });
+importDropzone.addEventListener('dragover', e => { e.preventDefault(); importDropzone.classList.add('dragover'); });
+importDropzone.addEventListener('dragleave', ()  => importDropzone.classList.remove('dragover'));
+importDropzone.addEventListener('drop', e => {
+  e.preventDefault(); importDropzone.classList.remove('dragover');
+  if (e.dataTransfer.files[0]) handleImportFile(e.dataTransfer.files[0]);
+});
+
+// ============================================================
+// Download Template
+// ============================================================
+document.getElementById('download-template-btn').addEventListener('click', () => {
+  const template = {
+    "_instructions": [
+      "HOW TO USE THIS TEMPLATE:",
+      "1. Copy the entire contents of this file.",
+      "2. Open an AI assistant (ChatGPT, Claude, etc.).",
+      "3. Paste this template, then paste your paper bulletin text below it.",
+      "4. Ask the AI: 'Fill out this JSON template using the bulletin content above. Keep the exact field names and structure. Use YYYY-MM-DD format for dates. The \"day\" field must be one of: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday. Remove the _instructions field from your output.'",
+      "5. Copy the AI's JSON output and save it as a .json file.",
+      "6. Upload it in the Bulletin Admin to apply the changes.",
+      "",
+      "NOTES:",
+      "- Only include sections you want to update. Remove any top-level key you don't need.",
+      "- 'ctas' are optional call-to-action buttons with a QR code. Use [] if none.",
+      "- All URLs must start with https://"
+    ],
+    "scripture": {
+      "verse": "Paste the full scripture verse text here",
+      "reference": "e.g. John 3:16",
+      "sermonTitle": "Sermon title (or empty string if none)",
+      "sermonSeries": "Series name (or empty string if none)"
+    },
+    "announcements": [
+      {
+        "title": "Announcement title",
+        "body": "Announcement body text",
+        "ctas": [
+          { "label": "Button label e.g. Register", "url": "https://example.com" }
+        ]
+      }
+    ],
+    "savetheDates": [
+      {
+        "title": "Event name",
+        "date": "YYYY-MM-DD",
+        "time": "e.g. 6:00 PM",
+        "description": "Brief description of the event",
+        "ctas": []
+      }
+    ],
+    "thisWeek": [
+      {
+        "title": "Ministry or activity name",
+        "day": "Sunday",
+        "time": "e.g. 9:00 AM",
+        "location": "e.g. Room 201 (optional, use empty string if none)",
+        "description": "Optional description (use empty string if none)",
+        "ctas": []
+      }
+    ]
+  };
+  const blob = new Blob([JSON.stringify(template, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'bulletin-template.json';
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+});
 </script>
 </body>
 </html>
