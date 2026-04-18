@@ -154,7 +154,7 @@
 
     /* ---- Section order ---- */
     .section-order-list { margin-bottom: 0.25rem; }
-    .section-order-item { display: flex; align-items: center; gap: 0.6rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.55rem 0.75rem; margin-bottom: 0.4rem; font-size: 0.875rem; font-weight: 500; color: var(--ink); }
+    .section-order-item { display: flex; align-items: center; gap: 0.6rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.55rem 0.75rem; margin-bottom: 0.4rem; font-size: 0.875rem; font-weight: 500; color: var(--ink); cursor: grab; user-select: none; }
 
     /* ---- Size sliders ---- */
     .size-control { margin-bottom: 1.25rem; }
@@ -819,11 +819,11 @@ function renderSectionOrder(order) {
     const el = document.createElement('div');
     el.className = 'section-order-item';
     el.dataset.key = key;
-    el.innerHTML = `<span class="list-item__handle" title="Drag to reorder" style="cursor:grab;">⠿</span>${escHtml(SECTION_LABELS[key] || key)}`;
+    el.innerHTML = `<span style="opacity:0.4;margin-right:0.4rem;">⠿</span>${escHtml(SECTION_LABELS[key] || key)}`;
     c.appendChild(el);
   });
   if (sectionOrderSortable) sectionOrderSortable.destroy();
-  sectionOrderSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
+  sectionOrderSortable = Sortable.create(c, { ghostClass: 'sortable-ghost', animation: 150 });
 }
 function getSectionOrderFromUI() {
   return [...document.querySelectorAll('#section-order-list .section-order-item')].map(el => el.dataset.key);
