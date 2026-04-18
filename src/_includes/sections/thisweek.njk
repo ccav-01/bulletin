@@ -7,46 +7,53 @@
   </div>
 
   {% if bulletin.thisWeek and bulletin.thisWeek.length %}
-  <ul class="thisweek-list">
-    {% for item in bulletin.thisWeek %}
-    <li class="thisweek-item">
-      <div class="thisweek-item__day-block">
-        <span class="thisweek-item__day">{{ item.day }}</span>
-        {% if item.time %}
-        <span class="thisweek-item__time">{{ item.time }}</span>
-        {% endif %}
-      </div>
-      <div>
-        <div class="thisweek-item__title">{{ item.title }}</div>
-        {% if item.location %}
-        <div class="thisweek-item__location">{{ item.location }}</div>
-        {% endif %}
-        {% if item.description %}
-        <p class="thisweek-item__desc">{{ item.description }}</p>
-        {% endif %}
-        {% if item.ctas and item.ctas.length %}
-        <div class="item-ctas">
-          {% for cta in item.ctas %}
-          <div class="cta-group">
-            <a href="{{ cta.url }}" target="_blank" rel="noopener" class="btn btn--ghost btn--sm">
-              <i data-lucide="external-link"></i>
-              {{ cta.label }}
-            </a>
-            <figure class="cta-qr-wrap">
-              <img
-                src="{{ cta.url | qrDataUri }}"
-                alt="QR code for {{ cta.label }}"
-              />
-              <figcaption class="cta-qr-label">Scan to {{ cta.label }}</figcaption>
-            </figure>
+  {% set dayGroups = bulletin.thisWeek | groupThisWeek %}
+  <div class="thisweek-groups">
+    {% for group in dayGroups %}
+    <div class="thisweek-day-group">
+      <h3 class="thisweek-day-heading">{{ group.day }}</h3>
+      <ul class="thisweek-list">
+        {% for item in group.items %}
+        <li class="thisweek-item">
+          <div class="thisweek-item__day-block">
+            {% if item.time %}
+            <span class="thisweek-item__time">{{ item.time }}</span>
+            {% endif %}
           </div>
-          {% endfor %}
-        </div>
-        {% endif %}
-      </div>
-    </li>
+          <div>
+            <div class="thisweek-item__title">{{ item.title }}</div>
+            {% if item.location %}
+            <div class="thisweek-item__location">{{ item.location }}</div>
+            {% endif %}
+            {% if item.description %}
+            <p class="thisweek-item__desc">{{ item.description }}</p>
+            {% endif %}
+            {% if item.ctas and item.ctas.length %}
+            <div class="item-ctas">
+              {% for cta in item.ctas %}
+              <div class="cta-group">
+                <a href="{{ cta.url }}" target="_blank" rel="noopener" class="btn btn--ghost btn--sm">
+                  <i data-lucide="external-link"></i>
+                  {{ cta.label }}
+                </a>
+                <figure class="cta-qr-wrap">
+                  <img
+                    src="{{ cta.url | qrDataUri }}"
+                    alt="QR code for {{ cta.label }}"
+                  />
+                  <figcaption class="cta-qr-label">Scan to {{ cta.label }}</figcaption>
+                </figure>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
     {% endfor %}
-  </ul>
+  </div>
   {% else %}
   <p style="color: var(--fg-3); font-style: italic;">No schedule this week.</p>
   {% endif %}
