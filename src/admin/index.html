@@ -118,6 +118,17 @@
     .btn--sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
     .btn--full { width: 100%; justify-content: center; }
 
+    /* ---- Section header with toggle ---- */
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--paper-2); }
+    .section-header .section-title { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .toggle-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 600; color: var(--muted); cursor: pointer; user-select: none; }
+    .toggle-input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .toggle-track { display: inline-block; position: relative; width: 36px; height: 20px; background: var(--border); border-radius: 10px; transition: background 0.2s; cursor: pointer; flex-shrink: 0; }
+    .toggle-input:checked + .toggle-track { background: var(--ochre); }
+    .toggle-thumb { position: absolute; width: 14px; height: 14px; background: #fff; border-radius: 50%; top: 3px; left: 3px; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+    .toggle-input:checked + .toggle-track .toggle-thumb { transform: translateX(16px); }
+    .section-body--disabled { opacity: 0.4; pointer-events: none; }
+
     .publish-actions { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-top: 1.5rem; }
     .publish-actions__title { font-weight: 700; color: var(--ink); font-size: 0.95rem; margin-bottom: 0.4rem; }
     .publish-actions__desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
@@ -288,47 +299,83 @@
 
       <!-- SCRIPTURE -->
       <section class="editor-section" id="section-scripture">
-        <div class="section-title">Scripture &amp; Sermon</div>
-        <div class="field">
-          <label for="f-verse">Scripture Verse</label>
-          <textarea id="f-verse" rows="3"></textarea>
+        <div class="section-header">
+          <div class="section-title">Scripture &amp; Sermon</div>
+          <label class="toggle-label">
+            <input type="checkbox" id="f-scripture-enabled" class="toggle-input" checked />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            Show on bulletin
+          </label>
         </div>
-        <div class="field">
-          <label for="f-reference">Reference</label>
-          <input type="text" id="f-reference" placeholder="e.g. Hebrews 11:1" />
-        </div>
-        <div class="field">
-          <label for="f-sermon-title">Sermon Title <span style="font-weight:400;text-transform:none;">(optional)</span></label>
-          <input type="text" id="f-sermon-title" placeholder="Leave blank if no sermon title" />
-        </div>
-        <div class="field">
-          <label for="f-sermon-series">Sermon Series <span style="font-weight:400;text-transform:none;">(optional)</span></label>
-          <input type="text" id="f-sermon-series" />
+        <div class="section-body" id="scripture-body">
+          <div class="field">
+            <label for="f-verse">Scripture Verse</label>
+            <textarea id="f-verse" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label for="f-reference">Reference</label>
+            <input type="text" id="f-reference" placeholder="e.g. Hebrews 11:1" />
+          </div>
+          <div class="field">
+            <label for="f-sermon-title">Sermon Title <span style="font-weight:400;text-transform:none;">(optional)</span></label>
+            <input type="text" id="f-sermon-title" placeholder="Leave blank if no sermon title" />
+          </div>
+          <div class="field">
+            <label for="f-sermon-series">Sermon Series <span style="font-weight:400;text-transform:none;">(optional)</span></label>
+            <input type="text" id="f-sermon-series" />
+          </div>
         </div>
       </section>
 
       <!-- ANNOUNCEMENTS -->
       <section class="editor-section" id="section-announcements">
-        <div class="section-title">Announcements</div>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Drag to reorder. Each announcement can have one or more call-to-action links — the QR code is auto-generated from the URL.</p>
-        <div class="list-container" id="announcements-list"></div>
-        <button class="btn btn--outline btn--sm" id="add-announcement-btn">+ Add Announcement</button>
+        <div class="section-header">
+          <div class="section-title">Announcements</div>
+          <label class="toggle-label">
+            <input type="checkbox" id="f-announcements-enabled" class="toggle-input" checked />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            Show on bulletin
+          </label>
+        </div>
+        <div class="section-body" id="announcements-body">
+          <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Drag to reorder. Each announcement can have one or more call-to-action links — the QR code is auto-generated from the URL.</p>
+          <div class="list-container" id="announcements-list"></div>
+          <button class="btn btn--outline btn--sm" id="add-announcement-btn">+ Add Announcement</button>
+        </div>
       </section>
 
       <!-- SAVE THE DATES -->
       <section class="editor-section" id="section-savedates">
-        <div class="section-title">Save the Dates</div>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Upcoming events with specific dates. Drag to reorder. Add registration links — QR codes are auto-generated.</p>
-        <div class="list-container" id="savedates-list"></div>
-        <button class="btn btn--outline btn--sm" id="add-savedate-btn">+ Add Event</button>
+        <div class="section-header">
+          <div class="section-title">Save the Dates</div>
+          <label class="toggle-label">
+            <input type="checkbox" id="f-savedates-enabled" class="toggle-input" checked />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            Show on bulletin
+          </label>
+        </div>
+        <div class="section-body" id="savedates-body">
+          <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Upcoming events with specific dates. Drag to reorder. Add registration links — QR codes are auto-generated.</p>
+          <div class="list-container" id="savedates-list"></div>
+          <button class="btn btn--outline btn--sm" id="add-savedate-btn">+ Add Event</button>
+        </div>
       </section>
 
       <!-- THIS WEEK AT CALVARY -->
       <section class="editor-section" id="section-thisweek">
-        <div class="section-title">This Week at Calvary</div>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Recurring weekly ministries and activities. Drag to reorder.</p>
-        <div class="list-container" id="thisweek-list"></div>
-        <button class="btn btn--outline btn--sm" id="add-thisweek-btn">+ Add Item</button>
+        <div class="section-header">
+          <div class="section-title">This Week at Calvary</div>
+          <label class="toggle-label">
+            <input type="checkbox" id="f-thisweek-enabled" class="toggle-input" checked />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+            Show on bulletin
+          </label>
+        </div>
+        <div class="section-body" id="thisweek-body">
+          <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Recurring weekly ministries and activities. Drag to reorder.</p>
+          <div class="list-container" id="thisweek-list"></div>
+          <button class="btn btn--outline btn--sm" id="add-thisweek-btn">+ Add Item</button>
+        </div>
       </section>
 
       <!-- GIVING & CONTACT -->
@@ -548,9 +595,17 @@ function populateForm(data) {
   document.getElementById('f-reference').value    = data.scripture?.reference || '';
   document.getElementById('f-sermon-title').value = data.scripture?.sermonTitle || '';
   document.getElementById('f-sermon-series').value= data.scripture?.sermonSeries || '';
+  document.getElementById('f-scripture-enabled').checked    = data.scriptureEnabled !== false;
+  document.getElementById('f-announcements-enabled').checked = data.announcementsEnabled !== false;
+  document.getElementById('f-savedates-enabled').checked     = data.savetheDatesEnabled !== false;
+  document.getElementById('f-thisweek-enabled').checked      = data.thisWeekEnabled !== false;
   renderAnnouncements(data.announcements || []);
   renderSavedates(data.savetheDates || data.events || []);
   renderThisweek(data.thisWeek || []);
+  updateSectionBody('f-scripture-enabled', 'scripture-body');
+  updateSectionBody('f-announcements-enabled', 'announcements-body');
+  updateSectionBody('f-savedates-enabled', 'savedates-body');
+  updateSectionBody('f-thisweek-enabled', 'thisweek-body');
   document.getElementById('f-give-url').value   = data.giving?.url || '';
   document.getElementById('f-give-text').value  = data.giving?.text || '';
   document.getElementById('f-phone').value      = data.contact?.phone || '';
@@ -580,6 +635,10 @@ function extractForm() {
       sermonTitle: document.getElementById('f-sermon-title').value,
       sermonSeries: document.getElementById('f-sermon-series').value,
     },
+    scriptureEnabled:     document.getElementById('f-scripture-enabled').checked,
+    announcementsEnabled: document.getElementById('f-announcements-enabled').checked,
+    savetheDatesEnabled:  document.getElementById('f-savedates-enabled').checked,
+    thisWeekEnabled:      document.getElementById('f-thisweek-enabled').checked,
     announcements: getAnnouncementsFromUI(),
     savetheDates: getSavedatesFromUI(),
     thisWeek: getThisweekFromUI(),
@@ -850,6 +909,7 @@ document.getElementById('archive-btn').addEventListener('click', async () => {
       date: nextDate, theme: '', headerImage: '', welcomeMessage: current.welcomeMessage,
       service: current.service,
       scripture: { verse: '', reference: '', sermonTitle: '', sermonSeries: current.scripture?.sermonSeries || '' },
+      scriptureEnabled: true, announcementsEnabled: true, savetheDatesEnabled: true, thisWeekEnabled: true,
       announcements: [], savetheDates: [], thisWeek: [], giving: current.giving, contact: current.contact,
     };
     await putFile(BULLETIN_PATH, JSON.stringify(blank, null, 2), `Start new bulletin for ${nextDate}`);
@@ -865,6 +925,20 @@ function getNextSunday(dateStr) {
   d.setDate(d.getDate() + daysUntil);
   return d.toISOString().split('T')[0];
 }
+
+// ============================================================
+// Section toggles
+// ============================================================
+function updateSectionBody(cbId, bodyId) {
+  const cb = document.getElementById(cbId);
+  const body = document.getElementById(bodyId);
+  body.classList.toggle('section-body--disabled', !cb.checked);
+}
+['scripture', 'announcements', 'savedates', 'thisweek'].forEach(key => {
+  const cbId = `f-${key}-enabled`;
+  const bodyId = `${key}-body`;
+  document.getElementById(cbId).addEventListener('change', () => updateSectionBody(cbId, bodyId));
+});
 
 // ============================================================
 // Utility

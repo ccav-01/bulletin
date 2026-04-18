@@ -22,12 +22,16 @@ title: Weekly Bulletin
 
   <div class="bulletin-sections">
     {% include "sections/service.njk" %}
-    {% include "sections/scripture.njk" %}
-    {% include "sections/announcements.njk" %}
-    {% if bulletin.savetheDates and bulletin.savetheDates.length %}
+    {% if bulletin.scriptureEnabled !== false %}
+      {% include "sections/scripture.njk" %}
+    {% endif %}
+    {% if bulletin.announcementsEnabled !== false %}
+      {% include "sections/announcements.njk" %}
+    {% endif %}
+    {% if bulletin.savetheDates and bulletin.savetheDates.length and bulletin.savetheDatesEnabled !== false %}
       {% include "sections/savedates.njk" %}
     {% endif %}
-    {% if bulletin.thisWeek and bulletin.thisWeek.length %}
+    {% if bulletin.thisWeek and bulletin.thisWeek.length and bulletin.thisWeekEnabled !== false %}
       {% include "sections/thisweek.njk" %}
     {% endif %}
 
