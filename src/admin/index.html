@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bulletin Admin — Calvary Chapel AV</title>
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.3/Sortable.min.js"></script>
+  <script src="/assets/js/Sortable.min.js"></script>
   <style>
     :root {
       --ink: #0B0B0C;
@@ -32,6 +32,18 @@
     .auth-card h2 { font-size: 1.2rem; color: var(--ink); margin-bottom: 0.4rem; }
     .auth-card p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5; }
     .auth-card a { color: var(--ochre); }
+    .remember-label { display: flex; align-items: center; gap: 0.5rem; font-size: 0.825rem; color: var(--muted); margin-bottom: 1rem; cursor: pointer; }
+    .remember-label input { cursor: pointer; }
+    .setup-details { margin-top: 1.75rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .setup-details summary { font-size: 0.8rem; color: var(--muted); cursor: pointer; list-style: none; display: flex; align-items: center; gap: 0.4rem; }
+    .setup-details summary::before { content: '▸'; font-size: 0.7rem; transition: transform 0.15s; }
+    .setup-details[open] summary::before { transform: rotate(90deg); }
+    .setup-details summary::-webkit-details-marker { display: none; }
+    .setup-content { margin-top: 0.85rem; font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+    .setup-content ol { padding-left: 1.25rem; margin: 0.5rem 0; }
+    .setup-content li { margin-bottom: 0.4rem; }
+    .setup-content a { color: var(--ochre); }
+    .setup-content code { background: var(--paper-2); border-radius: 3px; padding: 0.1em 0.35em; font-size: 0.9em; }
 
     /* ---- Admin Shell ---- */
     #admin-shell { display: none; flex-direction: column; min-height: 100vh; }
@@ -61,7 +73,7 @@
     /* ---- Form ---- */
     .field { margin-bottom: 1rem; }
     label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--muted); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    input[type="text"], input[type="url"], input[type="date"], input[type="time"], textarea, select { width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.9rem; color: var(--text); background: var(--surface); transition: border-color 0.15s, box-shadow 0.15s; }
+    input[type="text"], input[type="url"], input[type="date"], input[type="time"], input[type="password"], textarea, select { width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.9rem; color: var(--text); background: var(--surface); transition: border-color 0.15s, box-shadow 0.15s; }
     input:focus, textarea:focus, select:focus { outline: none; border-color: var(--ochre); box-shadow: 0 0 0 3px rgba(200,146,46,0.18); }
     textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
@@ -111,9 +123,6 @@
     .publish-actions__desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
     .publish-actions__buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-    .settings-section { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
-    .settings-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 0.75rem; }
-
     @media (max-width: 640px) {
       .admin-sidebar { display: none; }
       .field-row { grid-template-columns: 1fr; }
@@ -131,25 +140,33 @@
       <img src="/assets/ccav-wordmark-black.png" alt="Calvary Chapel AV" />
     </div>
     <h2>Bulletin Admin</h2>
-    <p>
-      Enter your GitHub Personal Access Token to edit and publish the weekly bulletin.
-      The token needs <strong>Contents: Read &amp; Write</strong> permission on the bulletin repo.
-      <a href="https://github.com/settings/tokens/new?description=Bulletin+Admin&scopes=repo" target="_blank" rel="noopener">Create a token &rarr;</a>
-    </p>
-    <div class="field">
-      <label for="pat-input">GitHub Token</label>
-      <input type="text" id="pat-input" placeholder="github_pat_..." autocomplete="off" />
-    </div>
-    <div class="field">
-      <label for="repo-input">Repository (owner/repo)</label>
-      <input type="text" id="repo-input" placeholder="ccav-01/bulletin" />
-    </div>
-    <div class="field">
-      <label for="branch-input">Branch</label>
-      <input type="text" id="branch-input" value="main" />
-    </div>
-    <button class="btn btn--primary btn--full" id="auth-btn">Sign In &amp; Load Bulletin</button>
-    <p id="auth-error" style="color:var(--danger);font-size:0.85rem;margin-top:0.75rem;display:none;"></p>
+    <p>Enter your access code to edit and publish the weekly bulletin.</p>
+    <form id="auth-form" autocomplete="on" onsubmit="handleSignIn(event)">
+      <!-- Hidden username field anchors the browser password manager to this site -->
+      <input type="text" name="username" value="ccav-01/bulletin" autocomplete="username"
+             style="position:absolute;opacity:0;pointer-events:none;" aria-hidden="true" tabindex="-1" />
+      <div class="field">
+        <label for="pat-input">Access Code</label>
+        <input type="password" id="pat-input" name="password" autocomplete="current-password" placeholder="Paste your access code here" />
+      </div>
+      <label class="remember-label">
+        <input type="checkbox" id="remember-me" /> Stay signed in across page refreshes
+      </label>
+      <button type="submit" class="btn btn--primary btn--full" id="auth-btn">Sign In</button>
+      <p id="auth-error" style="color:var(--danger);font-size:0.85rem;margin-top:0.75rem;display:none;"></p>
+    </form>
+
+    <details class="setup-details">
+      <summary>Setting up a new editor?</summary>
+      <div class="setup-content">
+        <ol>
+          <li>Add their GitHub account as a collaborator on <code>ccav-01/bulletin</code> — repo Settings &rarr; Collaborators, role: Write.</li>
+          <li>Go to <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub &rarr; Settings &rarr; Personal access tokens (fine-grained)</a> <em>while signed in as them</em>, and create a token scoped to <code>ccav-01/bulletin</code> with <strong>Contents: Read &amp; Write</strong>.</li>
+          <li>Send them the token as their access code. They paste it above once — the browser saves it from there.</li>
+          <li>To remove access, revoke the token in GitHub.</li>
+        </ol>
+      </div>
+    </details>
   </div>
 </div>
 
@@ -160,7 +177,7 @@
       <img src="/assets/ccav-wordmark-white.png" alt="Calvary Chapel AV" />
     </div>
     <div class="admin-header__actions">
-      <span id="header-repo" style="font-size:0.75rem;opacity:0.6;"></span>
+      <span id="header-user" style="font-size:0.75rem;opacity:0.6;"></span>
       <button class="btn btn--ghost btn--sm" id="signout-btn" style="color:rgba(247,243,236,0.7);border-color:rgba(247,243,236,0.2);">Sign Out</button>
     </div>
   </header>
@@ -181,7 +198,6 @@
           <li><a href="#" data-section="savedates">Save the Dates</a></li>
           <li><a href="#" data-section="thisweek">This Week at Calvary</a></li>
           <li><a href="#" data-section="giving">Giving &amp; Contact</a></li>
-          <li><a href="#" data-section="settings">&#x2699;&#xFE0F; Settings</a></li>
         </ul>
       </nav>
     </aside>
@@ -317,102 +333,158 @@
         <div class="field"><label for="f-youtube">YouTube URL</label><input type="url" id="f-youtube" /></div>
       </section>
 
-      <!-- SETTINGS -->
-      <section class="editor-section" id="section-settings">
-        <div class="section-title">Settings</div>
-        <div class="settings-section">
-          <h3>GitHub Connection</h3>
-          <div class="field"><label for="s-repo">Repository (owner/repo)</label><input type="text" id="s-repo" /></div>
-          <div class="field"><label for="s-branch">Branch</label><input type="text" id="s-branch" /></div>
-          <div class="field"><label for="s-token">GitHub Token</label><input type="text" id="s-token" /></div>
-          <button class="btn btn--primary btn--sm" id="save-settings-btn">Save Settings</button>
-        </div>
-        <div class="settings-section">
-          <h3>Danger Zone</h3>
-          <button class="btn btn--danger btn--sm" id="clear-token-btn">Clear Saved Token &amp; Sign Out</button>
-        </div>
-      </section>
-
     </main>
   </div>
 </div>
 
 <script>
 // ============================================================
-// State & storage
+// Constants
+// ============================================================
+const GITHUB_REPO   = 'ccav-01/bulletin';
+const GITHUB_BRANCH = 'main';
+const BULLETIN_PATH = 'src/_data/bulletin.json';
+const SESSION_KEY   = 'bulletin_admin_token';
+
+// ============================================================
+// State
 // ============================================================
 let state = {};
-let githubToken = '', githubRepo = '', githubBranch = 'main';
-const STORAGE_KEY = 'bulletin_admin_v2';
-const BULLETIN_PATH = 'src/_data/bulletin.json';
-
-function saveLocal() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({ token: githubToken, repo: githubRepo, branch: githubBranch }));
-}
-function loadLocal() {
-  try {
-    const d = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    githubToken = d.token || ''; githubRepo = d.repo || ''; githubBranch = d.branch || 'main';
-  } catch (_) {}
-}
+let githubToken = '';
 
 // ============================================================
 // GitHub API
 // ============================================================
+function ghHeaders() {
+  return {
+    Authorization: `Bearer ${githubToken}`,
+    Accept: 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+}
 async function ghFetch(path, opts = {}) {
-  const res = await fetch(`https://api.github.com/repos/${githubRepo}/${path}`, {
+  const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/${path}`, {
     ...opts,
-    headers: { Authorization: `Bearer ${githubToken}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(opts.headers || {}) },
+    headers: { ...ghHeaders(), ...(opts.headers || {}) },
   });
   if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.message || `GitHub API ${res.status}`); }
   return res.json();
 }
 async function getFileSha(p) {
-  try { return (await ghFetch(`contents/${p}?ref=${githubBranch}`)).sha; } catch (_) { return null; }
+  try { return (await ghFetch(`contents/${p}?ref=${GITHUB_BRANCH}`)).sha; } catch (_) { return null; }
 }
 async function putFile(p, content, message) {
   const sha = await getFileSha(p);
-  const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: githubBranch };
+  const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: GITHUB_BRANCH };
   if (sha) body.sha = sha;
   return ghFetch(`contents/${p}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
 }
 async function loadBulletin() {
-  const data = await ghFetch(`contents/${BULLETIN_PATH}?ref=${githubBranch}`);
+  const data = await ghFetch(`contents/${BULLETIN_PATH}?ref=${GITHUB_BRANCH}`);
   return JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, '')))));
+}
+
+// ============================================================
+// URL validation
+// ============================================================
+function validateUrls(data) {
+  const errors = [];
+  const httpsFields = [
+    ['Giving URL',      data.giving?.url],
+    ['Livestream URL',  data.service?.livestream],
+    ['Website',         data.contact?.website],
+    ['Facebook URL',    data.contact?.facebook],
+    ['Instagram URL',   data.contact?.instagram],
+    ['YouTube URL',     data.contact?.youtube],
+    ...(data.announcements || []).flatMap((a, i) =>
+      (a.ctas || []).map((c, j) => [`Announcement ${i + 1} link ${j + 1}`, c.url])),
+    ...(data.savetheDates || []).flatMap((s, i) =>
+      (s.ctas || []).map((c, j) => [`Save the Date ${i + 1} link ${j + 1}`, c.url])),
+    ...(data.thisWeek || []).flatMap((t, i) =>
+      (t.ctas || []).map((c, j) => [`This Week ${i + 1} link ${j + 1}`, c.url])),
+  ];
+  for (const [label, url] of httpsFields) {
+    if (!url) continue;
+    try {
+      const u = new URL(url);
+      if (u.protocol !== 'https:') errors.push(`${label}: only https:// links are allowed (got "${u.protocol}")`);
+    } catch {
+      errors.push(`${label}: not a valid URL`);
+    }
+  }
+  return errors;
 }
 
 // ============================================================
 // Auth
 // ============================================================
-loadLocal();
-const authScreen = document.getElementById('auth-screen');
-const adminShell = document.getElementById('admin-shell');
-document.getElementById('pat-input').value = githubToken;
-document.getElementById('repo-input').value = githubRepo;
-document.getElementById('branch-input').value = githubBranch;
+const authScreen  = document.getElementById('auth-screen');
+const adminShell  = document.getElementById('admin-shell');
 
-document.getElementById('auth-btn').addEventListener('click', async () => {
-  githubToken = document.getElementById('pat-input').value.trim();
-  githubRepo  = document.getElementById('repo-input').value.trim();
-  githubBranch = document.getElementById('branch-input').value.trim() || 'main';
-  if (!githubToken || !githubRepo) { showAuthError('Please fill in token and repository.'); return; }
+// Restore token from sessionStorage if "remember me" was previously set
+const stored = sessionStorage.getItem(SESSION_KEY);
+if (stored) githubToken = stored;
+
+async function handleSignIn(e) {
+  e.preventDefault();
+  const token    = document.getElementById('pat-input').value.trim();
+  const remember = document.getElementById('remember-me').checked;
+  if (!token) { showAuthError('Please enter your GitHub token.'); return; }
+
   const btn = document.getElementById('auth-btn');
-  btn.textContent = 'Loading…'; btn.disabled = true;
+  btn.textContent = 'Verifying…'; btn.disabled = true;
   document.getElementById('auth-error').style.display = 'none';
+
   try {
+    // Verify token is valid and get user identity
+    const userRes = await fetch('https://api.github.com/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    });
+    if (!userRes.ok) throw new Error('Invalid token — please check and try again.');
+    const user = await userRes.json();
+
+    // Set token so ghFetch works, then load bulletin (verifies repo read access)
+    githubToken = token;
     state = await loadBulletin();
-    saveLocal(); populateForm(state);
-    authScreen.style.display = 'none'; adminShell.style.display = 'flex';
-    document.getElementById('header-repo').textContent = githubRepo;
-    document.getElementById('s-repo').value = githubRepo;
-    document.getElementById('s-branch').value = githubBranch;
-    document.getElementById('s-token').value = githubToken;
-  } catch (err) { showAuthError('Could not load bulletin: ' + err.message); }
-  finally { btn.textContent = 'Sign In & Load Bulletin'; btn.disabled = false; }
+
+    if (remember) sessionStorage.setItem(SESSION_KEY, token);
+    populateForm(state);
+    authScreen.style.display = 'none';
+    adminShell.style.display = 'flex';
+    document.getElementById('header-user').textContent = user.login;
+  } catch (err) {
+    githubToken = '';
+    showAuthError(err.message);
+  } finally {
+    btn.textContent = 'Sign In & Load Bulletin'; btn.disabled = false;
+  }
+}
+
+function showAuthError(msg) {
+  const el = document.getElementById('auth-error');
+  el.textContent = msg; el.style.display = 'block';
+}
+
+document.getElementById('auth-form').addEventListener('submit', handleSignIn);
+
+document.getElementById('signout-btn').addEventListener('click', () => {
+  sessionStorage.removeItem(SESSION_KEY);
+  githubToken = '';
+  document.getElementById('pat-input').value = '';
+  adminShell.style.display = 'none';
+  authScreen.style.display = 'flex';
 });
-function showAuthError(msg) { const el = document.getElementById('auth-error'); el.textContent = msg; el.style.display = 'block'; }
-document.getElementById('signout-btn').addEventListener('click', () => { adminShell.style.display = 'none'; authScreen.style.display = 'flex'; });
-if (githubToken && githubRepo) document.getElementById('auth-btn').click();
+
+// Auto sign-in if we have a stored token
+if (githubToken) {
+  document.getElementById('pat-input').value = githubToken;
+  document.getElementById('remember-me').checked = true;
+  document.getElementById('auth-form').dispatchEvent(new Event('submit'));
+}
 
 // ============================================================
 // Navigation
@@ -718,11 +790,16 @@ document.getElementById('add-thisweek-btn').addEventListener('click', () => {
 // Publish
 // ============================================================
 document.getElementById('publish-btn').addEventListener('click', async () => {
+  const data = extractForm();
+  const errors = validateUrls(data);
+  if (errors.length) {
+    setStatus('Cannot publish — fix these URLs first:\n' + errors.join(' | '), 'error', '❌');
+    return;
+  }
   setStatus('Publishing bulletin…', 'info', '⏳');
   const btn = document.getElementById('publish-btn');
   btn.disabled = true;
   try {
-    const data = extractForm();
     await putFile(BULLETIN_PATH, JSON.stringify(data, null, 2), `Update bulletin for ${data.date}`);
     setStatus('Published! GitHub Actions is rebuilding the site (~60 seconds).', 'success', '✅');
     state = data;
@@ -735,11 +812,16 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
 // ============================================================
 document.getElementById('archive-btn').addEventListener('click', async () => {
   if (!confirm('Archive the current bulletin and start a new blank week?')) return;
+  const current = extractForm();
+  const errors = validateUrls(current);
+  if (errors.length) {
+    setStatus('Cannot archive — fix these URLs first:\n' + errors.join(' | '), 'error', '❌');
+    return;
+  }
   setStatus('Archiving…', 'info', '⏳');
   const btn = document.getElementById('archive-btn');
   btn.disabled = true;
   try {
-    const current = extractForm();
     await putFile(`src/_data/previous/${current.date}.json`, JSON.stringify(current, null, 2), `Archive bulletin for ${current.date}`);
     const nextDate = getNextSunday(current.date);
     const blank = {
@@ -761,20 +843,6 @@ function getNextSunday(dateStr) {
   d.setDate(d.getDate() + daysUntil);
   return d.toISOString().split('T')[0];
 }
-
-// ============================================================
-// Settings
-// ============================================================
-document.getElementById('save-settings-btn').addEventListener('click', () => {
-  githubToken  = document.getElementById('s-token').value.trim();
-  githubRepo   = document.getElementById('s-repo').value.trim();
-  githubBranch = document.getElementById('s-branch').value.trim() || 'main';
-  saveLocal();
-  setStatus('Settings saved.', 'success', '✅');
-});
-document.getElementById('clear-token-btn').addEventListener('click', () => {
-  localStorage.removeItem(STORAGE_KEY); location.reload();
-});
 
 // ============================================================
 // Utility
