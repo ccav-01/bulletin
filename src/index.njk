@@ -14,6 +14,8 @@ title: Weekly Bulletin
   </div>
 </header>
 
+{% set sectionOrder = bulletin.sectionOrder or ["service", "scripture", "announcements", "savetheDates", "thisWeek"] %}
+
 {% include "toc-mobile.njk" %}
 
 <div class="bulletin-layout">
@@ -21,7 +23,6 @@ title: Weekly Bulletin
   {% include "toc.njk" %}
 
   <div class="bulletin-sections">
-    {% set sectionOrder = bulletin.sectionOrder or ["service", "scripture", "announcements", "savetheDates", "thisWeek"] %}
     {% for section in sectionOrder %}
       {% if section === "service" %}
         {% include "sections/service.njk" %}

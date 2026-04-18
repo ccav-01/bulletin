@@ -1,20 +1,29 @@
-{% set tocSections = [
-  { id: "service",       label: "Service",       icon: "map-pin"        },
-  { id: "scripture",     label: "Message",       icon: "book-open"      },
-  { id: "announcements", label: "Announcements", icon: "megaphone"      },
-  { id: "savedates",     label: "Save the Dates",icon: "calendar-check" },
-  { id: "thisweek",      label: "This Week",     icon: "list-checks"    }
-] %}
+{% set sectionMeta = {
+  "service":       { id: "service",       label: "Service",        icon: "map-pin"        },
+  "scripture":     { id: "scripture",     label: "Message",        icon: "book-open"      },
+  "announcements": { id: "announcements", label: "Announcements",  icon: "megaphone"      },
+  "savetheDates":  { id: "savedates",     label: "Save the Dates", icon: "calendar-check" },
+  "thisWeek":      { id: "thisweek",      label: "This Week",      icon: "list-checks"    }
+} %}
 
 <nav class="toc-mobile" aria-label="Jump to section">
   <ul class="toc-mobile__list" role="list">
-    {% for section in tocSections %}
-    <li>
-      <a href="#{{ section.id }}" class="toc-mobile__link" data-toc-target="{{ section.id }}">
-        <i data-lucide="{{ section.icon }}"></i>
-        {{ section.label }}
-      </a>
-    </li>
+    {% for key in sectionOrder %}
+      {% set meta = sectionMeta[key] %}
+      {% if meta %}
+        {% if key === "service"
+           or (key === "scripture" and bulletin.scriptureEnabled !== false)
+           or (key === "announcements" and bulletin.announcementsEnabled !== false)
+           or (key === "savetheDates" and bulletin.savetheDates and bulletin.savetheDates.length and bulletin.savetheDatesEnabled !== false)
+           or (key === "thisWeek" and bulletin.thisWeek and bulletin.thisWeek.length and bulletin.thisWeekEnabled !== false) %}
+        <li>
+          <a href="#{{ meta.id }}" class="toc-mobile__link" data-toc-target="{{ meta.id }}">
+            <i data-lucide="{{ meta.icon }}"></i>
+            {{ meta.label }}
+          </a>
+        </li>
+        {% endif %}
+      {% endif %}
     {% endfor %}
   </ul>
 </nav>
