@@ -65,13 +65,24 @@ module.exports = function (eleventyConfig) {
     return groups;
   });
 
-  eleventyConfig.addAsyncFilter("qrDataUri", async (url) => {
+  eleventyConfig.addFilter("qrDataUri", (url) => {
     if (!url) return "";
-    return await QRCode.toDataURL(url, {
-      width: 160,
-      margin: 1,
-      color: { dark: "#0B0B0C", light: "#F7F3EC" },
-    });
+    const qr = QRCode.create(url, { errorCorrectionLevel: "M" });
+    const matrix = qr.modules;
+    const size = matrix.size;
+    const cell = 4;
+    const margin = 4;
+    const dim = (size + margin * 2) * cell;
+    let rects = "";
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        if (matrix.get(r, c)) {
+          rects += `<rect x="${(c + margin) * cell}" y="${(r + margin) * cell}" width="${cell}" height="${cell}"/>`;
+        }
+      }
+    }
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${dim} ${dim}" width="160" height="160"><rect width="${dim}" height="${dim}" fill="#F7F3EC"/><g fill="#0B0B0C">${rects}</g></svg>`;
+    return `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
   });
 
   // Short month from date string (e.g. "2026-04-20" -> "APR")
