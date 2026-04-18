@@ -26,6 +26,14 @@ module.exports = function (eleventyConfig) {
     return new Date(dateStr + "T12:00:00").toISOString().split("T")[0];
   });
 
+  eleventyConfig.addFilter("urlencode", (str) => encodeURIComponent(str));
+
+  // Short month from date string (e.g. "2026-04-20" -> "APR")
+  eleventyConfig.addFilter("shortMonth", (dateStr) => {
+    const d = new Date(dateStr + "T12:00:00");
+    return d.toLocaleDateString("en-US", { month: "short" }).toUpperCase();
+  });
+
   return {
     dir: {
       input: "src",

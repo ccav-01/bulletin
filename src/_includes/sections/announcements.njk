@@ -12,11 +12,28 @@
     <li class="announcement-item">
       <div class="announcement-item__header">
         <div class="announcement-item__title">{{ item.title }}</div>
-        {% if item.date %}
-        <div class="announcement-item__date">{{ item.date | readableDate }}</div>
-        {% endif %}
       </div>
       <p class="announcement-item__body">{{ item.body }}</p>
+      {% if item.ctas and item.ctas.length %}
+      <div class="item-ctas">
+        {% for cta in item.ctas %}
+        <div class="cta-group">
+          <a href="{{ cta.url }}" target="_blank" rel="noopener" class="btn btn--primary btn--sm">
+            <i data-lucide="external-link"></i>
+            {{ cta.label }}
+          </a>
+          <figure class="cta-qr-wrap">
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data={{ cta.url | urlencode }}&color=0B0B0C&bgcolor=EEE8DC&margin=4"
+              alt="QR code for {{ cta.label }}"
+              loading="lazy"
+            />
+            <figcaption class="cta-qr-label">Scan to {{ cta.label }}</figcaption>
+          </figure>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
     </li>
     {% endfor %}
   </ul>

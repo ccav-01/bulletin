@@ -4,10 +4,7 @@
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
-    "times": [
-      "8:30 AM",
-      "10:30 AM"
-    ],
+    "times": ["8:30 AM", "10:30 AM"],
     "pastor": "Pastor Josh Hueser",
     "location": "Calvary Chapel Antelope Valley",
     "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
@@ -23,37 +20,62 @@
     {
       "title": "Men's Bible Study",
       "body": "Join us every Tuesday at 7:00 PM in Room 201 for our ongoing men's Bible study through the book of James.",
-      "date": "2026-04-21"
+      "ctas": []
     },
     {
       "title": "Women's Prayer Breakfast",
       "body": "Ladies, don't miss our monthly prayer breakfast this Saturday at 8:30 AM in the fellowship hall. Please RSVP to the church office.",
-      "date": "2026-04-25"
+      "ctas": [
+        { "label": "RSVP Here", "url": "https://calvarychapelav.org/give" }
+      ]
     },
     {
       "title": "Youth Night",
       "body": "Teens grades 6–12 are invited to Youth Night this Friday at 6:30 PM. Games, worship, and the Word!",
-      "date": "2026-04-24"
+      "ctas": []
     }
   ],
-  "events": [
-    {
-      "title": "Easter Sunday Celebration",
-      "date": "2026-04-20",
-      "time": "9:00 AM & 11:00 AM",
-      "description": "Join us for a special Easter celebration service with worship, message, and family activities afterward."
-    },
+  "savetheDates": [
     {
       "title": "Community Outreach Day",
       "date": "2026-04-26",
       "time": "10:00 AM – 2:00 PM",
-      "description": "Serve alongside your church family as we bless our community. Sign up at the welcome table."
+      "description": "Serve alongside your church family as we bless our community.",
+      "ctas": [
+        { "label": "Sign Up", "url": "https://calvarychapelav.org/give" }
+      ]
     },
     {
       "title": "Marriage Enrichment Seminar",
       "date": "2026-05-02",
       "time": "6:00 PM",
-      "description": "A two-evening seminar for couples at all stages of marriage. Registration required — see front desk."
+      "description": "A two-evening seminar for couples at all stages of marriage. Registration required.",
+      "ctas": [
+        { "label": "Register", "url": "https://calvarychapelav.org/give" }
+      ]
+    }
+  ],
+  "thisWeek": [
+    {
+      "title": "Men's Bible Study",
+      "day": "Tuesday",
+      "time": "7:00 PM",
+      "location": "Room 201",
+      "description": ""
+    },
+    {
+      "title": "Women's Bible Study",
+      "day": "Wednesday",
+      "time": "10:00 AM",
+      "location": "Fellowship Hall",
+      "description": ""
+    },
+    {
+      "title": "Youth Group",
+      "day": "Friday",
+      "time": "6:30 PM",
+      "location": "Youth Room",
+      "description": ""
     }
   ],
   "giving": {

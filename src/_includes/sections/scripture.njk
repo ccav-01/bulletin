@@ -11,13 +11,17 @@
     <cite class="scripture-reference">— {{ bulletin.scripture.reference }}</cite>
   </div>
 
+  {% if bulletin.scripture.sermonTitle or bulletin.scripture.sermonSeries %}
   <div class="sermon-info">
+    {% if bulletin.scripture.sermonTitle %}
     <div>
       <span class="sermon-label">Sermon</span>
       <div class="sermon-title">{{ bulletin.scripture.sermonTitle }}</div>
     </div>
+    {% endif %}
     {% if bulletin.scripture.sermonSeries %}
     <span class="sermon-series">{{ bulletin.scripture.sermonSeries }}</span>
     {% endif %}
   </div>
+  {% endif %}
 </section>

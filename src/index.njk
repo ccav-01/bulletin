@@ -24,7 +24,12 @@ title: Weekly Bulletin
     {% include "sections/service.njk" %}
     {% include "sections/scripture.njk" %}
     {% include "sections/announcements.njk" %}
-    {% include "sections/events.njk" %}
+    {% if bulletin.savetheDates and bulletin.savetheDates.length %}
+      {% include "sections/savedates.njk" %}
+    {% endif %}
+    {% if bulletin.thisWeek and bulletin.thisWeek.length %}
+      {% include "sections/thisweek.njk" %}
+    {% endif %}
 
     {% if bulletin.giving and bulletin.giving.url %}
     <section class="section-card giving-card" aria-label="Online Giving">

@@ -1,0 +1,52 @@
+<section id="savedates" class="section-card" aria-labelledby="savedates-heading">
+  <div class="section-card__header">
+    <div class="section-card__icon">
+      <i data-lucide="calendar-check"></i>
+    </div>
+    <h2 class="section-card__title" id="savedates-heading">Save the Dates</h2>
+  </div>
+
+  {% if bulletin.savetheDates and bulletin.savetheDates.length %}
+  <ul class="events-list">
+    {% for event in bulletin.savetheDates %}
+    <li class="event-item">
+      <div class="event-item__date-block">
+        <span class="event-item__month">{{ event.date | shortMonth }}</span>
+        <span class="event-item__day">{{ event.date.split('-')[2] | int }}</span>
+      </div>
+      <div class="event-item__content">
+        <div class="event-item__title">{{ event.title }}</div>
+        {% if event.time %}
+        <div class="event-item__time">{{ event.time }}</div>
+        {% endif %}
+        {% if event.description %}
+        <p class="event-item__desc">{{ event.description }}</p>
+        {% endif %}
+        {% if event.ctas and event.ctas.length %}
+        <div class="item-ctas">
+          {% for cta in event.ctas %}
+          <div class="cta-group">
+            <a href="{{ cta.url }}" target="_blank" rel="noopener" class="btn btn--outline btn--sm">
+              <i data-lucide="external-link"></i>
+              {{ cta.label }}
+            </a>
+            <figure class="cta-qr-wrap">
+              <img
+                src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data={{ cta.url | urlencode }}&color=0B0B0C&bgcolor=F7F3EC&margin=4"
+                alt="QR code for {{ cta.label }}"
+                loading="lazy"
+              />
+              <figcaption class="cta-qr-label">Scan to {{ cta.label }}</figcaption>
+            </figure>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p style="color: var(--fg-3); font-style: italic;">No upcoming dates to save.</p>
+  {% endif %}
+</section>

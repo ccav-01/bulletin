@@ -7,140 +7,98 @@
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.3/Sortable.min.js"></script>
   <style>
     :root {
-      --blue: #2B5C8A;
-      --blue-dk: #1e4269;
-      --gold: #C8973A;
-      --gold-lt: #f5e6c8;
-      --bg: #FAF8F4;
+      --ink: #0B0B0C;
+      --paper: #F7F3EC;
+      --paper-2: #EEE8DC;
+      --ochre: #C8922E;
+      --clay: #A4521F;
+      --bg: #F7F3EC;
       --surface: #fff;
-      --border: #E5DDD0;
-      --text: #2C2C2C;
-      --muted: #6B6560;
-      --danger: #c0392b;
-      --success: #27ae60;
-      --radius: 8px;
+      --border: #d8d0c4;
+      --text: #0B0B0C;
+      --muted: #6b6355;
+      --danger: #9A2B1E;
+      --success: #4F6B3C;
+      --radius: 6px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
 
-    /* ---- Auth Screen ---- */
-    #auth-screen {
-      display: flex; align-items: center; justify-content: center;
-      min-height: 100vh; padding: 2rem;
-    }
-    .auth-card {
-      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: 0 4px 24px rgba(0,0,0,0.1);
-    }
+    /* ---- Auth ---- */
+    #auth-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; }
+    .auth-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.5rem; width: 100%; max-width: 420px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); }
     .auth-card__logo { text-align: center; margin-bottom: 1.5rem; }
-    .auth-card__cross { font-size: 2rem; color: var(--gold); display: block; }
-    .auth-card__church { font-size: 1.1rem; font-weight: 700; color: var(--blue-dk); }
-    .auth-card h2 { font-size: 1.2rem; color: var(--blue-dk); margin-bottom: 0.4rem; }
+    .auth-card__logo img { height: 36px; margin: 0 auto 0.5rem; display: block; }
+    .auth-card h2 { font-size: 1.2rem; color: var(--ink); margin-bottom: 0.4rem; }
     .auth-card p { font-size: 0.875rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.5; }
-    .auth-card a { color: var(--blue); }
+    .auth-card a { color: var(--ochre); }
 
     /* ---- Admin Shell ---- */
     #admin-shell { display: none; flex-direction: column; min-height: 100vh; }
-    .admin-header {
-      background: var(--blue-dk); color: #fff;
-      padding: 0.75rem 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      position: sticky; top: 0; z-index: 100;
-    }
-    .admin-header__title { font-size: 1rem; font-weight: 700; }
+    .admin-header { background: var(--ink); color: var(--paper); padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .admin-header__logo img { height: 28px; display: block; }
     .admin-header__actions { display: flex; gap: 0.75rem; align-items: center; }
 
-    /* ---- Status bar ---- */
-    #status-bar {
-      padding: 0.6rem 1.5rem; font-size: 0.85rem; font-weight: 600;
-      display: none; align-items: center; gap: 0.5rem;
-    }
+    /* ---- Status ---- */
+    #status-bar { padding: 0.6rem 1.5rem; font-size: 0.85rem; font-weight: 600; display: none; align-items: center; gap: 0.5rem; }
     #status-bar.info    { display: flex; background: #e8f4fd; color: #1a6fa8; border-bottom: 1px solid #bee3f8; }
     #status-bar.success { display: flex; background: #eafaf1; color: var(--success); border-bottom: 1px solid #a9dfbf; }
     #status-bar.error   { display: flex; background: #fdf2f2; color: var(--danger); border-bottom: 1px solid #f5b7b1; }
 
-    /* ---- Editor layout ---- */
+    /* ---- Layout ---- */
     .admin-body { display: flex; flex: 1; }
-    .admin-sidebar {
-      width: 220px; flex-shrink: 0; border-right: 1px solid var(--border);
-      background: var(--surface); padding: 1rem 0;
-      position: sticky; top: 52px; height: calc(100vh - 52px); overflow-y: auto;
-    }
+    .admin-sidebar { width: 220px; flex-shrink: 0; border-right: 1px solid var(--border); background: var(--surface); padding: 1rem 0; position: sticky; top: 52px; height: calc(100vh - 52px); overflow-y: auto; }
     .admin-sidebar nav ul { list-style: none; }
-    .admin-sidebar nav li a {
-      display: flex; align-items: center; gap: 0.5rem;
-      padding: 0.6rem 1.25rem; font-size: 0.875rem; color: var(--muted);
-      text-decoration: none; transition: background 0.15s, color 0.15s;
-    }
-    .admin-sidebar nav li a:hover,
-    .admin-sidebar nav li a.active {
-      background: var(--gold-lt); color: var(--blue-dk); font-weight: 600;
-    }
-
-    .admin-main { flex: 1; padding: 1.5rem; max-width: 800px; }
+    .admin-sidebar nav li a { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; font-size: 0.875rem; color: var(--muted); text-decoration: none; transition: background 0.15s, color 0.15s; }
+    .admin-sidebar nav li a:hover, .admin-sidebar nav li a.active { background: var(--paper-2); color: var(--ink); font-weight: 600; }
+    .admin-main { flex: 1; padding: 1.5rem; max-width: 820px; }
 
     /* ---- Sections ---- */
     .editor-section { display: none; }
     .editor-section.active { display: block; }
-    .section-title {
-      font-size: 1.2rem; font-weight: 700; color: var(--blue-dk);
-      margin-bottom: 1.25rem; padding-bottom: 0.6rem;
-      border-bottom: 2px solid var(--gold-lt);
-    }
+    .section-title { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 1.25rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--paper-2); }
 
-    /* ---- Form controls ---- */
-    .field { margin-bottom: 1.1rem; }
-    label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    input[type="text"], input[type="url"], input[type="date"], input[type="time"], textarea, select {
-      width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);
-      font-family: inherit; font-size: 0.9rem; color: var(--text); background: var(--surface);
-      transition: border-color 0.15s, box-shadow 0.15s;
-    }
-    input:focus, textarea:focus, select:focus {
-      outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(43,92,138,0.15);
-    }
-    textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+    /* ---- Form ---- */
+    .field { margin-bottom: 1rem; }
+    label { display: block; font-size: 0.75rem; font-weight: 600; color: var(--muted); margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    input[type="text"], input[type="url"], input[type="date"], input[type="time"], textarea, select { width: 100%; padding: 0.55rem 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); font-family: inherit; font-size: 0.9rem; color: var(--text); background: var(--surface); transition: border-color 0.15s, box-shadow 0.15s; }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: var(--ochre); box-shadow: 0 0 0 3px rgba(200,146,46,0.18); }
+    textarea { resize: vertical; min-height: 72px; line-height: 1.5; }
     .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
 
-    /* ---- Repeating list (announcements / events) ---- */
+    /* ---- List items ---- */
     .list-container { margin-bottom: 1rem; }
-    .list-item {
-      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 1rem; margin-bottom: 0.75rem; position: relative;
-    }
-    .list-item__handle {
-      cursor: grab; display: inline-block; font-size: 1.1rem; color: var(--muted);
-      margin-right: 0.5rem; vertical-align: middle; user-select: none;
-    }
+    .list-item { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; margin-bottom: 0.75rem; position: relative; }
+    .list-item__handle { cursor: grab; display: inline-block; font-size: 1.1rem; color: var(--muted); margin-right: 0.5rem; user-select: none; }
     .list-item__handle:active { cursor: grabbing; }
-    .sortable-ghost { opacity: 0.4; background: var(--gold-lt); }
-    .remove-btn {
-      position: absolute; top: 0.6rem; right: 0.6rem;
-      background: none; border: none; cursor: pointer;
-      color: var(--muted); font-size: 1.1rem; padding: 0.2rem 0.4rem; border-radius: 4px;
-      transition: color 0.15s, background 0.15s;
-    }
+    .sortable-ghost { opacity: 0.4; background: var(--paper-2); }
+    .remove-btn { position: absolute; top: 0.6rem; right: 0.6rem; background: none; border: none; cursor: pointer; color: var(--muted); font-size: 1.1rem; padding: 0.2rem 0.4rem; border-radius: 4px; transition: color 0.15s, background 0.15s; }
     .remove-btn:hover { color: var(--danger); background: #fdf2f2; }
+
+    /* ---- CTAs sub-list ---- */
+    .ctas-section { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px dashed var(--border); }
+    .ctas-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.5rem; }
+    .cta-row { display: grid; grid-template-columns: 1fr 1fr auto; gap: 0.5rem; align-items: center; margin-bottom: 0.4rem; }
+    .cta-row input { font-size: 0.85rem; padding: 0.4rem 0.6rem; }
+    .cta-remove-btn { background: none; border: none; cursor: pointer; color: var(--muted); font-size: 1rem; padding: 0.25rem 0.4rem; border-radius: 4px; }
+    .cta-remove-btn:hover { color: var(--danger); background: #fdf2f2; }
+    .add-cta-btn { font-size: 0.75rem; padding: 0.3rem 0.65rem; background: none; border: 1px dashed var(--border); border-radius: var(--radius); cursor: pointer; color: var(--muted); margin-top: 0.25rem; }
+    .add-cta-btn:hover { border-color: var(--ochre); color: var(--ochre); }
 
     /* ---- Service times ---- */
     .times-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
-    .time-chip {
-      display: flex; align-items: center; gap: 0.4rem;
-      background: var(--blue); color: #fff; border-radius: 100px;
-      padding: 0.3rem 0.75rem; font-size: 0.875rem; font-weight: 600;
-    }
-    .time-chip__remove {
-      background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.8);
-      font-size: 1rem; padding: 0; line-height: 1;
-    }
+    .time-chip { display: flex; align-items: center; gap: 0.4rem; background: var(--ink); color: var(--paper); border-radius: 100px; padding: 0.3rem 0.75rem; font-size: 0.875rem; font-weight: 600; }
+    .time-chip__remove { background: none; border: none; cursor: pointer; color: rgba(247,243,236,0.8); font-size: 1rem; padding: 0; line-height: 1; }
     .time-chip__remove:hover { color: #fff; }
 
     /* ---- Buttons ---- */
     .btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.55rem 1.1rem; border-radius: var(--radius); font-size: 0.875rem; font-weight: 600; cursor: pointer; border: 2px solid transparent; transition: all 0.15s; text-decoration: none; }
-    .btn--primary { background: var(--blue); color: #fff; border-color: var(--blue); }
-    .btn--primary:hover { background: var(--blue-dk); border-color: var(--blue-dk); }
-    .btn--outline { background: transparent; color: var(--blue); border-color: var(--blue); }
-    .btn--outline:hover { background: var(--blue); color: #fff; }
+    .btn--primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .btn--primary:hover { background: #1c1c1f; border-color: #1c1c1f; }
+    .btn--outline { background: transparent; color: var(--ink); border-color: var(--ink); }
+    .btn--outline:hover { background: var(--ink); color: var(--paper); }
+    .btn--ochre { background: var(--ochre); color: var(--ink); border-color: var(--ochre); }
+    .btn--ochre:hover { background: var(--clay); border-color: var(--clay); color: #fff; }
     .btn--ghost { background: transparent; color: var(--muted); border-color: var(--border); }
     .btn--ghost:hover { background: var(--bg); color: var(--text); }
     .btn--danger { background: transparent; color: var(--danger); border-color: var(--danger); }
@@ -148,73 +106,67 @@
     .btn--sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
     .btn--full { width: 100%; justify-content: center; }
 
-    .publish-actions {
-      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-      padding: 1.25rem; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;
-    }
-    .publish-actions__title { font-weight: 700; color: var(--blue-dk); font-size: 0.95rem; }
-    .publish-actions__desc { font-size: 0.8rem; color: var(--muted); }
+    .publish-actions { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-top: 1.5rem; }
+    .publish-actions__title { font-weight: 700; color: var(--ink); font-size: 0.95rem; margin-bottom: 0.4rem; }
+    .publish-actions__desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
     .publish-actions__buttons { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-    /* ---- GitHub settings ---- */
     .settings-section { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
-    .settings-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--blue-dk); margin-bottom: 0.75rem; }
+    .settings-section h3 { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 0.75rem; }
 
     @media (max-width: 640px) {
       .admin-sidebar { display: none; }
       .field-row { grid-template-columns: 1fr; }
+      .cta-row { grid-template-columns: 1fr auto; }
+      .cta-row input:nth-child(2) { display: none; }
     }
   </style>
 </head>
 <body>
 
-<!-- ============================================================
-     AUTH SCREEN
-     ============================================================ -->
+<!-- AUTH -->
 <div id="auth-screen">
   <div class="auth-card">
     <div class="auth-card__logo">
-      <span class="auth-card__cross">✝</span>
-      <span class="auth-card__church">Calvary Chapel AV</span>
+      <img src="/assets/ccav-wordmark-black.png" alt="Calvary Chapel AV" />
     </div>
     <h2>Bulletin Admin</h2>
     <p>
       Enter your GitHub Personal Access Token to edit and publish the weekly bulletin.
       The token needs <strong>Contents: Read &amp; Write</strong> permission on the bulletin repo.
-      <a href="https://github.com/settings/tokens/new?description=Bulletin+Admin&scopes=repo" target="_blank" rel="noopener">Create a token →</a>
+      <a href="https://github.com/settings/tokens/new?description=Bulletin+Admin&scopes=repo" target="_blank" rel="noopener">Create a token &rarr;</a>
     </p>
-
     <div class="field">
       <label for="pat-input">GitHub Token</label>
       <input type="text" id="pat-input" placeholder="github_pat_..." autocomplete="off" />
     </div>
     <div class="field">
       <label for="repo-input">Repository (owner/repo)</label>
-      <input type="text" id="repo-input" placeholder="your-org/bulletin" />
+      <input type="text" id="repo-input" placeholder="ccav-01/bulletin" />
     </div>
     <div class="field">
       <label for="branch-input">Branch</label>
       <input type="text" id="branch-input" value="main" />
     </div>
-
     <button class="btn btn--primary btn--full" id="auth-btn">Sign In &amp; Load Bulletin</button>
     <p id="auth-error" style="color:var(--danger);font-size:0.85rem;margin-top:0.75rem;display:none;"></p>
   </div>
 </div>
 
-<!-- ============================================================
-     ADMIN SHELL
-     ============================================================ -->
+<!-- ADMIN SHELL -->
 <div id="admin-shell">
   <header class="admin-header">
-    <div class="admin-header__title">✝ Bulletin Admin</div>
+    <div class="admin-header__logo">
+      <img src="/assets/ccav-wordmark-white.png" alt="Calvary Chapel AV" />
+    </div>
     <div class="admin-header__actions">
-      <button class="btn btn--ghost btn--sm" id="signout-btn">Sign Out</button>
+      <span id="header-repo" style="font-size:0.75rem;opacity:0.6;"></span>
+      <button class="btn btn--ghost btn--sm" id="signout-btn" style="color:rgba(247,243,236,0.7);border-color:rgba(247,243,236,0.2);">Sign Out</button>
     </div>
   </header>
 
   <div id="status-bar">
-    <span id="status-icon">ℹ️</span>
+    <span id="status-icon">&#9432;</span>
     <span id="status-msg"></span>
   </div>
 
@@ -222,13 +174,14 @@
     <aside class="admin-sidebar">
       <nav>
         <ul>
-          <li><a href="#" data-section="overview" class="active">📋 Overview</a></li>
-          <li><a href="#" data-section="service">⛪ Service Info</a></li>
-          <li><a href="#" data-section="scripture">📖 Scripture &amp; Sermon</a></li>
-          <li><a href="#" data-section="announcements">📢 Announcements</a></li>
-          <li><a href="#" data-section="events">📅 Events</a></li>
-          <li><a href="#" data-section="giving">🙏 Giving &amp; Contact</a></li>
-          <li><a href="#" data-section="settings">⚙️ Settings</a></li>
+          <li><a href="#" data-section="overview" class="active">&#x1F4CB; Overview</a></li>
+          <li><a href="#" data-section="service">Service Info</a></li>
+          <li><a href="#" data-section="scripture">Scripture &amp; Sermon</a></li>
+          <li><a href="#" data-section="announcements">Announcements</a></li>
+          <li><a href="#" data-section="savedates">Save the Dates</a></li>
+          <li><a href="#" data-section="thisweek">This Week at Calvary</a></li>
+          <li><a href="#" data-section="giving">Giving &amp; Contact</a></li>
+          <li><a href="#" data-section="settings">&#x2699;&#xFE0F; Settings</a></li>
         </ul>
       </nav>
     </aside>
@@ -237,7 +190,7 @@
 
       <!-- OVERVIEW -->
       <section class="editor-section active" id="section-overview">
-        <div class="section-title">📋 This Week's Bulletin</div>
+        <div class="section-title">This Week's Bulletin</div>
         <div class="field-row">
           <div class="field">
             <label for="f-date">Bulletin Date</label>
@@ -256,92 +209,96 @@
         <div class="publish-actions">
           <div class="publish-actions__title">Publish</div>
           <p class="publish-actions__desc">
-            <strong>Publish Bulletin</strong> saves your changes to GitHub and triggers a site rebuild (takes ~60 seconds).
-            <br>
+            <strong>Publish Bulletin</strong> saves your changes to GitHub and triggers a site rebuild (takes ~60 seconds).<br>
             <strong>Archive &amp; Start New</strong> moves this bulletin to the Past Bulletins archive, then resets the form for next week.
           </p>
           <div class="publish-actions__buttons">
-            <button class="btn btn--primary" id="publish-btn">🚀 Publish Bulletin</button>
-            <button class="btn btn--outline" id="archive-btn">📦 Archive &amp; Start New Week</button>
+            <button class="btn btn--primary" id="publish-btn">Publish Bulletin</button>
+            <button class="btn btn--outline" id="archive-btn">Archive &amp; Start New Week</button>
           </div>
         </div>
       </section>
 
       <!-- SERVICE -->
       <section class="editor-section" id="section-service">
-        <div class="section-title">⛪ Service Info</div>
-
+        <div class="section-title">Service Info</div>
         <div class="field">
           <label>Service Times</label>
           <div class="times-list" id="times-list"></div>
           <div style="display:flex; gap:0.5rem; align-items:center;">
-            <input type="text" id="new-time" placeholder="e.g. 9:00 AM" style="max-width:160px;" />
+            <input type="text" id="new-time" placeholder="e.g. 8:30 AM" style="max-width:160px;" />
             <button class="btn btn--ghost btn--sm" id="add-time-btn">+ Add Time</button>
           </div>
         </div>
-
         <div class="field">
           <label for="f-pastor">Lead Pastor</label>
           <input type="text" id="f-pastor" placeholder="Pastor Name" />
         </div>
         <div class="field">
           <label for="f-location">Location Name</label>
-          <input type="text" id="f-location" placeholder="Calvary Chapel Antelope Valley" />
+          <input type="text" id="f-location" />
         </div>
         <div class="field">
           <label for="f-address">Address</label>
-          <input type="text" id="f-address" placeholder="1234 Faith Ave, Lancaster, CA 93535" />
+          <input type="text" id="f-address" />
         </div>
         <div class="field">
           <label for="f-livestream">Livestream URL</label>
-          <input type="url" id="f-livestream" placeholder="https://calvarychapelav.org/live" />
+          <input type="url" id="f-livestream" />
         </div>
       </section>
 
       <!-- SCRIPTURE -->
       <section class="editor-section" id="section-scripture">
-        <div class="section-title">📖 Scripture &amp; Sermon</div>
-
+        <div class="section-title">Scripture &amp; Sermon</div>
         <div class="field">
           <label for="f-verse">Scripture Verse</label>
-          <textarea id="f-verse" rows="3" placeholder="The full verse text..."></textarea>
+          <textarea id="f-verse" rows="3"></textarea>
         </div>
         <div class="field">
           <label for="f-reference">Reference</label>
           <input type="text" id="f-reference" placeholder="e.g. Hebrews 11:1" />
         </div>
         <div class="field">
-          <label for="f-sermon-title">Sermon Title</label>
-          <input type="text" id="f-sermon-title" placeholder="e.g. Faith That Moves Mountains" />
+          <label for="f-sermon-title">Sermon Title <span style="font-weight:400;text-transform:none;">(optional)</span></label>
+          <input type="text" id="f-sermon-title" placeholder="Leave blank if no sermon title" />
         </div>
         <div class="field">
-          <label for="f-sermon-series">Sermon Series</label>
-          <input type="text" id="f-sermon-series" placeholder="e.g. Walking in Faith" />
+          <label for="f-sermon-series">Sermon Series <span style="font-weight:400;text-transform:none;">(optional)</span></label>
+          <input type="text" id="f-sermon-series" />
         </div>
       </section>
 
       <!-- ANNOUNCEMENTS -->
       <section class="editor-section" id="section-announcements">
-        <div class="section-title">📢 Announcements</div>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Drag to reorder. Items appear in this order on the bulletin.</p>
+        <div class="section-title">Announcements</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Drag to reorder. Each announcement can have one or more call-to-action links — the QR code is auto-generated from the URL.</p>
         <div class="list-container" id="announcements-list"></div>
         <button class="btn btn--outline btn--sm" id="add-announcement-btn">+ Add Announcement</button>
       </section>
 
-      <!-- EVENTS -->
-      <section class="editor-section" id="section-events">
-        <div class="section-title">📅 Upcoming Events</div>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Drag to reorder. Items appear in this order on the bulletin.</p>
-        <div class="list-container" id="events-list"></div>
-        <button class="btn btn--outline btn--sm" id="add-event-btn">+ Add Event</button>
+      <!-- SAVE THE DATES -->
+      <section class="editor-section" id="section-savedates">
+        <div class="section-title">Save the Dates</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Upcoming events with specific dates. Drag to reorder. Add registration links — QR codes are auto-generated.</p>
+        <div class="list-container" id="savedates-list"></div>
+        <button class="btn btn--outline btn--sm" id="add-savedate-btn">+ Add Event</button>
+      </section>
+
+      <!-- THIS WEEK AT CALVARY -->
+      <section class="editor-section" id="section-thisweek">
+        <div class="section-title">This Week at Calvary</div>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Recurring weekly ministries and activities. Drag to reorder.</p>
+        <div class="list-container" id="thisweek-list"></div>
+        <button class="btn btn--outline btn--sm" id="add-thisweek-btn">+ Add Item</button>
       </section>
 
       <!-- GIVING & CONTACT -->
       <section class="editor-section" id="section-giving">
-        <div class="section-title">🙏 Giving &amp; Contact</div>
+        <div class="section-title">Giving &amp; Contact</div>
         <div class="field">
           <label for="f-give-url">Online Giving URL</label>
-          <input type="url" id="f-give-url" placeholder="https://calvarychapelav.org/give" />
+          <input type="url" id="f-give-url" />
         </div>
         <div class="field">
           <label for="f-give-text">Giving Button Text</label>
@@ -349,56 +306,27 @@
         </div>
         <hr style="border:none;border-top:1px solid var(--border);margin:1.25rem 0;" />
         <div class="field-row">
-          <div class="field">
-            <label for="f-phone">Phone</label>
-            <input type="text" id="f-phone" placeholder="(661) 555-0100" />
-          </div>
-          <div class="field">
-            <label for="f-email">Email</label>
-            <input type="text" id="f-email" placeholder="office@church.org" />
-          </div>
+          <div class="field"><label for="f-phone">Phone</label><input type="text" id="f-phone" /></div>
+          <div class="field"><label for="f-email">Email</label><input type="text" id="f-email" /></div>
         </div>
-        <div class="field">
-          <label for="f-website">Website</label>
-          <input type="url" id="f-website" placeholder="https://calvarychapelav.org" />
-        </div>
+        <div class="field"><label for="f-website">Website</label><input type="url" id="f-website" /></div>
         <div class="field-row">
-          <div class="field">
-            <label for="f-facebook">Facebook URL</label>
-            <input type="url" id="f-facebook" placeholder="https://facebook.com/..." />
-          </div>
-          <div class="field">
-            <label for="f-instagram">Instagram URL</label>
-            <input type="url" id="f-instagram" placeholder="https://instagram.com/..." />
-          </div>
+          <div class="field"><label for="f-facebook">Facebook URL</label><input type="url" id="f-facebook" /></div>
+          <div class="field"><label for="f-instagram">Instagram URL</label><input type="url" id="f-instagram" /></div>
         </div>
-        <div class="field">
-          <label for="f-youtube">YouTube URL</label>
-          <input type="url" id="f-youtube" placeholder="https://youtube.com/..." />
-        </div>
+        <div class="field"><label for="f-youtube">YouTube URL</label><input type="url" id="f-youtube" /></div>
       </section>
 
       <!-- SETTINGS -->
       <section class="editor-section" id="section-settings">
-        <div class="section-title">⚙️ Settings</div>
-
+        <div class="section-title">Settings</div>
         <div class="settings-section">
           <h3>GitHub Connection</h3>
-          <div class="field">
-            <label for="s-repo">Repository (owner/repo)</label>
-            <input type="text" id="s-repo" />
-          </div>
-          <div class="field">
-            <label for="s-branch">Branch</label>
-            <input type="text" id="s-branch" />
-          </div>
-          <div class="field">
-            <label for="s-token">GitHub Token</label>
-            <input type="text" id="s-token" placeholder="github_pat_..." />
-          </div>
+          <div class="field"><label for="s-repo">Repository (owner/repo)</label><input type="text" id="s-repo" /></div>
+          <div class="field"><label for="s-branch">Branch</label><input type="text" id="s-branch" /></div>
+          <div class="field"><label for="s-token">GitHub Token</label><input type="text" id="s-token" /></div>
           <button class="btn btn--primary btn--sm" id="save-settings-btn">Save Settings</button>
         </div>
-
         <div class="settings-section">
           <h3>Danger Zone</h3>
           <button class="btn btn--danger btn--sm" id="clear-token-btn">Clear Saved Token &amp; Sign Out</button>
@@ -411,140 +339,80 @@
 
 <script>
 // ============================================================
-// State
+// State & storage
 // ============================================================
 let state = {};
-let githubToken = '';
-let githubRepo = '';
-let githubBranch = 'main';
-
-const STORAGE_KEY = 'bulletin_admin_v1';
+let githubToken = '', githubRepo = '', githubBranch = 'main';
+const STORAGE_KEY = 'bulletin_admin_v2';
+const BULLETIN_PATH = 'src/_data/bulletin.json';
 
 function saveLocal() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify({ token: githubToken, repo: githubRepo, branch: githubBranch }));
 }
-
 function loadLocal() {
   try {
     const d = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    githubToken = d.token || '';
-    githubRepo = d.repo || '';
-    githubBranch = d.branch || 'main';
+    githubToken = d.token || ''; githubRepo = d.repo || ''; githubBranch = d.branch || 'main';
   } catch (_) {}
 }
 
 // ============================================================
-// GitHub API helpers
+// GitHub API
 // ============================================================
-const BULLETIN_PATH = 'src/_data/bulletin.json';
-
 async function ghFetch(path, opts = {}) {
   const res = await fetch(`https://api.github.com/repos/${githubRepo}/${path}`, {
     ...opts,
-    headers: {
-      Authorization: `Bearer ${githubToken}`,
-      Accept: 'application/vnd.github+json',
-      'X-GitHub-Api-Version': '2022-11-28',
-      ...(opts.headers || {}),
-    },
+    headers: { Authorization: `Bearer ${githubToken}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', ...(opts.headers || {}) },
   });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(err.message || `GitHub API error ${res.status}`);
-  }
+  if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.message || `GitHub API ${res.status}`); }
   return res.json();
 }
-
-async function getFileSha(filePath) {
-  try {
-    const data = await ghFetch(`contents/${filePath}?ref=${githubBranch}`);
-    return data.sha;
-  } catch (_) {
-    return null;
-  }
+async function getFileSha(p) {
+  try { return (await ghFetch(`contents/${p}?ref=${githubBranch}`)).sha; } catch (_) { return null; }
 }
-
-async function putFile(filePath, content, message) {
-  const sha = await getFileSha(filePath);
-  const body = {
-    message,
-    content: btoa(unescape(encodeURIComponent(content))),
-    branch: githubBranch,
-  };
+async function putFile(p, content, message) {
+  const sha = await getFileSha(p);
+  const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: githubBranch };
   if (sha) body.sha = sha;
-  return ghFetch(`contents/${filePath}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
+  return ghFetch(`contents/${p}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
 }
-
 async function loadBulletin() {
   const data = await ghFetch(`contents/${BULLETIN_PATH}?ref=${githubBranch}`);
-  const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
-  return JSON.parse(content);
+  return JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, '')))));
 }
 
 // ============================================================
 // Auth
 // ============================================================
 loadLocal();
-
 const authScreen = document.getElementById('auth-screen');
 const adminShell = document.getElementById('admin-shell');
-const authBtn = document.getElementById('auth-btn');
-const authError = document.getElementById('auth-error');
-const signoutBtn = document.getElementById('signout-btn');
-
 document.getElementById('pat-input').value = githubToken;
 document.getElementById('repo-input').value = githubRepo;
 document.getElementById('branch-input').value = githubBranch;
 
-authBtn.addEventListener('click', async () => {
+document.getElementById('auth-btn').addEventListener('click', async () => {
   githubToken = document.getElementById('pat-input').value.trim();
-  githubRepo = document.getElementById('repo-input').value.trim();
+  githubRepo  = document.getElementById('repo-input').value.trim();
   githubBranch = document.getElementById('branch-input').value.trim() || 'main';
-
-  if (!githubToken || !githubRepo) {
-    showAuthError('Please fill in token and repository.');
-    return;
-  }
-
-  authBtn.textContent = 'Loading…';
-  authBtn.disabled = true;
-  authError.style.display = 'none';
-
+  if (!githubToken || !githubRepo) { showAuthError('Please fill in token and repository.'); return; }
+  const btn = document.getElementById('auth-btn');
+  btn.textContent = 'Loading…'; btn.disabled = true;
+  document.getElementById('auth-error').style.display = 'none';
   try {
     state = await loadBulletin();
-    saveLocal();
-    populateForm(state);
-    authScreen.style.display = 'none';
-    adminShell.style.display = 'flex';
+    saveLocal(); populateForm(state);
+    authScreen.style.display = 'none'; adminShell.style.display = 'flex';
+    document.getElementById('header-repo').textContent = githubRepo;
     document.getElementById('s-repo').value = githubRepo;
     document.getElementById('s-branch').value = githubBranch;
     document.getElementById('s-token').value = githubToken;
-  } catch (err) {
-    showAuthError('Could not load bulletin: ' + err.message);
-  } finally {
-    authBtn.textContent = 'Sign In & Load Bulletin';
-    authBtn.disabled = false;
-  }
+  } catch (err) { showAuthError('Could not load bulletin: ' + err.message); }
+  finally { btn.textContent = 'Sign In & Load Bulletin'; btn.disabled = false; }
 });
-
-function showAuthError(msg) {
-  authError.textContent = msg;
-  authError.style.display = 'block';
-}
-
-signoutBtn.addEventListener('click', () => {
-  adminShell.style.display = 'none';
-  authScreen.style.display = 'flex';
-});
-
-// Auto-load if credentials exist
-if (githubToken && githubRepo) {
-  authBtn.click();
-}
+function showAuthError(msg) { const el = document.getElementById('auth-error'); el.textContent = msg; el.style.display = 'block'; }
+document.getElementById('signout-btn').addEventListener('click', () => { adminShell.style.display = 'none'; authScreen.style.display = 'flex'; });
+if (githubToken && githubRepo) document.getElementById('auth-btn').click();
 
 // ============================================================
 // Navigation
@@ -552,11 +420,10 @@ if (githubToken && githubRepo) {
 document.querySelectorAll('[data-section]').forEach(link => {
   link.addEventListener('click', e => {
     e.preventDefault();
-    const id = link.dataset.section;
     document.querySelectorAll('[data-section]').forEach(l => l.classList.remove('active'));
     link.classList.add('active');
     document.querySelectorAll('.editor-section').forEach(s => s.classList.remove('active'));
-    document.getElementById('section-' + id).classList.add('active');
+    document.getElementById('section-' + link.dataset.section).classList.add('active');
   });
 });
 
@@ -568,46 +435,36 @@ function setStatus(msg, type = 'info', icon = 'ℹ️') {
   bar.className = type;
   document.getElementById('status-icon').textContent = icon;
   document.getElementById('status-msg').textContent = msg;
-  if (type === 'success') setTimeout(() => { bar.className = ''; }, 4000);
+  if (type === 'success') setTimeout(() => { bar.className = ''; }, 5000);
 }
 
 // ============================================================
-// Form population & extraction
+// Populate & extract
 // ============================================================
 function populateForm(data) {
-  // Overview
-  document.getElementById('f-date').value = data.date || '';
-  document.getElementById('f-theme').value = data.theme || '';
-  document.getElementById('f-welcome').value = data.welcomeMessage || '';
-
-  // Service
+  document.getElementById('f-date').value     = data.date || '';
+  document.getElementById('f-theme').value    = data.theme || '';
+  document.getElementById('f-welcome').value  = data.welcomeMessage || '';
   renderTimes(data.service?.times || []);
-  document.getElementById('f-pastor').value = data.service?.pastor || '';
-  document.getElementById('f-location').value = data.service?.location || '';
-  document.getElementById('f-address').value = data.service?.address || '';
-  document.getElementById('f-livestream').value = data.service?.livestream || '';
-
-  // Scripture
-  document.getElementById('f-verse').value = data.scripture?.verse || '';
-  document.getElementById('f-reference').value = data.scripture?.reference || '';
+  document.getElementById('f-pastor').value      = data.service?.pastor || '';
+  document.getElementById('f-location').value    = data.service?.location || '';
+  document.getElementById('f-address').value     = data.service?.address || '';
+  document.getElementById('f-livestream').value  = data.service?.livestream || '';
+  document.getElementById('f-verse').value         = data.scripture?.verse || '';
+  document.getElementById('f-reference').value    = data.scripture?.reference || '';
   document.getElementById('f-sermon-title').value = data.scripture?.sermonTitle || '';
-  document.getElementById('f-sermon-series').value = data.scripture?.sermonSeries || '';
-
-  // Announcements
+  document.getElementById('f-sermon-series').value= data.scripture?.sermonSeries || '';
   renderAnnouncements(data.announcements || []);
-
-  // Events
-  renderEvents(data.events || []);
-
-  // Giving & contact
-  document.getElementById('f-give-url').value = data.giving?.url || '';
-  document.getElementById('f-give-text').value = data.giving?.text || '';
-  document.getElementById('f-phone').value = data.contact?.phone || '';
-  document.getElementById('f-email').value = data.contact?.email || '';
-  document.getElementById('f-website').value = data.contact?.website || '';
-  document.getElementById('f-facebook').value = data.contact?.facebook || '';
-  document.getElementById('f-instagram').value = data.contact?.instagram || '';
-  document.getElementById('f-youtube').value = data.contact?.youtube || '';
+  renderSavedates(data.savetheDates || data.events || []);
+  renderThisweek(data.thisWeek || []);
+  document.getElementById('f-give-url').value   = data.giving?.url || '';
+  document.getElementById('f-give-text').value  = data.giving?.text || '';
+  document.getElementById('f-phone').value      = data.contact?.phone || '';
+  document.getElementById('f-email').value      = data.contact?.email || '';
+  document.getElementById('f-website').value    = data.contact?.website || '';
+  document.getElementById('f-facebook').value   = data.contact?.facebook || '';
+  document.getElementById('f-instagram').value  = data.contact?.instagram || '';
+  document.getElementById('f-youtube').value    = data.contact?.youtube || '';
 }
 
 function extractForm() {
@@ -630,11 +487,9 @@ function extractForm() {
       sermonSeries: document.getElementById('f-sermon-series').value,
     },
     announcements: getAnnouncementsFromUI(),
-    events: getEventsFromUI(),
-    giving: {
-      url: document.getElementById('f-give-url').value,
-      text: document.getElementById('f-give-text').value,
-    },
+    savetheDates: getSavedatesFromUI(),
+    thisWeek: getThisweekFromUI(),
+    giving: { url: document.getElementById('f-give-url').value, text: document.getElementById('f-give-text').value },
     contact: {
       phone: document.getElementById('f-phone').value,
       email: document.getElementById('f-email').value,
@@ -650,23 +505,17 @@ function extractForm() {
 // Service times
 // ============================================================
 let currentTimes = [];
-
 function renderTimes(times) {
   currentTimes = [...times];
   const list = document.getElementById('times-list');
   list.innerHTML = currentTimes.map((t, i) =>
-    `<span class="time-chip">${t}<button class="time-chip__remove" data-i="${i}" aria-label="Remove ${t}">×</button></span>`
+    `<span class="time-chip">${t}<button class="time-chip__remove" data-i="${i}" aria-label="Remove">×</button></span>`
   ).join('');
   list.querySelectorAll('.time-chip__remove').forEach(btn => {
-    btn.addEventListener('click', () => {
-      currentTimes.splice(Number(btn.dataset.i), 1);
-      renderTimes(currentTimes);
-    });
+    btn.addEventListener('click', () => { currentTimes.splice(Number(btn.dataset.i), 1); renderTimes(currentTimes); });
   });
 }
-
 function getTimesFromUI() { return [...currentTimes]; }
-
 document.getElementById('add-time-btn').addEventListener('click', () => {
   const v = document.getElementById('new-time').value.trim();
   if (v) { currentTimes.push(v); renderTimes(currentTimes); document.getElementById('new-time').value = ''; }
@@ -676,114 +525,193 @@ document.getElementById('new-time').addEventListener('keydown', e => {
 });
 
 // ============================================================
-// Announcements (sortable)
+// CTA helpers
 // ============================================================
-let announcementSortable;
+function makeCtaRow(cta) {
+  const row = document.createElement('div');
+  row.className = 'cta-row';
+  row.innerHTML = `
+    <input type="text" class="cta-label-inp" value="${escHtml(cta.label || '')}" placeholder="Button label (e.g. Register)" />
+    <input type="url" class="cta-url-inp" value="${escHtml(cta.url || '')}" placeholder="https://..." />
+    <button class="cta-remove-btn" aria-label="Remove CTA">✕</button>
+  `;
+  row.querySelector('.cta-remove-btn').addEventListener('click', () => row.remove());
+  return row;
+}
+function makeCtas(ctas) {
+  const wrap = document.createElement('div');
+  wrap.className = 'ctas-section';
+  wrap.innerHTML = '<div class="ctas-label">Call-to-Action Links (optional — QR codes auto-generated)</div>';
+  const rowsWrap = document.createElement('div');
+  rowsWrap.className = 'ctas-rows';
+  (ctas || []).forEach(c => rowsWrap.appendChild(makeCtaRow(c)));
+  const addBtn = document.createElement('button');
+  addBtn.className = 'add-cta-btn';
+  addBtn.textContent = '+ Add Link';
+  addBtn.addEventListener('click', () => rowsWrap.appendChild(makeCtaRow({})));
+  wrap.appendChild(rowsWrap);
+  wrap.appendChild(addBtn);
+  wrap.getCtas = () => [...rowsWrap.querySelectorAll('.cta-row')].map(r => ({
+    label: r.querySelector('.cta-label-inp').value,
+    url:   r.querySelector('.cta-url-inp').value,
+  })).filter(c => c.label && c.url);
+  return wrap;
+}
 
-function makeAnnouncementItem(item, idx) {
+// ============================================================
+// Announcements
+// ============================================================
+let annSortable;
+function makeAnnouncementItem(item) {
   const el = document.createElement('div');
   el.className = 'list-item';
-  el.dataset.idx = idx;
   el.innerHTML = `
     <span class="list-item__handle" title="Drag to reorder">⠿</span>
-    <button class="remove-btn" data-idx="${idx}" aria-label="Remove announcement">✕</button>
+    <button class="remove-btn" aria-label="Remove">✕</button>
     <div class="field" style="margin-top:0.5rem;">
       <label>Title</label>
       <input type="text" class="ann-title" value="${escHtml(item.title || '')}" placeholder="Announcement title" />
-    </div>
-    <div class="field-row">
-      <div class="field">
-        <label>Date (optional)</label>
-        <input type="date" class="ann-date" value="${item.date || ''}" />
-      </div>
     </div>
     <div class="field">
       <label>Body</label>
       <textarea class="ann-body" rows="2">${escHtml(item.body || '')}</textarea>
     </div>
   `;
-  el.querySelector('.remove-btn').addEventListener('click', () => {
-    el.remove();
-  });
+  const ctasEl = makeCtas(item.ctas || []);
+  el.appendChild(ctasEl);
+  el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
+  el._getCtas = () => ctasEl.getCtas();
   return el;
 }
-
 function renderAnnouncements(items) {
-  const container = document.getElementById('announcements-list');
-  container.innerHTML = '';
-  items.forEach((item, i) => container.appendChild(makeAnnouncementItem(item, i)));
-  if (announcementSortable) announcementSortable.destroy();
-  announcementSortable = Sortable.create(container, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
+  const c = document.getElementById('announcements-list');
+  c.innerHTML = '';
+  items.forEach(item => c.appendChild(makeAnnouncementItem(item)));
+  if (annSortable) annSortable.destroy();
+  annSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
 }
-
 function getAnnouncementsFromUI() {
   return [...document.querySelectorAll('#announcements-list .list-item')].map(el => ({
     title: el.querySelector('.ann-title').value,
-    body: el.querySelector('.ann-body').value,
-    date: el.querySelector('.ann-date').value,
+    body:  el.querySelector('.ann-body').value,
+    ctas:  el._getCtas ? el._getCtas() : [],
   }));
 }
-
 document.getElementById('add-announcement-btn').addEventListener('click', () => {
-  const container = document.getElementById('announcements-list');
-  container.appendChild(makeAnnouncementItem({}, container.children.length));
+  document.getElementById('announcements-list').appendChild(makeAnnouncementItem({}));
 });
 
 // ============================================================
-// Events (sortable)
+// Save the Dates
 // ============================================================
-let eventSortable;
-
-function makeEventItem(item, idx) {
+let saveSortable;
+function makeSavedateItem(item) {
   const el = document.createElement('div');
   el.className = 'list-item';
-  el.dataset.idx = idx;
   el.innerHTML = `
     <span class="list-item__handle" title="Drag to reorder">⠿</span>
-    <button class="remove-btn" data-idx="${idx}" aria-label="Remove event">✕</button>
+    <button class="remove-btn" aria-label="Remove">✕</button>
     <div class="field" style="margin-top:0.5rem;">
       <label>Event Title</label>
-      <input type="text" class="evt-title" value="${escHtml(item.title || '')}" placeholder="Event name" />
+      <input type="text" class="sd-title" value="${escHtml(item.title || '')}" placeholder="Event name" />
     </div>
     <div class="field-row">
-      <div class="field">
-        <label>Date</label>
-        <input type="date" class="evt-date" value="${item.date || ''}" />
-      </div>
-      <div class="field">
-        <label>Time</label>
-        <input type="text" class="evt-time" value="${escHtml(item.time || '')}" placeholder="e.g. 6:00 PM" />
-      </div>
+      <div class="field"><label>Date</label><input type="date" class="sd-date" value="${item.date || ''}" /></div>
+      <div class="field"><label>Time</label><input type="text" class="sd-time" value="${escHtml(item.time || '')}" placeholder="e.g. 6:00 PM" /></div>
     </div>
     <div class="field">
       <label>Description</label>
-      <textarea class="evt-desc" rows="2">${escHtml(item.description || '')}</textarea>
+      <textarea class="sd-desc" rows="2">${escHtml(item.description || '')}</textarea>
     </div>
   `;
+  const ctasEl = makeCtas(item.ctas || []);
+  el.appendChild(ctasEl);
   el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
+  el._getCtas = () => ctasEl.getCtas();
   return el;
 }
-
-function renderEvents(items) {
-  const container = document.getElementById('events-list');
-  container.innerHTML = '';
-  items.forEach((item, i) => container.appendChild(makeEventItem(item, i)));
-  if (eventSortable) eventSortable.destroy();
-  eventSortable = Sortable.create(container, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
+function renderSavedates(items) {
+  const c = document.getElementById('savedates-list');
+  c.innerHTML = '';
+  items.forEach(item => c.appendChild(makeSavedateItem(item)));
+  if (saveSortable) saveSortable.destroy();
+  saveSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
 }
-
-function getEventsFromUI() {
-  return [...document.querySelectorAll('#events-list .list-item')].map(el => ({
-    title: el.querySelector('.evt-title').value,
-    date: el.querySelector('.evt-date').value,
-    time: el.querySelector('.evt-time').value,
-    description: el.querySelector('.evt-desc').value,
+function getSavedatesFromUI() {
+  return [...document.querySelectorAll('#savedates-list .list-item')].map(el => ({
+    title:       el.querySelector('.sd-title').value,
+    date:        el.querySelector('.sd-date').value,
+    time:        el.querySelector('.sd-time').value,
+    description: el.querySelector('.sd-desc').value,
+    ctas:        el._getCtas ? el._getCtas() : [],
   }));
 }
+document.getElementById('add-savedate-btn').addEventListener('click', () => {
+  document.getElementById('savedates-list').appendChild(makeSavedateItem({}));
+});
 
-document.getElementById('add-event-btn').addEventListener('click', () => {
-  const container = document.getElementById('events-list');
-  container.appendChild(makeEventItem({}, container.children.length));
+// ============================================================
+// This Week at Calvary
+// ============================================================
+let weekSortable;
+function makeThisweekItem(item) {
+  const el = document.createElement('div');
+  el.className = 'list-item';
+  el.innerHTML = `
+    <span class="list-item__handle" title="Drag to reorder">⠿</span>
+    <button class="remove-btn" aria-label="Remove">✕</button>
+    <div class="field-row" style="margin-top:0.5rem;">
+      <div class="field">
+        <label>Day</label>
+        <select class="tw-day">
+          ${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'].map(d =>
+            `<option${item.day === d ? ' selected' : ''}>${d}</option>`
+          ).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label>Time</label>
+        <input type="text" class="tw-time" value="${escHtml(item.time || '')}" placeholder="e.g. 7:00 PM" />
+      </div>
+    </div>
+    <div class="field">
+      <label>Title / Ministry Name</label>
+      <input type="text" class="tw-title" value="${escHtml(item.title || '')}" placeholder="e.g. Men's Bible Study" />
+    </div>
+    <div class="field">
+      <label>Location <span style="font-weight:400;text-transform:none;">(optional)</span></label>
+      <input type="text" class="tw-location" value="${escHtml(item.location || '')}" placeholder="e.g. Room 201" />
+    </div>
+    <div class="field">
+      <label>Description <span style="font-weight:400;text-transform:none;">(optional)</span></label>
+      <textarea class="tw-desc" rows="2">${escHtml(item.description || '')}</textarea>
+    </div>
+  `;
+  const ctasEl = makeCtas(item.ctas || []);
+  el.appendChild(ctasEl);
+  el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
+  el._getCtas = () => ctasEl.getCtas();
+  return el;
+}
+function renderThisweek(items) {
+  const c = document.getElementById('thisweek-list');
+  c.innerHTML = '';
+  items.forEach(item => c.appendChild(makeThisweekItem(item)));
+  if (weekSortable) weekSortable.destroy();
+  weekSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
+}
+function getThisweekFromUI() {
+  return [...document.querySelectorAll('#thisweek-list .list-item')].map(el => ({
+    title:       el.querySelector('.tw-title').value,
+    day:         el.querySelector('.tw-day').value,
+    time:        el.querySelector('.tw-time').value,
+    location:    el.querySelector('.tw-location').value,
+    description: el.querySelector('.tw-desc').value,
+    ctas:        el._getCtas ? el._getCtas() : [],
+  }));
+}
+document.getElementById('add-thisweek-btn').addEventListener('click', () => {
+  document.getElementById('thisweek-list').appendChild(makeThisweekItem({}));
 });
 
 // ============================================================
@@ -798,11 +726,8 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
     await putFile(BULLETIN_PATH, JSON.stringify(data, null, 2), `Update bulletin for ${data.date}`);
     setStatus('Published! GitHub Actions is rebuilding the site (~60 seconds).', 'success', '✅');
     state = data;
-  } catch (err) {
-    setStatus('Error publishing: ' + err.message, 'error', '❌');
-  } finally {
-    btn.disabled = false;
-  }
+  } catch (err) { setStatus('Error publishing: ' + err.message, 'error', '❌'); }
+  finally { btn.disabled = false; }
 });
 
 // ============================================================
@@ -810,48 +735,30 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
 // ============================================================
 document.getElementById('archive-btn').addEventListener('click', async () => {
   if (!confirm('Archive the current bulletin and start a new blank week?')) return;
-  setStatus('Archiving current bulletin…', 'info', '⏳');
-  const archiveBtn = document.getElementById('archive-btn');
-  archiveBtn.disabled = true;
-
+  setStatus('Archiving…', 'info', '⏳');
+  const btn = document.getElementById('archive-btn');
+  btn.disabled = true;
   try {
     const current = extractForm();
-    const archivePath = `src/_data/previous/${current.date}.json`;
-
-    // 1. Save current bulletin as archive
-    await putFile(archivePath, JSON.stringify(current, null, 2), `Archive bulletin for ${current.date}`);
-
-    // 2. Create a blank new bulletin (next Sunday)
+    await putFile(`src/_data/previous/${current.date}.json`, JSON.stringify(current, null, 2), `Archive bulletin for ${current.date}`);
     const nextDate = getNextSunday(current.date);
     const blank = {
-      date: nextDate,
-      theme: '',
-      headerImage: '',
-      welcomeMessage: current.welcomeMessage,
+      date: nextDate, theme: '', headerImage: '', welcomeMessage: current.welcomeMessage,
       service: current.service,
       scripture: { verse: '', reference: '', sermonTitle: '', sermonSeries: current.scripture?.sermonSeries || '' },
-      announcements: [],
-      events: [],
-      giving: current.giving,
-      contact: current.contact,
+      announcements: [], savetheDates: [], thisWeek: [], giving: current.giving, contact: current.contact,
     };
-
     await putFile(BULLETIN_PATH, JSON.stringify(blank, null, 2), `Start new bulletin for ${nextDate}`);
-    state = blank;
-    populateForm(blank);
-    setStatus(`Archived ${current.date} and started new bulletin for ${nextDate}.`, 'success', '✅');
-  } catch (err) {
-    setStatus('Error archiving: ' + err.message, 'error', '❌');
-  } finally {
-    archiveBtn.disabled = false;
-  }
+    state = blank; populateForm(blank);
+    setStatus(`Archived ${current.date} and started bulletin for ${nextDate}.`, 'success', '✅');
+  } catch (err) { setStatus('Error archiving: ' + err.message, 'error', '❌'); }
+  finally { btn.disabled = false; }
 });
 
 function getNextSunday(dateStr) {
   const d = new Date(dateStr + 'T12:00:00');
-  const day = d.getDay();
-  const daysUntilSunday = day === 0 ? 7 : 7 - day;
-  d.setDate(d.getDate() + daysUntilSunday);
+  const daysUntil = d.getDay() === 0 ? 7 : 7 - d.getDay();
+  d.setDate(d.getDate() + daysUntil);
   return d.toISOString().split('T')[0];
 }
 
@@ -859,16 +766,14 @@ function getNextSunday(dateStr) {
 // Settings
 // ============================================================
 document.getElementById('save-settings-btn').addEventListener('click', () => {
-  githubToken = document.getElementById('s-token').value.trim();
-  githubRepo = document.getElementById('s-repo').value.trim();
+  githubToken  = document.getElementById('s-token').value.trim();
+  githubRepo   = document.getElementById('s-repo').value.trim();
   githubBranch = document.getElementById('s-branch').value.trim() || 'main';
   saveLocal();
   setStatus('Settings saved.', 'success', '✅');
 });
-
 document.getElementById('clear-token-btn').addEventListener('click', () => {
-  localStorage.removeItem(STORAGE_KEY);
-  location.reload();
+  localStorage.removeItem(STORAGE_KEY); location.reload();
 });
 
 // ============================================================
