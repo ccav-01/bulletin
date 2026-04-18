@@ -4,6 +4,7 @@
   "description": "Weekly e-bulletin for Calvary Chapel Antelope Valley",
   "scripts": {
     "start": "eleventy --serve",
+    "prebuild": "node scripts/validate-urls.js",
     "build": "eleventy"
   },
   "dependencies": {
