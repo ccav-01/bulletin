@@ -1,6 +1,8 @@
 <section id="announcements" class="section-card" aria-labelledby="announcements-heading">
   <div class="section-card__header">
-    <div class="section-card__icon" aria-hidden="true">📢</div>
+    <div class="section-card__icon">
+      <i data-lucide="megaphone"></i>
+    </div>
     <h2 class="section-card__title" id="announcements-heading">Announcements</h2>
   </div>
 
@@ -8,15 +10,17 @@
   <ul class="announcements-list">
     {% for item in bulletin.announcements %}
     <li class="announcement-item">
-      <div class="announcement-item__title">{{ item.title }}</div>
-      {% if item.date %}
-      <div class="announcement-item__date">{{ item.date | readableDate }}</div>
-      {% endif %}
+      <div class="announcement-item__header">
+        <div class="announcement-item__title">{{ item.title }}</div>
+        {% if item.date %}
+        <div class="announcement-item__date">{{ item.date | readableDate }}</div>
+        {% endif %}
+      </div>
       <p class="announcement-item__body">{{ item.body }}</p>
     </li>
     {% endfor %}
   </ul>
   {% else %}
-  <p style="color: var(--color-text-muted); font-style: italic;">No announcements this week.</p>
+  <p style="color: var(--fg-3); font-style: italic;">No announcements this week.</p>
   {% endif %}
 </section>

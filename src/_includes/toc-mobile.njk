@@ -1,17 +1,17 @@
 {% set tocSections = [
-  { id: "service",       label: "Service Info",  icon: "⛪" },
-  { id: "scripture",     label: "Message",       icon: "📖" },
-  { id: "announcements", label: "Announcements", icon: "📢" },
-  { id: "events",        label: "Events",        icon: "📅" }
+  { id: "service",       label: "Service",       icon: "map-pin"   },
+  { id: "scripture",     label: "Message",       icon: "book-open" },
+  { id: "announcements", label: "Announcements", icon: "megaphone" },
+  { id: "events",        label: "Events",        icon: "calendar"  }
 ] %}
 
-{# Mobile pill strip — sits above the layout, sticky below header #}
 <nav class="toc-mobile" aria-label="Jump to section">
   <ul class="toc-mobile__list" role="list">
     {% for section in tocSections %}
     <li>
       <a href="#{{ section.id }}" class="toc-mobile__link" data-toc-target="{{ section.id }}">
-        {{ section.icon }} {{ section.label }}
+        <i data-lucide="{{ section.icon }}"></i>
+        {{ section.label }}
       </a>
     </li>
     {% endfor %}

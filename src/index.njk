@@ -5,7 +5,8 @@ title: Weekly Bulletin
 
 <header class="bulletin-hero">
   <div class="bulletin-hero__inner">
-    <div class="bulletin-hero__date">{{ bulletin.date | readableDate }}</div>
+    <img src="/assets/ccav-badge-white.png" alt="" aria-hidden="true" class="bulletin-hero__badge" />
+    <span class="bulletin-hero__date">{{ bulletin.date | readableDate }}</span>
     <h1>{{ bulletin.theme }}</h1>
     {% if bulletin.welcomeMessage %}
     <p class="bulletin-hero__welcome">{{ bulletin.welcomeMessage }}</p>
@@ -27,11 +28,14 @@ title: Weekly Bulletin
 
     {% if bulletin.giving and bulletin.giving.url %}
     <section class="section-card giving-card" aria-label="Online Giving">
+      <div class="giving-card__divider">
+        <img src="/assets/dove-paper.png" alt="" aria-hidden="true" />
+      </div>
       <p class="giving-card__text">
-        Thank you for your generosity and support of our ministry.
+        Thank you for your generosity and faithful support of this ministry. Your giving enables us to serve our community and proclaim the Word.
       </p>
-      <a href="{{ bulletin.giving.url }}" target="_blank" rel="noopener" class="btn btn--accent">
-        🙏 {{ bulletin.giving.text or "Give Online" }}
+      <a href="{{ bulletin.giving.url }}" target="_blank" rel="noopener" class="btn btn--ochre">
+        {{ bulletin.giving.text or "Give Online" }}
       </a>
     </section>
     {% endif %}

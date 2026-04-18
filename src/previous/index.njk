@@ -5,7 +5,7 @@ title: Past Bulletins
 
 <header class="page-header">
   <h1>Past Bulletins</h1>
-  <p>Browse previous weekly bulletins from Calvary Chapel Antelope Valley.</p>
+  <p>Weekly bulletins from Calvary Chapel Antelope Valley.</p>
 </header>
 
 <div class="previous-layout">
@@ -20,13 +20,15 @@ title: Past Bulletins
           <div class="bulletin-list-item__theme">{{ item.theme }}</div>
           {% endif %}
         </div>
-        <span class="bulletin-list-item__arrow" aria-hidden="true">→</span>
+        <span class="bulletin-list-item__arrow">
+          <i data-lucide="arrow-right"></i>
+        </span>
       </a>
     </li>
     {% endfor %}
   </ul>
   {% else %}
-  <p style="text-align:center; color:var(--color-text-muted); padding:3rem 0;">
+  <p style="text-align:center; color:var(--fg-3); padding: var(--space-9) 0;">
     No past bulletins yet.
   </p>
   {% endif %}

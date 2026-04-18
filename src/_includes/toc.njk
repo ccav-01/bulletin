@@ -1,18 +1,17 @@
 {% set tocSections = [
-  { id: "service",       label: "Service Info",  icon: "⛪" },
-  { id: "scripture",     label: "Message",       icon: "📖" },
-  { id: "announcements", label: "Announcements", icon: "📢" },
-  { id: "events",        label: "Events",        icon: "📅" }
+  { id: "service",       label: "Service Info",  icon: "map-pin"  },
+  { id: "scripture",     label: "Message",       icon: "book-open" },
+  { id: "announcements", label: "Announcements", icon: "megaphone" },
+  { id: "events",        label: "Events",        icon: "calendar"  }
 ] %}
 
-{# Desktop sticky sidebar — sits in grid column 1 #}
 <nav class="toc" aria-label="Table of contents">
   <div class="toc__title">This Week</div>
   <ul class="toc__list" role="list">
     {% for section in tocSections %}
     <li>
       <a href="#{{ section.id }}" class="toc__link" data-toc-target="{{ section.id }}">
-        <span class="toc__icon" aria-hidden="true">{{ section.icon }}</span>
+        <i data-lucide="{{ section.icon }}"></i>
         {{ section.label }}
       </a>
     </li>
@@ -20,19 +19,19 @@
   </ul>
 
   {% if prevList and prevList.length %}
-  <div class="toc__title" style="margin-top:1.25rem;">Past Bulletins</div>
+  <div class="toc__title" style="margin-top: var(--space-5);">Past Bulletins</div>
   <ul class="toc__list" role="list">
     {% for item in prevList %}
     <li>
       <a href="/previous/{{ item.date }}/" class="toc__link">
-        <span class="toc__icon" aria-hidden="true">📄</span>
-        <span style="font-size:0.8rem;">{{ item.date | readableDate }}</span>
+        <i data-lucide="file-text"></i>
+        <span style="font-size: 11px;">{{ item.date | readableDate }}</span>
       </a>
     </li>
     {% endfor %}
     <li>
       <a href="/previous/" class="toc__link">
-        <span class="toc__icon" aria-hidden="true">→</span>
+        <i data-lucide="archive"></i>
         All bulletins
       </a>
     </li>

@@ -2,7 +2,20 @@
   "permissions": {
     "allow": [
       "Bash(npm install *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(ls *.bin)",
+      "Bash(dir /b *.bin)",
+      "Bash(cp webfetch-1776470567429-wjvs32.bin design.gz)",
+      "Bash(gunzip -f design.gz)",
+      "Bash(file design *)",
+      "Bash(mkdir -p design_extracted)",
+      "Bash(tar -xf design -C design_extracted)",
+      "Bash(cp C:/Users/levip/.claude/projects/C--Users-levip-bulletin-subdomain/75fab44a-80f4-495b-ae2a-8f55ba495239/tool-results/design_extracted/ccav-design-system/project/fonts/HATTEN.TTF C:/Users/levip/bulletin-subdomain/src/css/fonts/HATTEN.TTF)",
+      "Bash(cp C:/Users/levip/.claude/projects/C--Users-levip-bulletin-subdomain/75fab44a-80f4-495b-ae2a-8f55ba495239/tool-results/design_extracted/ccav-design-system/project/assets/ccav-wordmark-black.png C:/Users/levip/bulletin-subdomain/src/assets/ccav-wordmark-black.png)",
+      "Bash(cp C:/Users/levip/.claude/projects/C--Users-levip-bulletin-subdomain/75fab44a-80f4-495b-ae2a-8f55ba495239/tool-results/design_extracted/ccav-design-system/project/assets/ccav-wordmark-white.png C:/Users/levip/bulletin-subdomain/src/assets/ccav-wordmark-white.png)",
+      "Bash(cp C:/Users/levip/.claude/projects/C--Users-levip-bulletin-subdomain/75fab44a-80f4-495b-ae2a-8f55ba495239/tool-results/design_extracted/ccav-design-system/project/assets/ccav-badge-black.png C:/Users/levip/bulletin-subdomain/src/assets/ccav-badge-black.png)",
+      "Bash(cp C:/Users/levip/.claude/projects/C--Users-levip-bulletin-subdomain/75fab44a-80f4-495b-ae2a-8f55ba495239/tool-results/design_extracted/ccav-design-system/project/assets/ccav-badge-white.png C:/Users/levip/bulletin-subdomain/src/assets/ccav-badge-white.png)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }

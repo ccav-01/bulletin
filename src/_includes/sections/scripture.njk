@@ -1,17 +1,19 @@
 <section id="scripture" class="section-card" aria-labelledby="scripture-heading">
   <div class="section-card__header">
-    <div class="section-card__icon" aria-hidden="true">📖</div>
+    <div class="section-card__icon">
+      <i data-lucide="book-open"></i>
+    </div>
     <h2 class="section-card__title" id="scripture-heading">This Week's Message</h2>
   </div>
 
   <div class="scripture-block">
     <p class="scripture-verse">"{{ bulletin.scripture.verse }}"</p>
-    <p class="scripture-reference">— {{ bulletin.scripture.reference }}</p>
+    <cite class="scripture-reference">— {{ bulletin.scripture.reference }}</cite>
   </div>
 
   <div class="sermon-info">
     <div>
-      <div class="sermon-label">Sermon</div>
+      <span class="sermon-label">Sermon</span>
       <div class="sermon-title">{{ bulletin.scripture.sermonTitle }}</div>
     </div>
     {% if bulletin.scripture.sermonSeries %}
