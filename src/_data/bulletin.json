@@ -33,6 +33,12 @@
   "announcements": [],
   "savetheDates": [],
   "thisWeek": [],
+  "appearance": {
+    "logoDesktop": 40,
+    "logoMobile": 38,
+    "badgeDesktop": 112,
+    "badgeMobile": 112
+  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
