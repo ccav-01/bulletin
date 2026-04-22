@@ -1100,7 +1100,7 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
 // Archive & Start New
 // ============================================================
 document.getElementById('archive-btn').addEventListener('click', async () => {
-  if (!confirm('Archive the current bulletin and start a new blank week?')) return;
+  if (!confirm('Archive the current bulletin and start a new week (content copied as a starting point)?')) return;
   const current = extractForm();
   const errors = validateUrls(current);
   if (errors.length) {
@@ -1114,12 +1114,16 @@ document.getElementById('archive-btn').addEventListener('click', async () => {
     await putFile(`src/_data/previous/${current.date}.json`, JSON.stringify(current, null, 2), `Archive bulletin for ${current.date}`);
     const nextDate = getNextSunday(current.date);
     const blank = {
-      date: nextDate, theme: '', headerImage: '', welcomeMessage: current.welcomeMessage,
+      date: nextDate, theme: current.theme, headerImage: current.headerImage, welcomeMessage: current.welcomeMessage,
       service: current.service,
-      scripture: { verse: '', reference: '', sermonTitle: '', sermonSeries: current.scripture?.sermonSeries || '' },
-      scriptureEnabled: true, announcementsEnabled: true, savetheDatesEnabled: true, thisWeekEnabled: true,
+      scripture: current.scripture || { verse: '', reference: '', sermonTitle: '', sermonSeries: '' },
+      scriptureEnabled: current.scriptureEnabled ?? true,
+      announcementsEnabled: current.announcementsEnabled ?? true,
+      savetheDatesEnabled: current.savetheDatesEnabled ?? true,
+      thisWeekEnabled: current.thisWeekEnabled ?? true,
       sectionOrder: current.sectionOrder || DEFAULT_SECTION_ORDER,
-      announcements: [], savetheDates: [], thisWeek: [], giving: current.giving, contact: current.contact,
+      announcements: current.announcements || [], savetheDates: current.savetheDates || [], thisWeek: current.thisWeek || [],
+      giving: current.giving, contact: current.contact,
     };
     await putFile(BULLETIN_PATH, JSON.stringify(blank, null, 2), `Start new bulletin for ${nextDate}`);
     state = blank; populateForm(blank);
