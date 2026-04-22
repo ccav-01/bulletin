@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-19",
-  "theme": "Acts 20:1-17",
+  "date": "2026-04-26",
+  "theme": "",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -15,11 +15,11 @@
   },
   "scripture": {
     "verse": "",
-    "reference": "Acts 20:1-17",
+    "reference": "",
     "sermonTitle": "",
     "sermonSeries": "The Book of Acts"
   },
-  "scriptureEnabled": false,
+  "scriptureEnabled": true,
   "announcementsEnabled": true,
   "savetheDatesEnabled": true,
   "thisWeekEnabled": true,
@@ -30,151 +30,9 @@
     "service",
     "scripture"
   ],
-  "announcements": [
-    {
-      "title": "Women’s Spring Luncheon",
-      "body": "Join us Saturday May 2nd at 12 noon for our Women’s Spring Luncheon. Theme is \"Beloved Bride\" from Revelation 19:7-8 with guest speaker Betina Montano from Refuge Bible Fellowship in Riverside. Cost is $20 per person. Please register and pay in the church bookstore by April 19th.",
-      "ctas": [
-        {
-          "label": "Register",
-          "url": "https://tally.so/r/kdZvg6"
-        }
-      ]
-    },
-    {
-      "title": "2026 Women’s Conference",
-      "body": "Join us Saturday June 27th from 9:30 AM to 3:30 PM for our 2026 Women’s Conference. The theme is \"Be Strong\" from Proverbs 31:25 with guest speakers Ruth Beeler, Michelle Randall, Sonia Trujillo, and our pastor’s wife Desiree Hueser. Cost is $35 per person (lunch included). Please register and pay ASAP by scanning the QR code on the flyers located in the foyer. Registration is open until all spots are full.",
-      "ctas": [
-        {
-          "label": "Register",
-          "url": "https://tally.so/r/gDLvN1"
-        }
-      ]
-    }
-  ],
-  "savetheDates": [
-    {
-      "title": "Marriage Fellowship",
-      "date": "2026-05-22",
-      "time": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "VBS",
-      "date": "2026-07-19",
-      "time": "",
-      "description": "July 19th to 23rd",
-      "ctas": []
-    },
-    {
-      "title": "Men’s Breakfast",
-      "date": "2026-05-16",
-      "time": "8:00 AM",
-      "description": "Men’s Breakfasts are Saturdays from 8:00 AM to 10:00 AM.",
-      "ctas": []
-    },
-    {
-      "title": "Men’s Breakfast",
-      "date": "2026-06-20",
-      "time": "8:00 AM",
-      "description": "Men’s Breakfasts are Saturdays from 8:00 AM to 10:00 AM.",
-      "ctas": []
-    },
-    {
-      "title": "Men’s Breakfast",
-      "date": "2026-07-18",
-      "time": "8:00 AM",
-      "description": "Men’s Breakfasts are Saturdays from 8:00 AM to 10:00 AM.",
-      "ctas": []
-    },
-    {
-      "title": "Men’s Breakfast",
-      "date": "2026-08-15",
-      "time": "8:00 AM",
-      "description": "Men’s Breakfasts are Saturdays from 8:00 AM to 10:00 AM.",
-      "ctas": []
-    },
-    {
-      "title": "Men’s Retreat at Verdugo Pines",
-      "date": "2026-09-18",
-      "time": "",
-      "description": "September 18th to 20th",
-      "ctas": []
-    }
-  ],
-  "thisWeek": [
-    {
-      "title": "Praise & Prayer",
-      "day": "Sunday",
-      "time": "7:30 AM",
-      "location": "Westminster room",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "1st Service",
-      "day": "Sunday",
-      "time": "8:30 AM",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "2nd Service",
-      "day": "Sunday",
-      "time": "10:30 AM",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Women’s Bible Study",
-      "day": "Tuesday",
-      "time": "6:30 PM",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Men’s Bible Study",
-      "day": "Tuesday",
-      "time": "6:30 PM",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Praise and Prayer",
-      "day": "Wednesday",
-      "time": "6:00 PM",
-      "location": "Westminster room",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Evening Service",
-      "day": "Wednesday",
-      "time": "7:00 PM",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Senior’s Bible Study",
-      "day": "Thursday",
-      "time": "10:00 AM",
-      "location": "",
-      "description": "",
-      "ctas": []
-    }
-  ],
-  "appearance": {
-    "logoDesktop": 47,
-    "logoMobile": 36,
-    "badgeDesktop": 142,
-    "badgeMobile": 104
-  },
+  "announcements": [],
+  "savetheDates": [],
+  "thisWeek": [],
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
