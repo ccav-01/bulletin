@@ -9,12 +9,15 @@ eleventyComputed:
   title: "{{ archivedBulletin.date | readableDate }}"
 ---
 
+{% set bulletin = archivedBulletin %}
+
 <header class="bulletin-hero">
   <div class="bulletin-hero__inner">
-    <div class="bulletin-hero__date">{{ archivedBulletin.date | readableDate }}</div>
-    <h1>{{ archivedBulletin.theme }}</h1>
-    {% if archivedBulletin.welcomeMessage %}
-    <p class="bulletin-hero__welcome">{{ archivedBulletin.welcomeMessage }}</p>
+    <img src="/assets/ccav-badge-white.png" alt="" aria-hidden="true" class="bulletin-hero__badge" />
+    <span class="bulletin-hero__date">{{ bulletin.date | readableDate }}</span>
+    <h1>{{ bulletin.theme }}</h1>
+    {% if bulletin.welcomeMessage %}
+    <p class="bulletin-hero__welcome">{{ bulletin.welcomeMessage }}</p>
     {% endif %}
     <div style="margin-top:1rem;">
       <a href="/previous/" class="btn btn--outline" style="color:#fff; border-color:rgba(255,255,255,0.5);">
@@ -24,72 +27,36 @@ eleventyComputed:
   </div>
 </header>
 
+{% set sectionOrder = bulletin.sectionOrder or ["service", "scripture", "announcements", "savetheDates", "thisWeek"] %}
+
 <div class="bulletin-layout" style="grid-template-columns: 1fr;">
   <div class="bulletin-sections">
+    {% for section in sectionOrder %}
+      {% if section === "service" %}
+        {% include "sections/service.njk" %}
+      {% elif section === "scripture" and bulletin.scriptureEnabled !== false %}
+        {% include "sections/scripture.njk" %}
+      {% elif section === "announcements" and bulletin.announcementsEnabled !== false %}
+        {% include "sections/announcements.njk" %}
+      {% elif section === "savetheDates" and bulletin.savetheDates and bulletin.savetheDates.length and bulletin.savetheDatesEnabled !== false %}
+        {% include "sections/savedates.njk" %}
+      {% elif section === "thisWeek" and bulletin.thisWeek and bulletin.thisWeek.length and bulletin.thisWeekEnabled !== false %}
+        {% include "sections/thisweek.njk" %}
+      {% endif %}
+    {% endfor %}
 
-    {% if archivedBulletin.scripture %}
-    <section class="section-card" aria-labelledby="arch-scripture">
-      <div class="section-card__header">
-        <div class="section-card__icon" aria-hidden="true">📖</div>
-        <h2 class="section-card__title" id="arch-scripture">Message</h2>
+    {% if bulletin.giving and bulletin.giving.url %}
+    <section class="section-card giving-card" aria-label="Online Giving">
+      <div class="giving-card__divider">
+        <img src="/assets/dove-paper.png" alt="" aria-hidden="true" />
       </div>
-      <div class="scripture-block">
-        <p class="scripture-verse">"{{ archivedBulletin.scripture.verse }}"</p>
-        <p class="scripture-reference">— {{ archivedBulletin.scripture.reference }}</p>
-      </div>
-      <div class="sermon-info">
-        <div>
-          <div class="sermon-label">Sermon</div>
-          <div class="sermon-title">{{ archivedBulletin.scripture.sermonTitle }}</div>
-        </div>
-        {% if archivedBulletin.scripture.sermonSeries %}
-        <span class="sermon-series">{{ archivedBulletin.scripture.sermonSeries }}</span>
-        {% endif %}
-      </div>
+      <p class="giving-card__text">
+        Thank you for your generosity and faithful support of this ministry. Your giving enables us to serve our community and proclaim the Word.
+      </p>
+      <a href="{{ bulletin.giving.url }}" target="_blank" rel="noopener" class="btn btn--ochre">
+        {{ bulletin.giving.text or "Give Online" }}
+      </a>
     </section>
     {% endif %}
-
-    {% if archivedBulletin.announcements and archivedBulletin.announcements.length %}
-    <section class="section-card" aria-labelledby="arch-announcements">
-      <div class="section-card__header">
-        <div class="section-card__icon" aria-hidden="true">📢</div>
-        <h2 class="section-card__title" id="arch-announcements">Announcements</h2>
-      </div>
-      <ul class="announcements-list">
-        {% for item in archivedBulletin.announcements %}
-        <li class="announcement-item">
-          <div class="announcement-item__title">{{ item.title }}</div>
-          {% if item.date %}<div class="announcement-item__date">{{ item.date | readableDate }}</div>{% endif %}
-          <p class="announcement-item__body">{{ item.body }}</p>
-        </li>
-        {% endfor %}
-      </ul>
-    </section>
-    {% endif %}
-
-    {% if archivedBulletin.events and archivedBulletin.events.length %}
-    <section class="section-card" aria-labelledby="arch-events">
-      <div class="section-card__header">
-        <div class="section-card__icon" aria-hidden="true">📅</div>
-        <h2 class="section-card__title" id="arch-events">Events</h2>
-      </div>
-      <ul class="events-list">
-        {% for event in archivedBulletin.events %}
-        <li class="event-item">
-          <div class="event-item__date-block">
-            <span class="event-item__month">{{ event.date.split('-')[1] }}</span>
-            <span class="event-item__day">{{ event.date.split('-')[2] | int }}</span>
-          </div>
-          <div class="event-item__content">
-            <div class="event-item__title">{{ event.title }}</div>
-            {% if event.time %}<div class="event-item__time">🕐 {{ event.time }}</div>{% endif %}
-            {% if event.description %}<p class="event-item__desc">{{ event.description }}</p>{% endif %}
-          </div>
-        </li>
-        {% endfor %}
-      </ul>
-    </section>
-    {% endif %}
-
   </div>
 </div>
