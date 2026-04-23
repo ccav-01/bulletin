@@ -12,7 +12,7 @@
     <li class="announcement-item">
       {% if item.imageUrl %}
       <div class="item-image item-image--16x9">
-        <img src="{{ item.imageUrl }}" alt="{{ item.title }}" loading="lazy" />
+        <img src="{{ item.imageUrl }}" alt="{{ item.title }}" loading="lazy"{% if item.imageBlendMode %} style="mix-blend-mode: {{ item.imageBlendMode }}"{% endif %} />
       </div>
       {% endif %}
       <div class="announcement-item__header">
