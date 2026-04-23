@@ -13,6 +13,11 @@
 
   {% if bulletin.scripture.sermonTitle or bulletin.scripture.sermonSeries %}
   <div class="sermon-info">
+    {% if bulletin.scripture.imageUrl %}
+    <div class="item-image item-image--1x1">
+      <img src="{{ bulletin.scripture.imageUrl }}" alt="{{ bulletin.scripture.sermonSeries or bulletin.scripture.sermonTitle }}" loading="lazy" />
+    </div>
+    {% endif %}
     {% if bulletin.scripture.sermonTitle %}
     <div>
       <span class="sermon-label">Sermon</span>

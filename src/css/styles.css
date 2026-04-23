@@ -614,6 +614,39 @@ h3 {
   margin-bottom: 0;
 }
 
+/* ---- Item images (announcements, save the dates, scripture) */
+.item-image { overflow: hidden; }
+.item-image--16x9 { position: relative; padding-bottom: 56.25%; }
+.item-image--16x9 img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.announcement-item .item-image--16x9 {
+  margin: calc(-1 * var(--space-4)) calc(-1 * var(--space-5)) var(--space-4);
+  border-radius: var(--r-md) var(--r-md) 0 0;
+}
+.item-image--1x1 {
+  position: relative;
+  width: 160px;
+  flex-shrink: 0;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  align-self: flex-start;
+}
+.item-image--1x1::before { content: ''; display: block; padding-bottom: 100%; }
+.item-image--1x1 img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* ---- Events Section --------------------------------------- */
 .events-list { display: flex; flex-direction: column; gap: var(--space-4); }
 .event-item {
@@ -624,6 +657,7 @@ h3 {
   overflow: hidden;
   background: var(--paper);
 }
+.event-item__image { grid-column: 1 / -1; }
 .event-item__date-block {
   background: var(--ink);
   color: var(--paper);
@@ -946,6 +980,7 @@ h3 {
   .service-grid { grid-template-columns: 1fr; }
   .announcement-item__header { flex-direction: column; gap: 4px; }
   .bulletin-hero h1 { font-size: 2.2rem; }
+  .item-image--1x1 { width: 100%; }
 }
 
 /* ---- Print ------------------------------------------------ */
