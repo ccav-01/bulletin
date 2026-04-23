@@ -19,7 +19,7 @@
     "sermonTitle": "",
     "sermonSeries": "The Book of Acts"
   },
-  "scriptureEnabled": true,
+  "scriptureEnabled": false,
   "announcementsEnabled": true,
   "savetheDatesEnabled": true,
   "thisWeekEnabled": true,
@@ -44,6 +44,7 @@
     {
       "title": "2026 Women’s Conference",
       "body": "Join us Saturday June 27th from 9:30 AM to 3:30 PM for our 2026 Women’s Conference. The theme is \"Be Strong\" from Proverbs 31:25 with guest speakers Ruth Beeler, Michelle Randall, Sonia Trujillo, and our pastor’s wife Desiree Hueser. Cost is $35 per person (lunch included). Please register and pay ASAP by scanning the QR code on the flyers located in the foyer. Registration is open until all spots are full.",
+      "imageUrl": "/assets/images/uploads/ann-conference-cover-1776967035524.jpg",
       "ctas": [
         {
           "label": "Register",
