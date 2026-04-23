@@ -211,6 +211,10 @@
     .img-remove-btn { margin-top: 0.4rem; font-size: 0.75rem; padding: 0.25rem 0.6rem; background: none; border: 1px solid var(--danger); color: var(--danger); border-radius: var(--radius); cursor: pointer; }
     .img-remove-btn:hover { background: var(--danger); color: #fff; }
     .img-url-display { font-size: 0.68rem; color: var(--muted); margin-top: 0.2rem; word-break: break-all; }
+    .img-blend-row { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+    .img-blend-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); white-space: nowrap; flex-shrink: 0; }
+    .img-blend-select { font-size: 0.8rem; padding: 0.3rem 0.5rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); flex: 1; cursor: pointer; }
+    .img-blend-select:focus { outline: none; border-color: var(--ochre); box-shadow: 0 0 0 3px rgba(200,146,46,0.18); }
   </style>
 </head>
 <body>
@@ -750,7 +754,10 @@ function populateForm(data) {
   document.getElementById('f-reference').value    = data.scripture?.reference || '';
   document.getElementById('f-sermon-title').value = data.scripture?.sermonTitle || '';
   document.getElementById('f-sermon-series').value= data.scripture?.sermonSeries || '';
-  if (scriptureImgWidget) scriptureImgWidget.setImageUrl(data.scripture?.imageUrl || '');
+  if (scriptureImgWidget) {
+    scriptureImgWidget.setImageUrl(data.scripture?.imageUrl || '');
+    scriptureImgWidget.setBlendMode(data.scripture?.imageBlendMode || '');
+  }
   document.getElementById('f-scripture-enabled').checked    = data.scriptureEnabled !== false;
   document.getElementById('f-announcements-enabled').checked = data.announcementsEnabled !== false;
   document.getElementById('f-savedates-enabled').checked     = data.savetheDatesEnabled !== false;
@@ -796,8 +803,10 @@ function extractForm() {
         reference: document.getElementById('f-reference').value,
         sermonTitle: document.getElementById('f-sermon-title').value,
         sermonSeries: document.getElementById('f-sermon-series').value },
-      scriptureImgWidget && scriptureImgWidget.getImageUrl()
-        ? { imageUrl: scriptureImgWidget.getImageUrl() } : {}
+      scriptureImgWidget && scriptureImgWidget.getImageUrl() ? {
+        imageUrl: scriptureImgWidget.getImageUrl(),
+        ...(scriptureImgWidget.getBlendMode() ? { imageBlendMode: scriptureImgWidget.getBlendMode() } : {})
+      } : {}
     ),
     scriptureEnabled:     document.getElementById('f-scripture-enabled').checked,
     announcementsEnabled: document.getElementById('f-announcements-enabled').checked,
@@ -942,7 +951,7 @@ const IMG_ACCEPTED    = ['image/jpeg', 'image/png', 'image/webp'];
 const IMG_MAX_BYTES   = 500 * 1024;
 const IMG_EXT_MAP     = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
 
-function makeImageUpload(aspectClass, hintText, slugPrefix) {
+function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg) {
   const wrap = document.createElement('div');
   wrap.className = 'img-upload-row';
   wrap.innerHTML = `
@@ -955,28 +964,47 @@ function makeImageUpload(aspectClass, hintText, slugPrefix) {
       Click or drag to upload &middot; JPG/PNG/WebP &middot; max 500 KB
     </div>
     <div class="img-preview-wrap">
-      <div class="img-preview-aspect ${escHtml(aspectClass)}">
+      <div class="img-preview-aspect ${escHtml(aspectClass)}" style="${previewBg ? 'background:' + escHtml(previewBg) + ';' : ''}">
         <img src="" alt="Preview" />
         <div class="img-uploading-overlay">Uploading&hellip;</div>
       </div>
       <div class="img-url-display"></div>
       <button class="img-remove-btn" type="button">Remove image</button>
     </div>
+    <div class="img-blend-row">
+      <span class="img-blend-label">Blend</span>
+      <select class="img-blend-select">
+        <option value="normal">Normal</option>
+        <option value="multiply">Multiply — fade white</option>
+        <option value="screen">Screen — fade black</option>
+        <option value="overlay">Overlay</option>
+        <option value="darken">Darken</option>
+        <option value="lighten">Lighten</option>
+      </select>
+    </div>
   `;
 
   let currentUrl = '';
-  const fileInput   = wrap.querySelector('input[type="file"]');
-  const previewWrap = wrap.querySelector('.img-preview-wrap');
-  const previewImg  = wrap.querySelector('.img-preview-aspect img');
-  const overlay     = wrap.querySelector('.img-uploading-overlay');
-  const urlDisplay  = wrap.querySelector('.img-url-display');
-  const removeBtn   = wrap.querySelector('.img-remove-btn');
+  const fileInput    = wrap.querySelector('input[type="file"]');
+  const previewWrap  = wrap.querySelector('.img-preview-wrap');
+  const previewImg   = wrap.querySelector('.img-preview-aspect img');
+  const overlay      = wrap.querySelector('.img-uploading-overlay');
+  const urlDisplay   = wrap.querySelector('.img-url-display');
+  const removeBtn    = wrap.querySelector('.img-remove-btn');
+  const blendSelect  = wrap.querySelector('.img-blend-select');
 
-  function showPreview(url) {
+  function applyBlend() {
+    const v = blendSelect.value;
+    previewImg.style.mixBlendMode = (v && v !== 'normal') ? v : '';
+  }
+  blendSelect.addEventListener('change', applyBlend);
+
+  function showPreview(url, displaySrc) {
     currentUrl = url;
-    previewImg.src = url;
+    previewImg.src = displaySrc || url;
     urlDisplay.textContent = url;
     previewWrap.classList.add('has-image');
+    applyBlend();
   }
   function clearPreview() {
     currentUrl = '';
@@ -998,6 +1026,10 @@ function makeImageUpload(aspectClass, hintText, slugPrefix) {
     const uploadPath = `${IMG_UPLOAD_PATH}/${filename}`;
     const publicUrl  = `/assets/images/uploads/${filename}`;
 
+    // Show local blob immediately so preview works before the site rebuilds
+    const blobUrl = URL.createObjectURL(file);
+    showPreview(publicUrl, blobUrl);
+
     overlay.classList.add('active');
     setStatus('Uploading image…', 'info', '⏳');
     try {
@@ -1015,9 +1047,10 @@ function makeImageUpload(aspectClass, hintText, slugPrefix) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      showPreview(publicUrl);
-      setStatus('Image uploaded. It will appear after the next publish.', 'success', '✅');
+      setStatus('Image uploaded. It will appear on the bulletin after the next publish.', 'success', '✅');
     } catch (err) {
+      clearPreview();
+      URL.revokeObjectURL(blobUrl);
       setStatus('Image upload failed: ' + err.message, 'error', '❌');
     } finally {
       overlay.classList.remove('active');
@@ -1028,8 +1061,10 @@ function makeImageUpload(aspectClass, hintText, slugPrefix) {
   fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
   removeBtn.addEventListener('click', () => clearPreview());
 
-  wrap.getImageUrl = () => currentUrl;
-  wrap.setImageUrl = (url) => { if (url) showPreview(url); else clearPreview(); };
+  wrap.getImageUrl   = () => currentUrl;
+  wrap.getBlendMode  = () => blendSelect.value === 'normal' ? '' : blendSelect.value;
+  wrap.setImageUrl   = (url) => { if (url) showPreview(url); else clearPreview(); };
+  wrap.setBlendMode  = (v) => { blendSelect.value = v || 'normal'; applyBlend(); };
   return wrap;
 }
 
@@ -1054,12 +1089,14 @@ function makeAnnouncementItem(item) {
   `;
   const ctasEl = makeCtas(item.ctas || []);
   el.appendChild(ctasEl);
-  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'ann');
+  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'ann', '#F7F3EC');
   if (item.imageUrl) imgWidget.setImageUrl(item.imageUrl);
+  if (item.imageBlendMode) imgWidget.setBlendMode(item.imageBlendMode);
   el.appendChild(imgWidget);
   el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
   el._getCtas = () => ctasEl.getCtas();
   el._getImageUrl = () => imgWidget.getImageUrl();
+  el._getImageBlendMode = () => imgWidget.getBlendMode();
   return el;
 }
 function renderAnnouncements(items) {
@@ -1071,11 +1108,16 @@ function renderAnnouncements(items) {
 }
 function getAnnouncementsFromUI() {
   return [...document.querySelectorAll('#announcements-list .list-item')].map(el => ({
-    title:    el.querySelector('.ann-title').value,
-    body:     el.querySelector('.ann-body').value,
-    imageUrl: el._getImageUrl ? el._getImageUrl() : '',
-    ctas:     el._getCtas ? el._getCtas() : [],
-  })).map(a => { if (!a.imageUrl) { const { imageUrl, ...rest } = a; return rest; } return a; });
+    title:           el.querySelector('.ann-title').value,
+    body:            el.querySelector('.ann-body').value,
+    imageUrl:        el._getImageUrl ? el._getImageUrl() : '',
+    imageBlendMode:  el._getImageBlendMode ? el._getImageBlendMode() : '',
+    ctas:            el._getCtas ? el._getCtas() : [],
+  })).map(a => {
+    if (!a.imageUrl) { const { imageUrl, imageBlendMode, ...rest } = a; return rest; }
+    if (!a.imageBlendMode) { const { imageBlendMode, ...rest } = a; return rest; }
+    return a;
+  });
 }
 document.getElementById('add-announcement-btn').addEventListener('click', () => {
   document.getElementById('announcements-list').appendChild(makeAnnouncementItem({}));
@@ -1106,12 +1148,14 @@ function makeSavedateItem(item) {
   `;
   const ctasEl = makeCtas(item.ctas || []);
   el.appendChild(ctasEl);
-  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'sd');
+  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'sd', '#F7F3EC');
   if (item.imageUrl) imgWidget.setImageUrl(item.imageUrl);
+  if (item.imageBlendMode) imgWidget.setBlendMode(item.imageBlendMode);
   el.appendChild(imgWidget);
   el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
   el._getCtas = () => ctasEl.getCtas();
   el._getImageUrl = () => imgWidget.getImageUrl();
+  el._getImageBlendMode = () => imgWidget.getBlendMode();
   return el;
 }
 function renderSavedates(items) {
@@ -1123,13 +1167,18 @@ function renderSavedates(items) {
 }
 function getSavedatesFromUI() {
   return [...document.querySelectorAll('#savedates-list .list-item')].map(el => ({
-    title:       el.querySelector('.sd-title').value,
-    date:        el.querySelector('.sd-date').value,
-    time:        el.querySelector('.sd-time').value,
-    description: el.querySelector('.sd-desc').value,
-    imageUrl:    el._getImageUrl ? el._getImageUrl() : '',
-    ctas:        el._getCtas ? el._getCtas() : [],
-  })).map(s => { if (!s.imageUrl) { const { imageUrl, ...rest } = s; return rest; } return s; });
+    title:          el.querySelector('.sd-title').value,
+    date:           el.querySelector('.sd-date').value,
+    time:           el.querySelector('.sd-time').value,
+    description:    el.querySelector('.sd-desc').value,
+    imageUrl:       el._getImageUrl ? el._getImageUrl() : '',
+    imageBlendMode: el._getImageBlendMode ? el._getImageBlendMode() : '',
+    ctas:           el._getCtas ? el._getCtas() : [],
+  })).map(s => {
+    if (!s.imageUrl) { const { imageUrl, imageBlendMode, ...rest } = s; return rest; }
+    if (!s.imageBlendMode) { const { imageBlendMode, ...rest } = s; return rest; }
+    return s;
+  });
 }
 document.getElementById('add-savedate-btn').addEventListener('click', () => {
   document.getElementById('savedates-list').appendChild(makeSavedateItem({}));
@@ -1573,7 +1622,7 @@ document.getElementById('download-template-btn').addEventListener('click', () =>
 // ============================================================
 // Scripture image widget (singleton — mounted once on load)
 // ============================================================
-scriptureImgWidget = makeImageUpload('img-preview-aspect--1x1', '1:1 square · 800×800 · max 500 KB', 'sermon');
+scriptureImgWidget = makeImageUpload('img-preview-aspect--1x1', '1:1 square · 800×800 · max 500 KB', 'sermon', '#EEE8DC');
 document.getElementById('scripture-img-widget-mount').appendChild(scriptureImgWidget);
 </script>
 </body>

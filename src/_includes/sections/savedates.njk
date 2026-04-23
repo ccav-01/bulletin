@@ -12,7 +12,7 @@
     <li class="event-item">
       {% if event.imageUrl %}
       <div class="event-item__image item-image item-image--16x9">
-        <img src="{{ event.imageUrl }}" alt="{{ event.title }}" loading="lazy" />
+        <img src="{{ event.imageUrl }}" alt="{{ event.title }}" loading="lazy"{% if event.imageBlendMode %} style="mix-blend-mode: {{ event.imageBlendMode }}"{% endif %} />
       </div>
       {% endif %}
       <div class="event-item__date-block">

@@ -15,7 +15,7 @@
   <div class="sermon-info">
     {% if bulletin.scripture.imageUrl %}
     <div class="item-image item-image--1x1">
-      <img src="{{ bulletin.scripture.imageUrl }}" alt="{{ bulletin.scripture.sermonSeries or bulletin.scripture.sermonTitle }}" loading="lazy" />
+      <img src="{{ bulletin.scripture.imageUrl }}" alt="{{ bulletin.scripture.sermonSeries or bulletin.scripture.sermonTitle }}" loading="lazy"{% if bulletin.scripture.imageBlendMode %} style="mix-blend-mode: {{ bulletin.scripture.imageBlendMode }}"{% endif %} />
     </div>
     {% endif %}
     {% if bulletin.scripture.sermonTitle %}
