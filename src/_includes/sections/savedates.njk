@@ -10,6 +10,11 @@
   <ul class="events-list">
     {% for event in bulletin.savetheDates %}
     <li class="event-item">
+      {% if event.imageUrl %}
+      <div class="event-item__image item-image item-image--16x9">
+        <img src="{{ event.imageUrl }}" alt="{{ event.title }}" loading="lazy" />
+      </div>
+      {% endif %}
       <div class="event-item__date-block">
         <span class="event-item__month">{{ event.date | shortMonth }}</span>
         <span class="event-item__day">{{ event.date.split('-')[2] | int }}</span>

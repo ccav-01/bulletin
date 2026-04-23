@@ -10,6 +10,11 @@
   <ul class="announcements-list">
     {% for item in bulletin.announcements %}
     <li class="announcement-item">
+      {% if item.imageUrl %}
+      <div class="item-image item-image--16x9">
+        <img src="{{ item.imageUrl }}" alt="{{ item.title }}" loading="lazy" />
+      </div>
+      {% endif %}
       <div class="announcement-item__header">
         <div class="announcement-item__title">{{ item.title }}</div>
       </div>

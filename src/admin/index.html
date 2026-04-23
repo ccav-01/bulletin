@@ -192,6 +192,25 @@
       .cta-row { grid-template-columns: 1fr auto; }
       .cta-row input:nth-child(2) { display: none; }
     }
+
+    /* ---- Image upload widget ---- */
+    .img-upload-row { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px dashed var(--border); }
+    .img-upload-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.4rem; display: flex; align-items: center; justify-content: space-between; }
+    .img-upload-hint { font-size: 0.7rem; color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
+    .img-dropzone { border: 2px dashed var(--border); border-radius: var(--radius); padding: 0.6rem 0.75rem; text-align: center; font-size: 0.8rem; color: var(--muted); cursor: pointer; transition: border-color 0.15s, background 0.15s; position: relative; }
+    .img-dropzone:hover { border-color: var(--ochre); background: rgba(200,146,46,0.05); }
+    .img-dropzone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .img-preview-wrap { margin-top: 0.5rem; display: none; }
+    .img-preview-wrap.has-image { display: block; }
+    .img-preview-aspect { position: relative; width: 100%; border-radius: var(--radius); overflow: hidden; background: var(--paper-2); }
+    .img-preview-aspect--16x9 { padding-bottom: 56.25%; }
+    .img-preview-aspect--1x1 { padding-bottom: 100%; max-width: 160px; }
+    .img-preview-aspect img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .img-uploading-overlay { position: absolute; inset: 0; background: rgba(247,243,236,0.85); align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600; color: var(--muted); display: none; }
+    .img-uploading-overlay.active { display: flex; }
+    .img-remove-btn { margin-top: 0.4rem; font-size: 0.75rem; padding: 0.25rem 0.6rem; background: none; border: 1px solid var(--danger); color: var(--danger); border-radius: var(--radius); cursor: pointer; }
+    .img-remove-btn:hover { background: var(--danger); color: #fff; }
+    .img-url-display { font-size: 0.68rem; color: var(--muted); margin-top: 0.2rem; word-break: break-all; }
   </style>
 </head>
 <body>
@@ -381,6 +400,7 @@
             <label for="f-sermon-series">Sermon Series <span style="font-weight:400;text-transform:none;">(optional)</span></label>
             <input type="text" id="f-sermon-series" />
           </div>
+          <div id="scripture-img-widget-mount"></div>
         </div>
       </section>
 
@@ -546,6 +566,7 @@ const SESSION_KEY    = 'bulletin_admin_token';
 let state = {};
 let githubToken = '';
 let editingArchivePath = null;
+let scriptureImgWidget = null;
 
 // ============================================================
 // GitHub API
@@ -729,6 +750,7 @@ function populateForm(data) {
   document.getElementById('f-reference').value    = data.scripture?.reference || '';
   document.getElementById('f-sermon-title').value = data.scripture?.sermonTitle || '';
   document.getElementById('f-sermon-series').value= data.scripture?.sermonSeries || '';
+  if (scriptureImgWidget) scriptureImgWidget.setImageUrl(data.scripture?.imageUrl || '');
   document.getElementById('f-scripture-enabled').checked    = data.scriptureEnabled !== false;
   document.getElementById('f-announcements-enabled').checked = data.announcementsEnabled !== false;
   document.getElementById('f-savedates-enabled').checked     = data.savetheDatesEnabled !== false;
@@ -769,12 +791,14 @@ function extractForm() {
       address: document.getElementById('f-address').value,
       livestream: document.getElementById('f-livestream').value,
     },
-    scripture: {
-      verse: document.getElementById('f-verse').value,
-      reference: document.getElementById('f-reference').value,
-      sermonTitle: document.getElementById('f-sermon-title').value,
-      sermonSeries: document.getElementById('f-sermon-series').value,
-    },
+    scripture: Object.assign(
+      { verse: document.getElementById('f-verse').value,
+        reference: document.getElementById('f-reference').value,
+        sermonTitle: document.getElementById('f-sermon-title').value,
+        sermonSeries: document.getElementById('f-sermon-series').value },
+      scriptureImgWidget && scriptureImgWidget.getImageUrl()
+        ? { imageUrl: scriptureImgWidget.getImageUrl() } : {}
+    ),
     scriptureEnabled:     document.getElementById('f-scripture-enabled').checked,
     announcementsEnabled: document.getElementById('f-announcements-enabled').checked,
     savetheDatesEnabled:  document.getElementById('f-savedates-enabled').checked,
@@ -911,6 +935,105 @@ function makeCtas(ctas) {
 }
 
 // ============================================================
+// Image upload widget
+// ============================================================
+const IMG_UPLOAD_PATH = 'src/assets/images/uploads';
+const IMG_ACCEPTED    = ['image/jpeg', 'image/png', 'image/webp'];
+const IMG_MAX_BYTES   = 500 * 1024;
+const IMG_EXT_MAP     = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
+
+function makeImageUpload(aspectClass, hintText, slugPrefix) {
+  const wrap = document.createElement('div');
+  wrap.className = 'img-upload-row';
+  wrap.innerHTML = `
+    <div class="img-upload-label">
+      Image <span style="font-weight:400;text-transform:none;">(optional)</span>
+      <span class="img-upload-hint">${escHtml(hintText)}</span>
+    </div>
+    <div class="img-dropzone" role="button" tabindex="0" aria-label="Upload image">
+      <input type="file" accept="image/jpeg,image/png,image/webp" />
+      Click or drag to upload &middot; JPG/PNG/WebP &middot; max 500 KB
+    </div>
+    <div class="img-preview-wrap">
+      <div class="img-preview-aspect ${escHtml(aspectClass)}">
+        <img src="" alt="Preview" />
+        <div class="img-uploading-overlay">Uploading&hellip;</div>
+      </div>
+      <div class="img-url-display"></div>
+      <button class="img-remove-btn" type="button">Remove image</button>
+    </div>
+  `;
+
+  let currentUrl = '';
+  const fileInput   = wrap.querySelector('input[type="file"]');
+  const previewWrap = wrap.querySelector('.img-preview-wrap');
+  const previewImg  = wrap.querySelector('.img-preview-aspect img');
+  const overlay     = wrap.querySelector('.img-uploading-overlay');
+  const urlDisplay  = wrap.querySelector('.img-url-display');
+  const removeBtn   = wrap.querySelector('.img-remove-btn');
+
+  function showPreview(url) {
+    currentUrl = url;
+    previewImg.src = url;
+    urlDisplay.textContent = url;
+    previewWrap.classList.add('has-image');
+  }
+  function clearPreview() {
+    currentUrl = '';
+    previewImg.src = '';
+    urlDisplay.textContent = '';
+    previewWrap.classList.remove('has-image');
+  }
+
+  async function handleFile(file) {
+    if (!IMG_ACCEPTED.includes(file.type)) {
+      setStatus('Image must be JPG, PNG, or WebP.', 'error', '❌'); return;
+    }
+    if (file.size > IMG_MAX_BYTES) {
+      setStatus(`Image too large (${(file.size/1024).toFixed(0)} KB). Maximum is 500 KB.`, 'error', '❌'); return;
+    }
+    const ext      = IMG_EXT_MAP[file.type] || 'jpg';
+    const baseName = file.name.replace(/\.[^.]+$/, '').replace(/[^a-z0-9]+/gi, '-').toLowerCase().slice(0, 40);
+    const filename = `${slugPrefix}-${baseName}-${Date.now()}.${ext}`;
+    const uploadPath = `${IMG_UPLOAD_PATH}/${filename}`;
+    const publicUrl  = `/assets/images/uploads/${filename}`;
+
+    overlay.classList.add('active');
+    setStatus('Uploading image…', 'info', '⏳');
+    try {
+      const arrayBuffer = await file.arrayBuffer();
+      const bytes = new Uint8Array(arrayBuffer);
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+      const b64 = btoa(binary);
+
+      const sha = await getFileSha(uploadPath);
+      const body = { message: `Upload image: ${filename}`, content: b64, branch: GITHUB_BRANCH };
+      if (sha) body.sha = sha;
+      await ghFetch(`contents/${uploadPath}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      showPreview(publicUrl);
+      setStatus('Image uploaded. It will appear after the next publish.', 'success', '✅');
+    } catch (err) {
+      setStatus('Image upload failed: ' + err.message, 'error', '❌');
+    } finally {
+      overlay.classList.remove('active');
+      fileInput.value = '';
+    }
+  }
+
+  fileInput.addEventListener('change', e => { if (e.target.files[0]) handleFile(e.target.files[0]); });
+  removeBtn.addEventListener('click', () => clearPreview());
+
+  wrap.getImageUrl = () => currentUrl;
+  wrap.setImageUrl = (url) => { if (url) showPreview(url); else clearPreview(); };
+  return wrap;
+}
+
+// ============================================================
 // Announcements
 // ============================================================
 let annSortable;
@@ -931,8 +1054,12 @@ function makeAnnouncementItem(item) {
   `;
   const ctasEl = makeCtas(item.ctas || []);
   el.appendChild(ctasEl);
+  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'ann');
+  if (item.imageUrl) imgWidget.setImageUrl(item.imageUrl);
+  el.appendChild(imgWidget);
   el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
   el._getCtas = () => ctasEl.getCtas();
+  el._getImageUrl = () => imgWidget.getImageUrl();
   return el;
 }
 function renderAnnouncements(items) {
@@ -944,10 +1071,11 @@ function renderAnnouncements(items) {
 }
 function getAnnouncementsFromUI() {
   return [...document.querySelectorAll('#announcements-list .list-item')].map(el => ({
-    title: el.querySelector('.ann-title').value,
-    body:  el.querySelector('.ann-body').value,
-    ctas:  el._getCtas ? el._getCtas() : [],
-  }));
+    title:    el.querySelector('.ann-title').value,
+    body:     el.querySelector('.ann-body').value,
+    imageUrl: el._getImageUrl ? el._getImageUrl() : '',
+    ctas:     el._getCtas ? el._getCtas() : [],
+  })).map(a => { if (!a.imageUrl) { const { imageUrl, ...rest } = a; return rest; } return a; });
 }
 document.getElementById('add-announcement-btn').addEventListener('click', () => {
   document.getElementById('announcements-list').appendChild(makeAnnouncementItem({}));
@@ -978,8 +1106,12 @@ function makeSavedateItem(item) {
   `;
   const ctasEl = makeCtas(item.ctas || []);
   el.appendChild(ctasEl);
+  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'sd');
+  if (item.imageUrl) imgWidget.setImageUrl(item.imageUrl);
+  el.appendChild(imgWidget);
   el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
   el._getCtas = () => ctasEl.getCtas();
+  el._getImageUrl = () => imgWidget.getImageUrl();
   return el;
 }
 function renderSavedates(items) {
@@ -995,8 +1127,9 @@ function getSavedatesFromUI() {
     date:        el.querySelector('.sd-date').value,
     time:        el.querySelector('.sd-time').value,
     description: el.querySelector('.sd-desc').value,
+    imageUrl:    el._getImageUrl ? el._getImageUrl() : '',
     ctas:        el._getCtas ? el._getCtas() : [],
-  }));
+  })).map(s => { if (!s.imageUrl) { const { imageUrl, ...rest } = s; return rest; } return s; });
 }
 document.getElementById('add-savedate-btn').addEventListener('click', () => {
   document.getElementById('savedates-list').appendChild(makeSavedateItem({}));
@@ -1116,7 +1249,7 @@ document.getElementById('archive-btn').addEventListener('click', async () => {
     const blank = {
       date: nextDate, theme: current.theme, headerImage: current.headerImage, welcomeMessage: current.welcomeMessage,
       service: current.service,
-      scripture: current.scripture || { verse: '', reference: '', sermonTitle: '', sermonSeries: '' },
+      scripture: Object.assign({}, current.scripture || { verse: '', reference: '', sermonTitle: '', sermonSeries: '' }, { imageUrl: '' }),
       scriptureEnabled: current.scriptureEnabled ?? true,
       announcementsEnabled: current.announcementsEnabled ?? true,
       savetheDatesEnabled: current.savetheDatesEnabled ?? true,
@@ -1436,6 +1569,12 @@ document.getElementById('download-template-btn').addEventListener('click', () =>
   document.body.appendChild(a); a.click();
   document.body.removeChild(a); URL.revokeObjectURL(url);
 });
+
+// ============================================================
+// Scripture image widget (singleton — mounted once on load)
+// ============================================================
+scriptureImgWidget = makeImageUpload('img-preview-aspect--1x1', '1:1 square · 800×800 · max 500 KB', 'sermon');
+document.getElementById('scripture-img-widget-mount').appendChild(scriptureImgWidget);
 </script>
 </body>
 </html>
