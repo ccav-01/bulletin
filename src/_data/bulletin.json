@@ -33,13 +33,28 @@
   "announcements": [
     {
       "title": "Women’s Spring Luncheon",
-      "body": "Join us Saturday May 2nd at 12 noon for our Women’s Spring Luncheon. Theme is \"Beloved Bride\" from Revelation 19:7-8 with guest speaker Betina Montano from Refuge Bible Fellowship in Riverside. Cost is $20 per person. Please register and pay in the church bookstore by April 19th.",
+      "body": "Join us May 2nd at 12 noon for our Women’s Spring Luncheon. Theme is \"Beloved Bride\" from Revelation 19:7-8 with guest speaker Betina Montano from Refuge Bible Fellowship in Riverside. Cost is $20 per person. Please register and pay in the church bookstore by April 19th.",
       "ctas": [
         {
           "label": "Register",
           "url": "https://tally.so/r/kdZvg6"
         }
       ]
+    },
+    {
+      "title": "Men’s Breakfast",
+      "body": "Men, come out on Saturday May 16th for our men’s breakfast from 8 AM - 10 AM here at the church. There will be food, fellowship and the Word brought to us by guest speaker Rich Smith from Calvary Chapel Frazier Park. Please sign up in the foyer!",
+      "ctas": []
+    },
+    {
+      "title": "Marriage Couples Fellowship",
+      "body": "Come Friday May 22nd at 7 Pm here at the church and be refreshed in your marriage as we study the Word, fellowship with other married couples, and share a meal together. This is a potluck event so please bring a dish to share. Childcare will not be provided so please plan accordingly. Sign up sheet and flyers in the foyer.\n",
+      "ctas": []
+    },
+    {
+      "title": "Paul Deaville’s Celebration of life ",
+      "body": "Come out and join us Saturday May 23rd at 11 AM to celebrate the life and the homecoming of our beloved brother Paul Deaville and his love for Jesus which has impacted so many members of this body. \n\n",
+      "ctas": []
     },
     {
       "title": "2026 Women’s Conference",
@@ -52,11 +67,6 @@
           "url": "https://tally.so/r/gDLvN1"
         }
       ]
-    },
-    {
-      "title": "Marriage Couples Fellowship",
-      "body": "Come Friday May 22nd at 7 Pm here at the church and be refreshed in your marriage as we study the Word, fellowship with other married couples, and share a meal together. This is a potluck event so please bring a dish to share. Childcare will not be provided so please plan accordingly. Sign up sheet and flyers in the foyer.\n",
-      "ctas": []
     }
   ],
   "savetheDates": [
@@ -68,16 +78,9 @@
       "ctas": []
     },
     {
-      "title": "Men’s Breakfast",
-      "date": "2026-05-16",
-      "time": "8:00 AM",
-      "description": "Men’s Breakfasts are Saturdays from 8:00 AM to 10:00 AM.",
-      "ctas": []
-    },
-    {
-      "title": "Men’s Breakfast",
+      "title": "Men's Breakfast ",
       "date": "2026-06-20",
-      "time": "8:00 AM",
+      "time": "8 AM ",
       "description": "Men’s Breakfasts are Saturdays from 8:00 AM to 10:00 AM.",
       "ctas": []
     },
