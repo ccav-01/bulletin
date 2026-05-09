@@ -1,5 +1,5 @@
 {
-  "date": "2026-05-03",
+  "date": "2026-05-10",
   "theme": "",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
@@ -17,7 +17,8 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "The Book of Acts"
+    "sermonSeries": "The Book of Acts",
+    "imageUrl": ""
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -172,12 +173,6 @@
       "ctas": []
     }
   ],
-  "appearance": {
-    "logoDesktop": 40,
-    "logoMobile": 38,
-    "badgeDesktop": 112,
-    "badgeMobile": 112
-  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
