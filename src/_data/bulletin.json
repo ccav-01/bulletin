@@ -1,6 +1,6 @@
 {
   "date": "2026-05-17",
-  "theme": "Acts 21:1-16",
+  "theme": "Acts 21:1-14",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -17,8 +17,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "The Book of Acts",
-    "imageUrl": ""
+    "sermonSeries": "The Book of Acts"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -33,8 +32,8 @@
   ],
   "announcements": [
     {
-      "title": "Men’s Breakfast",
-      "body": "Men, come out on Saturday, May 16th for our Men’s Breakfast from 8:00 AM to 10:00 AM here at the church. There will be food, fellowship, and the Word brought to us by guest speaker Rich Smith from Calvary Chapel Frazier Park. Please sign up in the foyer!",
+      "title": "Men's Breakfast",
+      "body": "Men, come out on Saturday May 16th for our men’s breakfast from 8 AM - 10 AM here at the church. There will be food, fellowship and the Word brought to us by guest speaker Rich Smith from Calvary Chapel Frazier Park. Please sign up in the foyer!",
       "ctas": []
     },
     {
@@ -45,6 +44,11 @@
     {
       "title": "Paul Deaville’s Celebration of Life",
       "body": "Come and join us Saturday, May 23rd at 11:00 AM to celebrate the life and homecoming of our beloved brother Paul Deaville and his love for Jesus, which has impacted so many members of this body.",
+      "ctas": []
+    },
+    {
+      "title": "Youth Hiking Trip",
+      "body": "Junior High and High Schoolers come join us Saturday June 13th as we hike the “ Trail Of The Hundred Giants” in the Sequoias. We will meet at the church at 7 AM. Sign up in the Foyer by June 7th . A 2026 Youth Emergency Form is required if one has not already been filled out. More info on the flyer in the foyer",
       "ctas": []
     },
     {
@@ -161,14 +165,28 @@
       "ctas": []
     },
     {
-      "title": "Men’s Breakfast",
+      "title": "Marriage Couples Fellowship ",
+      "day": "Friday",
+      "time": "7 PM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Paul Deaville's Celebration of Life ",
       "day": "Saturday",
-      "time": "8:00 AM",
+      "time": "11 AM",
       "location": "",
       "description": "",
       "ctas": []
     }
   ],
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
