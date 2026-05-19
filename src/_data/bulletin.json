@@ -54,12 +54,22 @@
     {
       "title": "Care Net Change for Life Baby Bottle Fundraiser",
       "body": "Pick up a baby bottle in the foyer to help support Care Net as they minister to mothers, babies, and families in our community. Fill it with change, cash, or checks, and return it to the church by Father’s Day. More info is available on the flyers in the foyer.",
-      "ctas": []
+      "ctas": [
+        {
+          "label": "Support",
+          "url": "https://avcarenet.com/support/"
+        }
+      ]
     },
     {
       "title": "2026 Women’s Conference",
       "body": "Join us Saturday, June 27th from 9:30 AM to 3:30 PM for our 2026 Women’s Conference. The theme is “Be Strong” from Proverbs 31:25, with guest speakers Ruth Beeler, Michelle Randall, Sonia Trujillo, and our pastor’s wife Desiree Hueser. Cost is $35 per person, lunch included. Please register and pay as soon as possible by scanning the QR code on the flyers located in the foyer. Registration is open until all spots are full.",
-      "ctas": []
+      "ctas": [
+        {
+          "label": "Register",
+          "url": "https://tally.so/r/gDLvN1"
+        }
+      ]
     }
   ],
   "savetheDates": [
