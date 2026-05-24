@@ -1,6 +1,6 @@
 {
   "date": "2026-05-24",
-  "theme": "Acts 21:1-14",
+  "theme": "Acts 21:15-40",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -17,8 +17,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "The Book of Acts",
-    "imageUrl": ""
+    "sermonSeries": "The Book of Acts"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -33,18 +32,38 @@
   ],
   "announcements": [
     {
-      "title": "Men's Breakfast",
-      "body": "Men, come out on Saturday May 16th for our men’s breakfast from 8 AM - 10 AM here at the church. There will be food, fellowship and the Word brought to us by guest speaker Rich Smith from Calvary Chapel Frazier Park. Please sign up in the foyer!",
+      "title": "Church office closed for memorial day",
+      "body": "The church office will be closed this Tuesday May 26th due to Memorial Day. The office will be back open Wednesday May 27th.",
       "ctas": []
     },
     {
-      "title": "Marriage Couples Fellowship",
-      "body": "Come be refreshed in your marriage Friday, May 22nd at 7:00 PM here at the church as we study the Word, fellowship with other married couples, and share a meal together. This is a potluck event, so please bring a dish to share. Childcare will not be provided, so please plan accordingly. Sign-up sheet and flyers are in the foyer.",
+      "title": "Women’s Bible study",
+      "body": "Come join us starting Tuesday June 9th at 5 PM for our “JOYFUL” women’s Inductive Bible Study through the book of Philippians. More info on the flyer and sign up sheet at the women’s ministry table. ",
       "ctas": []
     },
     {
-      "title": "Paul Deaville’s Celebration of Life",
-      "body": "Come and join us Saturday, May 23rd at 11:00 AM to celebrate the life and homecoming of our beloved brother Paul Deaville and his love for Jesus, which has impacted so many members of this body.",
+      "title": "Women’s Summer Book Club",
+      "body": "Come join us starting Tuesday June 9th at 6:30 PM for our women’s summer book club. We will be reading together through “A Place Of Quiet Rest” by Nancy Leigh DeMoss. More info on the flyer and sign up sheet at the women’s ministry table.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Discipleship ",
+      "body": "Starting June 9th, come out Tuesday at 5 PM (before the Men’s Study) for the Men’s Discipleship group. We will be reading through the book “Why Grace Changes Everything” by Chuck Smith. Sign up in the foyer.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Bible Study ",
+      "body": "Come join us for the men’s bible study starting June 9th. Meeting at 6:30pm on Tuesdays to fellowship, worship and study the book of Galatians. Sign up in they foyer.",
+      "ctas": []
+    },
+    {
+      "title": "Grounds for Grace Highschool Bible Study",
+      "body": "Come and join at Amate Coffee from 6 PM - 8 PM on June 19th  to fill your cup with coffee and you heart with truth. More information and sign up in the foyer.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s breakfast",
+      "body": "Come join us for the men’s breakfast Saturday June 20th from 8 AM - 10 AM. There will be food, fellowship and Pastor Zeke Flores from CC Phelan will be bringing the Word. Sign up in the foyer. ",
       "ctas": []
     },
     {
@@ -192,6 +211,12 @@
       "ctas": []
     }
   ],
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
