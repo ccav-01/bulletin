@@ -1,6 +1,6 @@
 {
   "date": "2026-05-31",
-  "theme": "Acts 21:15-40",
+  "theme": "James 2:14-26",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -17,8 +17,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "The Book of Acts",
-    "imageUrl": ""
+    "sermonSeries": "The Book of Acts"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -32,11 +31,6 @@
     "scripture"
   ],
   "announcements": [
-    {
-      "title": "Church office closed for memorial day",
-      "body": "The church office will be closed this Tuesday May 26th due to Memorial Day. The office will be back open Wednesday May 27th.",
-      "ctas": []
-    },
     {
       "title": "Women’s Bible study",
       "body": "Come join us starting Tuesday June 9th at 5 PM for our “JOYFUL” women’s Inductive Bible Study through the book of Philippians. More info on the flyer and sign up sheet at the women’s ministry table. ",
@@ -91,6 +85,11 @@
           "url": "https://tally.so/r/gDLvN1"
         }
       ]
+    },
+    {
+      "title": "VBS Volunteer Registration",
+      "body": "Come out and serve on July 19th - 23rd from 5 PM - 9 PM for VBS. We will need lots of volunteers to help so please fill out the volunteer registration form at the table in the courtyard. ",
+      "ctas": []
     }
   ],
   "savetheDates": [
@@ -212,6 +211,12 @@
       "ctas": []
     }
   ],
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
