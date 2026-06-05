@@ -155,30 +155,6 @@
       "ctas": []
     },
     {
-      "title": "Praise & Prayer",
-      "day": "Wednesday",
-      "time": "6:00 PM",
-      "location": "Westminster Room",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Evening Service",
-      "day": "Wednesday",
-      "time": "7:00 PM",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Senior’s Study",
-      "day": "Thursday",
-      "time": "10:00 AM",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
       "title": "Men's Discipleship",
       "day": "Tuesday",
       "time": "5 PM",
@@ -206,6 +182,30 @@
       "title": "Women's Summer Book Club ",
       "day": "Tuesday",
       "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Praise & Prayer",
+      "day": "Wednesday",
+      "time": "6:00 PM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Evening Service",
+      "day": "Wednesday",
+      "time": "7:00 PM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Senior’s Study",
+      "day": "Thursday",
+      "time": "10:00 AM",
       "location": "",
       "description": "",
       "ctas": []
