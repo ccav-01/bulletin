@@ -1,0 +1,200 @@
+{
+  "date": "2026-05-31",
+  "theme": "James 2:14-26",
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": [
+      "8:30 AM",
+      "10:30 AM"
+    ],
+    "pastor": "",
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
+  },
+  "scripture": {
+    "verse": "",
+    "reference": "",
+    "sermonTitle": "",
+    "sermonSeries": "James 2:14-26"
+  },
+  "scriptureEnabled": false,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "announcements",
+    "thisWeek",
+    "savetheDates",
+    "service",
+    "scripture"
+  ],
+  "announcements": [
+    {
+      "title": "Women’s Bible study",
+      "body": "Come join us starting Tuesday June 9th at 5 PM for our “JOYFUL” women’s Inductive Bible Study through the book of Philippians. More info on the flyer and sign up sheet at the women’s ministry table. ",
+      "ctas": []
+    },
+    {
+      "title": "Women’s Summer Book Club",
+      "body": "Come join us starting Tuesday June 9th at 6:30 PM for our women’s summer book club. We will be reading together through “A Place Of Quiet Rest” by Nancy Leigh DeMoss. More info on the flyer and sign up sheet at the women’s ministry table.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Discipleship ",
+      "body": "Starting June 9th, come out Tuesday at 5 PM (before the Men’s Study) for the Men’s Discipleship group. We will be reading through the book “Why Grace Changes Everything” by Chuck Smith. Sign up in the foyer.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Bible Study ",
+      "body": "Come join us for the men’s bible study starting June 9th. Meeting at 6:30pm on Tuesdays to fellowship, worship and study the book of Galatians. Sign up in they foyer.",
+      "ctas": []
+    },
+    {
+      "title": "Grounds for Grace Highschool Bible Study",
+      "body": "Come and join at Amate Coffee from 6 PM - 8 PM on June 19th  to fill your cup with coffee and you heart with truth. More information and sign up in the foyer.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s breakfast",
+      "body": "Come join us for the men’s breakfast Saturday June 20th from 8 AM - 10 AM. There will be food, fellowship and Pastor Zeke Flores from CC Phelan will be bringing the Word. Sign up in the foyer. ",
+      "ctas": []
+    },
+    {
+      "title": "Youth Hiking Trip",
+      "body": "Junior High and High Schoolers come join us Saturday June 13th as we hike the “ Trail Of The Hundred Giants” in the Sequoias. We will meet at the church at 7 AM. Sign up in the Foyer by June 7th . A 2026 Youth Emergency Form is required if one has not already been filled out. More info on the flyer in the foyer",
+      "ctas": []
+    },
+    {
+      "title": "Care Net Change for Life Baby Bottle Fundraiser",
+      "body": "Pick up a baby bottle in the foyer to help support Care Net as they minister to mothers, babies, and families in our community. Fill it with change, cash, or checks, and return it to the church by Father’s Day. More info is available on the flyers in the foyer.",
+      "ctas": [
+        {
+          "label": "Support",
+          "url": "https://avcarenet.com/support/"
+        }
+      ]
+    },
+    {
+      "title": "2026 Women’s Conference",
+      "body": "Join us Saturday, June 27th from 9:30 AM to 3:30 PM for our 2026 Women’s Conference. The theme is “Be Strong” from Proverbs 31:25, with guest speakers Ruth Beeler, Michelle Randall, Sonia Trujillo, and our pastor’s wife Desiree Hueser. Cost is $35 per person, lunch included. Please register and pay as soon as possible by scanning the QR code on the flyers located in the foyer. Registration is open until all spots are full.",
+      "ctas": [
+        {
+          "label": "Register",
+          "url": "https://tally.so/r/gDLvN1"
+        }
+      ]
+    },
+    {
+      "title": "VBS Volunteer Registration",
+      "body": "Come out and serve on July 19th - 23rd from 5 PM - 9 PM for VBS. We will need lots of volunteers to help so please fill out the volunteer registration form at the table in the courtyard. ",
+      "ctas": []
+    }
+  ],
+  "savetheDates": [
+    {
+      "title": "VBS",
+      "date": "2026-07-19",
+      "time": "5:30 PM - 8:30 PM",
+      "description": "Vacation Bible School will take place July 19th through July 23rd.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Breakfast",
+      "date": "2026-06-20",
+      "time": "8:00 AM - 10:00 AM",
+      "description": "Men’s Breakfast here at the church.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Breakfast",
+      "date": "2026-07-18",
+      "time": "8:00 AM - 10:00 AM",
+      "description": "Men’s Breakfast here at the church.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Breakfast",
+      "date": "2026-08-15",
+      "time": "8:00 AM - 10:00 AM",
+      "description": "Men’s Breakfast here at the church.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Retreat at Verdugo Pines",
+      "date": "2026-09-18",
+      "time": "",
+      "description": "Men’s Retreat at Verdugo Pines will take place September 18th through September 20th.",
+      "ctas": []
+    }
+  ],
+  "thisWeek": [
+    {
+      "title": "Praise & Prayer",
+      "day": "Sunday",
+      "time": "7:30 AM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "1st Service",
+      "day": "Sunday",
+      "time": "8:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "2nd Service",
+      "day": "Sunday",
+      "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Praise & Prayer",
+      "day": "Wednesday",
+      "time": "6:00 PM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Evening Service",
+      "day": "Wednesday",
+      "time": "7:00 PM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Senior’s Study",
+      "day": "Thursday",
+      "time": "10:00 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    }
+  ],
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
+  "giving": {
+    "url": "https://www.calvarychapelav.org/giving/",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 942-0404",
+    "email": "ccav@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
+  }
+}
