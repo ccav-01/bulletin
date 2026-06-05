@@ -1,6 +1,6 @@
 {
   "date": "2026-06-07",
-  "theme": "James 2:14-26",
+  "theme": "Galatians 5:13-26",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -17,8 +17,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "James 2:14-26",
-    "imageUrl": ""
+    "sermonSeries": "James 2:14-26"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -178,8 +177,54 @@
       "location": "",
       "description": "",
       "ctas": []
+    },
+    {
+      "title": "Men's Discipleship",
+      "day": "Tuesday",
+      "time": "5 PM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Women's Joy Bible Study ",
+      "day": "Tuesday",
+      "time": "5 PM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Men's Bible Study",
+      "day": "Tuesday",
+      "time": "6:30 PM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Women's Summer Book Club ",
+      "day": "Tuesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Youth Hiking Trip ",
+      "day": "Saturday",
+      "time": "7 AM ",
+      "location": "",
+      "description": "",
+      "ctas": []
     }
   ],
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
