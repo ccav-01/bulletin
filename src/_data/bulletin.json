@@ -17,9 +17,9 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Book of Acts "
+    "sermonSeries": "Acts 22 "
   },
-  "scriptureEnabled": false,
+  "scriptureEnabled": true,
   "announcementsEnabled": true,
   "savetheDatesEnabled": true,
   "thisWeekEnabled": true,
