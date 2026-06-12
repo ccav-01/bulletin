@@ -1,6 +1,6 @@
 {
   "date": "2026-06-14",
-  "theme": "Galatians 5:13-26",
+  "theme": "Acts 22",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -8,7 +8,7 @@
       "8:30 AM",
       "10:30 AM"
     ],
-    "pastor": "",
+    "pastor": "Pastor Josh Hueser",
     "location": "Calvary Chapel Antelope Valley",
     "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
     "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
@@ -17,8 +17,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Galatians 5:13-26",
-    "imageUrl": ""
+    "sermonSeries": "Galatians 5:13-26"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -33,26 +32,6 @@
   ],
   "announcements": [
     {
-      "title": "Women’s Bible study",
-      "body": "Come join us starting Tuesday June 9th at 5 PM for our “JOYFUL” women’s Inductive Bible Study through the book of Philippians. More info on the flyer and sign up sheet at the women’s ministry table. ",
-      "ctas": []
-    },
-    {
-      "title": "Women’s Summer Book Club",
-      "body": "Come join us starting Tuesday June 9th at 6:30 PM for our women’s summer book club. We will be reading together through “A Place Of Quiet Rest” by Nancy Leigh DeMoss. More info on the flyer and sign up sheet at the women’s ministry table.",
-      "ctas": []
-    },
-    {
-      "title": "Men’s Discipleship ",
-      "body": "Starting June 9th, come out Tuesday at 5 PM (before the Men’s Study) for the Men’s Discipleship group. We will be reading through the book “Why Grace Changes Everything” by Chuck Smith. Sign up in the foyer.",
-      "ctas": []
-    },
-    {
-      "title": "Men’s Bible Study ",
-      "body": "Come join us for the men’s bible study starting June 9th. Meeting at 6:30pm on Tuesdays to fellowship, worship and study the book of Galatians. Sign up in they foyer.",
-      "ctas": []
-    },
-    {
       "title": "Grounds for Grace Highschool Bible Study",
       "body": "Come and join at Amate Coffee from 6 PM - 8 PM on June 19th  to fill your cup with coffee and you heart with truth. More information and sign up in the foyer.",
       "ctas": []
@@ -60,11 +39,6 @@
     {
       "title": "Men’s breakfast",
       "body": "Come join us for the men’s breakfast Saturday June 20th from 8 AM - 10 AM. There will be food, fellowship and Pastor Zeke Flores from CC Phelan will be bringing the Word. Sign up in the foyer. ",
-      "ctas": []
-    },
-    {
-      "title": "Youth Hiking Trip",
-      "body": "Junior High and High Schoolers come join us Saturday June 13th as we hike the “ Trail Of The Hundred Giants” in the Sequoias. We will meet at the church at 7 AM. Sign up in the Foyer by June 7th . A 2026 Youth Emergency Form is required if one has not already been filled out. More info on the flyer in the foyer",
       "ctas": []
     },
     {
@@ -212,14 +186,28 @@
       "ctas": []
     },
     {
-      "title": "Youth Hiking Trip ",
-      "day": "Saturday",
-      "time": "7 AM ",
+      "title": "Grounds for Grace Highschool Bible Study at Amate Coffee ",
+      "day": "Friday",
+      "time": "6 PM - 8 PM",
       "location": "",
-      "description": "",
+      "description": "June 19th ",
+      "ctas": []
+    },
+    {
+      "title": "Men's Breakfast ",
+      "day": "Saturday",
+      "time": "8 AM - 10 PM ",
+      "location": "",
+      "description": "June 20th ",
       "ctas": []
     }
   ],
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
