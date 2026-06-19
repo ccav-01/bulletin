@@ -1,6 +1,6 @@
 {
   "date": "2026-06-21",
-  "theme": "Acts 22",
+  "theme": "Acts 22:17-30",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -17,8 +17,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Acts 22 ",
-    "imageUrl": ""
+    "sermonSeries": "Acts 22:17-30"
   },
   "scriptureEnabled": true,
   "announcementsEnabled": true,
@@ -26,9 +25,9 @@
   "thisWeekEnabled": true,
   "sectionOrder": [
     "announcements",
-    "thisWeek",
     "savetheDates",
     "service",
+    "thisWeek",
     "scripture"
   ],
   "announcements": [
@@ -65,6 +64,11 @@
     {
       "title": "VBS Volunteer Registration",
       "body": "Come out and serve on July 19th - 23rd from 5 PM - 9 PM for VBS. We will need lots of volunteers to help so please fill out the volunteer registration form at the table in the courtyard. ",
+      "ctas": []
+    },
+    {
+      "title": "VBS Volunteer Meeting ",
+      "body": "VBS Volunteers! We will be having a meeting on Sunday July 12th after 2nd service in the 4th and 5th grade classroom.",
       "ctas": []
     }
   ],
@@ -187,22 +191,20 @@
       "ctas": []
     },
     {
-      "title": "Grounds for Grace Highschool Bible Study at Amate Coffee ",
-      "day": "Friday",
-      "time": "6 PM - 8 PM",
-      "location": "",
-      "description": "June 19th ",
-      "ctas": []
-    },
-    {
-      "title": "Men's Breakfast ",
+      "title": "Women's Conference ",
       "day": "Saturday",
-      "time": "8 AM - 10 PM ",
+      "time": "9:30 AM - 3:30 PM",
       "location": "",
-      "description": "June 20th ",
+      "description": "June 27th ",
       "ctas": []
     }
   ],
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
