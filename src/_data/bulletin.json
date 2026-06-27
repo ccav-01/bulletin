@@ -1,6 +1,6 @@
 {
   "date": "2026-06-28",
-  "theme": "Acts 22:17-30",
+  "theme": "Acts 23",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -17,8 +17,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Acts 22:17-30",
-    "imageUrl": ""
+    "sermonSeries": "Acts 23"
   },
   "scriptureEnabled": true,
   "announcementsEnabled": true,
@@ -33,26 +32,6 @@
   ],
   "announcements": [
     {
-      "title": "Care Net Change for Life Baby Bottle Fundraiser",
-      "body": "Pick up a baby bottle in the foyer to help support Care Net as they minister to mothers, babies, and families in our community. Fill it with change, cash, or checks, and return it to the church by Father’s Day. More info is available on the flyers in the foyer.",
-      "ctas": [
-        {
-          "label": "Support",
-          "url": "https://avcarenet.com/support/"
-        }
-      ]
-    },
-    {
-      "title": "2026 Women’s Conference",
-      "body": "Join us Saturday, June 27th from 9:30 AM to 3:30 PM for our 2026 Women’s Conference. The theme is “Be Strong” from Proverbs 31:25, with guest speakers Ruth Beeler, Michelle Randall, Sonia Trujillo, and our pastor’s wife Desiree Hueser. Cost is $35 per person, lunch included. Please register and pay as soon as possible by scanning the QR code on the flyers located in the foyer. Registration is open until all spots are full.",
-      "ctas": [
-        {
-          "label": "Register",
-          "url": "https://tally.so/r/gDLvN1"
-        }
-      ]
-    },
-    {
       "title": "VBS Volunteer Registration",
       "body": "Come out and serve on July 19th - 23rd from 5 PM - 9 PM for VBS. We will need lots of volunteers to help so please fill out the volunteer registration form at the table in the courtyard. ",
       "ctas": []
@@ -60,6 +39,16 @@
     {
       "title": "VBS Volunteer Meeting ",
       "body": "VBS Volunteers! We will be having a meeting on Sunday July 12th after 2nd service in the 4th and 5th grade classroom.",
+      "ctas": []
+    },
+    {
+      "title": "Men's Breakfast ",
+      "body": "Come join us for the men’s breakfast Saturday July 18th from 8 AM - 10 AM. There will be food, fellowship and Pastor Fabian Moreno from CC Santa Paula will be bringing the Word. Sign up in the foyer. ",
+      "ctas": []
+    },
+    {
+      "title": "Office Closed ",
+      "body": "Office will be closed on Friday July 3rd due to Independence Day.",
       "ctas": []
     }
   ],
@@ -173,16 +162,14 @@
       "location": "",
       "description": "",
       "ctas": []
-    },
-    {
-      "title": "Women's Conference ",
-      "day": "Saturday",
-      "time": "9:30 AM - 3:30 PM",
-      "location": "",
-      "description": "June 27th ",
-      "ctas": []
     }
   ],
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
