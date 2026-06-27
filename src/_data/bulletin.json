@@ -1,5 +1,5 @@
 {
-  "date": "2026-06-21",
+  "date": "2026-06-28",
   "theme": "Acts 22:17-30",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
@@ -17,7 +17,8 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Acts 22:17-30"
+    "sermonSeries": "Acts 22:17-30",
+    "imageUrl": ""
   },
   "scriptureEnabled": true,
   "announcementsEnabled": true,
@@ -182,12 +183,6 @@
       "ctas": []
     }
   ],
-  "appearance": {
-    "logoDesktop": 38,
-    "logoMobile": 32,
-    "badgeDesktop": 100,
-    "badgeMobile": 80
-  },
   "giving": {
     "url": "https://www.calvarychapelav.org/giving/",
     "text": "Give Online"
