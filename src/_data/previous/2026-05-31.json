@@ -5,8 +5,14 @@
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
     "times": [
-      "8:30 AM",
-      "10:30 AM"
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      }
     ],
     "pastor": "",
     "location": "Calvary Chapel Antelope Valley",
