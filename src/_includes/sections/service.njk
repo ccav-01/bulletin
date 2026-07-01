@@ -9,9 +9,17 @@
   <div class="service-grid">
     <div class="service-item">
       <div class="service-item__label">Service Times</div>
-      <div class="service-times">
-        {% for time in bulletin.service.times %}
-          <span class="service-time-chip">{{ time }}</span>
+      {% set groupedTimes = bulletin.service.times | groupThisWeek %}
+      <div class="service-times-groups">
+        {% for group in groupedTimes %}
+        <div class="service-time-group">
+          <div class="service-time-group__day">{{ group.day }}</div>
+          <div class="service-times">
+            {% for t in group.items %}
+              <span class="service-time-chip">{{ t.time }}</span>
+            {% endfor %}
+          </div>
+        </div>
         {% endfor %}
       </div>
     </div>

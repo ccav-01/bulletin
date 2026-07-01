@@ -355,6 +355,15 @@
           <label>Service Times</label>
           <div class="times-list" id="times-list"></div>
           <div style="display:flex; gap:0.5rem; align-items:center;">
+            <select id="new-time-day" style="max-width:130px;">
+              <option>Sunday</option>
+              <option>Monday</option>
+              <option>Tuesday</option>
+              <option>Wednesday</option>
+              <option>Thursday</option>
+              <option>Friday</option>
+              <option>Saturday</option>
+            </select>
             <input type="text" id="new-time" placeholder="e.g. 8:30 AM" style="max-width:160px;" />
             <button class="btn btn--ghost btn--sm" id="add-time-btn">+ Add Time</button>
           </div>
@@ -891,10 +900,10 @@ function getSectionOrderFromUI() {
 // ============================================================
 let currentTimes = [];
 function renderTimes(times) {
-  currentTimes = [...times];
+  currentTimes = times.map(t => typeof t === 'string' ? { day: 'Sunday', time: t } : t);
   const list = document.getElementById('times-list');
   list.innerHTML = currentTimes.map((t, i) =>
-    `<span class="time-chip">${t}<button class="time-chip__remove" data-i="${i}" aria-label="Remove">×</button></span>`
+    `<span class="time-chip">${escHtml(t.day)} ${escHtml(t.time)}<button class="time-chip__remove" data-i="${i}" aria-label="Remove">×</button></span>`
   ).join('');
   list.querySelectorAll('.time-chip__remove').forEach(btn => {
     btn.addEventListener('click', () => { currentTimes.splice(Number(btn.dataset.i), 1); renderTimes(currentTimes); });
@@ -903,7 +912,8 @@ function renderTimes(times) {
 function getTimesFromUI() { return [...currentTimes]; }
 document.getElementById('add-time-btn').addEventListener('click', () => {
   const v = document.getElementById('new-time').value.trim();
-  if (v) { currentTimes.push(v); renderTimes(currentTimes); document.getElementById('new-time').value = ''; }
+  const day = document.getElementById('new-time-day').value;
+  if (v) { currentTimes.push({ day, time: v }); renderTimes(currentTimes); document.getElementById('new-time').value = ''; }
 });
 document.getElementById('new-time').addEventListener('keydown', e => {
   if (e.key === 'Enter') { e.preventDefault(); document.getElementById('add-time-btn').click(); }

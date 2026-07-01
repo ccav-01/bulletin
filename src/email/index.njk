@@ -69,16 +69,23 @@ permalink: /email/index.html
 
         {# ── SERVICE INFO ────────────────────────────────────── #}
         {% if bulletin.service %}
+        {% set groupedTimes = bulletin.service.times | groupThisWeek %}
+        {% for group in groupedTimes %}
         <tr>
           <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad dm-bg-content">
-            <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">Sunday Service</p>
+            <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">{{ group.day }} Service</p>
           </td>
         </tr>
         <tr>
           <td bgcolor="#F7F3EC" style="padding:0 32px 24px;" class="section-pad dm-bg-content">
-            {% for time in bulletin.service.times %}
-            <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;" class="dm-text-primary">{{ time }}</p>
+            {% for t in group.items %}
+            <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;" class="dm-text-primary">{{ t.time }}</p>
             {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+        <tr>
+          <td bgcolor="#F7F3EC" style="padding:0 32px 24px;" class="section-pad dm-bg-content">
             {% if bulletin.service.pastor %}
             <p style="margin:8px 0 2px;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;" class="dm-text-secondary">{{ bulletin.service.pastor }}</p>
             {% endif %}
