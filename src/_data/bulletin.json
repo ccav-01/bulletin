@@ -5,8 +5,18 @@
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
     "times": [
-      { "day": "Sunday", "time": "8:30 AM" },
-      { "day": "Sunday", "time": "10:30 AM" }
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "6:30 PM"
+      }
     ],
     "pastor": "Pastor Josh Hueser",
     "location": "Calvary Chapel Antelope Valley",
