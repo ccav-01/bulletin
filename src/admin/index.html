@@ -186,6 +186,56 @@
     .preview-mobile .preview-header-bar { padding: 0.4rem 0.75rem; }
     .preview-mobile .preview-hero { padding: 1rem 0.75rem; }
 
+    /* ---- Bulletin section preview ---- */
+    @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Cormorant+Garamond:ital,wght@1,500;600&display=swap");
+    .bp-wrap { margin-top: 1.5rem; }
+    .bp-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+    .bp-toolbar__label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+    .bp-status { font-size: 0.72rem; font-weight: 700; padding: 0.15rem 0.6rem; border-radius: 100px; white-space: nowrap; }
+    .bp-status--on  { background: #eafaf1; color: var(--success); }
+    .bp-status--off { background: #fdf2f2; color: var(--danger); }
+
+    .bulletin-preview { background: var(--paper); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; transition: opacity 0.2s; }
+    .bulletin-preview--off .bp-card { opacity: 0.42; }
+
+    .bulletin-preview .bp-card { background: var(--paper-2); border: 1px solid rgba(11,11,12,0.1); border-radius: 8px; padding: 1.1rem 1.25rem; }
+    .bulletin-preview .bp-card__header { display: flex; align-items: center; gap: 0.55rem; margin-bottom: 0.9rem; padding-bottom: 0.65rem; border-bottom: 1px solid rgba(11,11,12,0.1); }
+    .bulletin-preview .bp-card__icon { font-size: 1.05rem; line-height: 1; }
+    .bulletin-preview .bp-card__title { font-family: "Oswald", "Arial Narrow", sans-serif; font-size: 0.95rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em; color: var(--ink); }
+
+    .bulletin-preview .bp-scripture-block { background: var(--surface); border-left: 3px solid var(--ochre); border-radius: 0 4px 4px 0; padding: 0.6rem 1rem; margin-bottom: 1rem; }
+    .bulletin-preview .bp-verse { font-family: "Oswald", sans-serif; font-size: 1.02rem; font-weight: 400; line-height: 1.4; color: var(--ink); margin-bottom: 0.3rem; }
+    .bulletin-preview .bp-reference { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; color: var(--ochre); font-size: 1.2rem; display: block; }
+    .bulletin-preview .bp-sermon-info { display: flex; flex-wrap: wrap; gap: 0.9rem; align-items: center; }
+    .bulletin-preview .bp-sermon-label { font-family: "Oswald", sans-serif; font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); font-weight: 600; display: block; margin-bottom: 2px; }
+    .bulletin-preview .bp-sermon-title { font-family: "Oswald", sans-serif; font-size: 1rem; text-transform: uppercase; color: var(--ink); font-weight: 700; }
+    .bulletin-preview .bp-sermon-series { display: inline-block; background: var(--ochre); color: var(--ink); border-radius: 100px; padding: 3px 10px; font-family: "Oswald", sans-serif; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; }
+
+    .bulletin-preview .bp-list { display: flex; flex-direction: column; gap: 0.65rem; }
+    .bulletin-preview .bp-item { border: 1px solid rgba(11,11,12,0.1); border-radius: 4px; padding: 0.75rem 1rem; background: var(--paper); }
+    .bulletin-preview .bp-item-title { font-family: "Oswald", sans-serif; font-weight: 700; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink); margin-bottom: 0.25rem; }
+    .bulletin-preview .bp-item-body { font-size: 0.83rem; color: var(--text); line-height: 1.5; opacity: 0.85; margin-top: 0.2rem; }
+
+    .bulletin-preview .bp-event { display: grid; grid-template-columns: 46px 1fr; border: 1px solid rgba(11,11,12,0.1); border-radius: 4px; overflow: hidden; background: var(--paper); }
+    .bulletin-preview .bp-event__date { background: var(--ink); color: var(--paper); text-align: center; padding: 0.6rem 0.35rem; display: flex; flex-direction: column; align-items: center; justify-content: center; align-self: stretch; }
+    .bulletin-preview .bp-event__month { font-family: "Oswald", sans-serif; font-size: 0.55rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.65; font-weight: 600; }
+    .bulletin-preview .bp-event__day { font-family: "Oswald", sans-serif; font-size: 1.25rem; font-weight: 700; line-height: 1; }
+    .bulletin-preview .bp-event__content { padding: 0.65rem 0.9rem; }
+
+    .bulletin-preview .bp-day-group + .bp-day-group { margin-top: 1rem; }
+    .bulletin-preview .bp-day-heading { font-family: "Oswald", sans-serif; font-size: 0.8rem; text-transform: uppercase; font-weight: 700; color: var(--ink); letter-spacing: 0.04em; margin: 0 0 0.5rem; padding-bottom: 0.3rem; border-bottom: 2px solid var(--ochre); }
+    .bulletin-preview .bp-item-time { font-family: "Oswald", sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ochre); font-weight: 600; display: block; }
+    .bulletin-preview .bp-item-location { font-family: "Oswald", sans-serif; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; margin-bottom: 0.25rem; }
+
+    .bulletin-preview .bp-cta-chip { display: inline-flex; align-items: center; gap: 0.3rem; background: var(--ink); color: var(--paper); font-size: 0.68rem; font-weight: 600; padding: 0.22rem 0.6rem; border-radius: 100px; margin: 0.5rem 0.4rem 0 0; }
+    .bulletin-preview .bp-image { width: 100%; border-radius: 4px; overflow: hidden; margin-bottom: 0.6rem; background: var(--paper-2); position: relative; }
+    .bulletin-preview .bp-image--16x9 { padding-bottom: 56.25%; }
+    .bulletin-preview .bp-image--1x1 { width: 84px; flex-shrink: 0; margin-bottom: 0; }
+    .bulletin-preview .bp-image--1x1::before { content: ''; display: block; padding-bottom: 100%; }
+    .bulletin-preview .bp-image img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .bulletin-preview .bp-empty { font-style: italic; opacity: 0.55; }
+    .bulletin-preview .bp-empty-state { font-style: italic; color: var(--muted); font-size: 0.85rem; }
+
     @media (max-width: 640px) {
       .admin-sidebar { display: none; }
       .field-row { grid-template-columns: 1fr; }
@@ -414,6 +464,13 @@
             <input type="text" id="f-sermon-series" />
           </div>
           <div id="scripture-img-widget-mount"></div>
+          <div class="bp-wrap">
+            <div class="bp-toolbar">
+              <span class="bp-toolbar__label">Preview — how this looks on the bulletin</span>
+              <span class="bp-status" id="scripture-preview-status"></span>
+            </div>
+            <div class="bulletin-preview" id="scripture-preview"></div>
+          </div>
         </div>
       </section>
 
@@ -431,6 +488,13 @@
           <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Drag to reorder. Each announcement can have one or more call-to-action links — the QR code is auto-generated from the URL.</p>
           <div class="list-container" id="announcements-list"></div>
           <button class="btn btn--outline btn--sm" id="add-announcement-btn">+ Add Announcement</button>
+          <div class="bp-wrap">
+            <div class="bp-toolbar">
+              <span class="bp-toolbar__label">Preview — how this looks on the bulletin</span>
+              <span class="bp-status" id="announcements-preview-status"></span>
+            </div>
+            <div class="bulletin-preview" id="announcements-preview"></div>
+          </div>
         </div>
       </section>
 
@@ -448,6 +512,13 @@
           <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Upcoming events with specific dates. Drag to reorder. Add registration links — QR codes are auto-generated.</p>
           <div class="list-container" id="savedates-list"></div>
           <button class="btn btn--outline btn--sm" id="add-savedate-btn">+ Add Event</button>
+          <div class="bp-wrap">
+            <div class="bp-toolbar">
+              <span class="bp-toolbar__label">Preview — how this looks on the bulletin</span>
+              <span class="bp-status" id="savedates-preview-status"></span>
+            </div>
+            <div class="bulletin-preview" id="savedates-preview"></div>
+          </div>
         </div>
       </section>
 
@@ -465,6 +536,13 @@
           <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Recurring weekly ministries and activities. Drag to reorder.</p>
           <div class="list-container" id="thisweek-list"></div>
           <button class="btn btn--outline btn--sm" id="add-thisweek-btn">+ Add Item</button>
+          <div class="bp-wrap">
+            <div class="bp-toolbar">
+              <span class="bp-toolbar__label">Preview — how this looks on the bulletin</span>
+              <span class="bp-status" id="thisweek-preview-status"></span>
+            </div>
+            <div class="bulletin-preview" id="thisweek-preview"></div>
+          </div>
         </div>
       </section>
 
@@ -779,6 +857,7 @@ function populateForm(data) {
   updateSectionBody('f-announcements-enabled', 'announcements-body');
   updateSectionBody('f-savedates-enabled', 'savedates-body');
   updateSectionBody('f-thisweek-enabled', 'thisweek-body');
+  renderScripturePreview();
   document.getElementById('f-give-url').value   = data.giving?.url || '';
   document.getElementById('f-give-text').value  = data.giving?.text || '';
   document.getElementById('f-phone').value      = data.contact?.phone || '';
@@ -922,7 +1001,7 @@ document.getElementById('new-time').addEventListener('keydown', e => {
 // ============================================================
 // CTA helpers
 // ============================================================
-function makeCtaRow(cta) {
+function makeCtaRow(cta, onChange) {
   const row = document.createElement('div');
   row.className = 'cta-row';
   row.innerHTML = `
@@ -930,20 +1009,20 @@ function makeCtaRow(cta) {
     <input type="url" class="cta-url-inp" value="${escHtml(cta.url || '')}" placeholder="https://..." />
     <button class="cta-remove-btn" aria-label="Remove CTA">✕</button>
   `;
-  row.querySelector('.cta-remove-btn').addEventListener('click', () => row.remove());
+  row.querySelector('.cta-remove-btn').addEventListener('click', () => { row.remove(); if (onChange) onChange(); });
   return row;
 }
-function makeCtas(ctas) {
+function makeCtas(ctas, onChange) {
   const wrap = document.createElement('div');
   wrap.className = 'ctas-section';
   wrap.innerHTML = '<div class="ctas-label">Call-to-Action Links (optional — QR codes auto-generated)</div>';
   const rowsWrap = document.createElement('div');
   rowsWrap.className = 'ctas-rows';
-  (ctas || []).forEach(c => rowsWrap.appendChild(makeCtaRow(c)));
+  (ctas || []).forEach(c => rowsWrap.appendChild(makeCtaRow(c, onChange)));
   const addBtn = document.createElement('button');
   addBtn.className = 'add-cta-btn';
   addBtn.textContent = '+ Add Link';
-  addBtn.addEventListener('click', () => rowsWrap.appendChild(makeCtaRow({})));
+  addBtn.addEventListener('click', () => { rowsWrap.appendChild(makeCtaRow({}, onChange)); if (onChange) onChange(); });
   wrap.appendChild(rowsWrap);
   wrap.appendChild(addBtn);
   wrap.getCtas = () => [...rowsWrap.querySelectorAll('.cta-row')].map(r => ({
@@ -961,7 +1040,7 @@ const IMG_ACCEPTED    = ['image/jpeg', 'image/png', 'image/webp'];
 const IMG_MAX_BYTES   = 500 * 1024;
 const IMG_EXT_MAP     = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
 
-function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg) {
+function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg, onChange) {
   const wrap = document.createElement('div');
   wrap.className = 'img-upload-row';
   wrap.innerHTML = `
@@ -1007,7 +1086,7 @@ function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg) {
     const v = blendSelect.value;
     previewImg.style.mixBlendMode = (v && v !== 'normal') ? v : '';
   }
-  blendSelect.addEventListener('change', applyBlend);
+  blendSelect.addEventListener('change', () => { applyBlend(); if (onChange) onChange(); });
 
   function showPreview(url, displaySrc) {
     currentUrl = url;
@@ -1015,12 +1094,14 @@ function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg) {
     urlDisplay.textContent = url;
     previewWrap.classList.add('has-image');
     applyBlend();
+    if (onChange) onChange();
   }
   function clearPreview() {
     currentUrl = '';
     previewImg.src = '';
     urlDisplay.textContent = '';
     previewWrap.classList.remove('has-image');
+    if (onChange) onChange();
   }
 
   async function handleFile(file) {
@@ -1082,7 +1163,7 @@ function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg) {
 // Announcements
 // ============================================================
 let annSortable;
-function makeAnnouncementItem(item) {
+function makeAnnouncementItem(item, onChange) {
   const el = document.createElement('div');
   el.className = 'list-item';
   el.innerHTML = `
@@ -1097,13 +1178,13 @@ function makeAnnouncementItem(item) {
       <textarea class="ann-body" rows="2">${escHtml(item.body || '')}</textarea>
     </div>
   `;
-  const ctasEl = makeCtas(item.ctas || []);
+  const ctasEl = makeCtas(item.ctas || [], onChange);
   el.appendChild(ctasEl);
-  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'ann', '#F7F3EC');
+  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'ann', '#F7F3EC', onChange);
   if (item.imageUrl) imgWidget.setImageUrl(item.imageUrl);
   if (item.imageBlendMode) imgWidget.setBlendMode(item.imageBlendMode);
   el.appendChild(imgWidget);
-  el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
+  el.querySelector('.remove-btn').addEventListener('click', () => { el.remove(); if (onChange) onChange(); });
   el._getCtas = () => ctasEl.getCtas();
   el._getImageUrl = () => imgWidget.getImageUrl();
   el._getImageBlendMode = () => imgWidget.getBlendMode();
@@ -1112,9 +1193,10 @@ function makeAnnouncementItem(item) {
 function renderAnnouncements(items) {
   const c = document.getElementById('announcements-list');
   c.innerHTML = '';
-  items.forEach(item => c.appendChild(makeAnnouncementItem(item)));
+  items.forEach(item => c.appendChild(makeAnnouncementItem(item, renderAnnouncementsPreview)));
   if (annSortable) annSortable.destroy();
-  annSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
+  annSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150, onEnd: renderAnnouncementsPreview });
+  renderAnnouncementsPreview();
 }
 function getAnnouncementsFromUI() {
   return [...document.querySelectorAll('#announcements-list .list-item')].map(el => ({
@@ -1130,14 +1212,15 @@ function getAnnouncementsFromUI() {
   });
 }
 document.getElementById('add-announcement-btn').addEventListener('click', () => {
-  document.getElementById('announcements-list').appendChild(makeAnnouncementItem({}));
+  document.getElementById('announcements-list').appendChild(makeAnnouncementItem({}, renderAnnouncementsPreview));
+  renderAnnouncementsPreview();
 });
 
 // ============================================================
 // Save the Dates
 // ============================================================
 let saveSortable;
-function makeSavedateItem(item) {
+function makeSavedateItem(item, onChange) {
   const el = document.createElement('div');
   el.className = 'list-item';
   el.innerHTML = `
@@ -1156,13 +1239,13 @@ function makeSavedateItem(item) {
       <textarea class="sd-desc" rows="2">${escHtml(item.description || '')}</textarea>
     </div>
   `;
-  const ctasEl = makeCtas(item.ctas || []);
+  const ctasEl = makeCtas(item.ctas || [], onChange);
   el.appendChild(ctasEl);
-  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'sd', '#F7F3EC');
+  const imgWidget = makeImageUpload('img-preview-aspect--16x9', '16:9 landscape · 1200×675 · max 500 KB', 'sd', '#F7F3EC', onChange);
   if (item.imageUrl) imgWidget.setImageUrl(item.imageUrl);
   if (item.imageBlendMode) imgWidget.setBlendMode(item.imageBlendMode);
   el.appendChild(imgWidget);
-  el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
+  el.querySelector('.remove-btn').addEventListener('click', () => { el.remove(); if (onChange) onChange(); });
   el._getCtas = () => ctasEl.getCtas();
   el._getImageUrl = () => imgWidget.getImageUrl();
   el._getImageBlendMode = () => imgWidget.getBlendMode();
@@ -1171,9 +1254,10 @@ function makeSavedateItem(item) {
 function renderSavedates(items) {
   const c = document.getElementById('savedates-list');
   c.innerHTML = '';
-  items.forEach(item => c.appendChild(makeSavedateItem(item)));
+  items.forEach(item => c.appendChild(makeSavedateItem(item, renderSavedatesPreview)));
   if (saveSortable) saveSortable.destroy();
-  saveSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
+  saveSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150, onEnd: renderSavedatesPreview });
+  renderSavedatesPreview();
 }
 function getSavedatesFromUI() {
   return [...document.querySelectorAll('#savedates-list .list-item')].map(el => ({
@@ -1191,14 +1275,15 @@ function getSavedatesFromUI() {
   });
 }
 document.getElementById('add-savedate-btn').addEventListener('click', () => {
-  document.getElementById('savedates-list').appendChild(makeSavedateItem({}));
+  document.getElementById('savedates-list').appendChild(makeSavedateItem({}, renderSavedatesPreview));
+  renderSavedatesPreview();
 });
 
 // ============================================================
 // This Week at Calvary
 // ============================================================
 let weekSortable;
-function makeThisweekItem(item) {
+function makeThisweekItem(item, onChange) {
   const el = document.createElement('div');
   el.className = 'list-item';
   el.innerHTML = `
@@ -1231,18 +1316,19 @@ function makeThisweekItem(item) {
       <textarea class="tw-desc" rows="2">${escHtml(item.description || '')}</textarea>
     </div>
   `;
-  const ctasEl = makeCtas(item.ctas || []);
+  const ctasEl = makeCtas(item.ctas || [], onChange);
   el.appendChild(ctasEl);
-  el.querySelector('.remove-btn').addEventListener('click', () => el.remove());
+  el.querySelector('.remove-btn').addEventListener('click', () => { el.remove(); if (onChange) onChange(); });
   el._getCtas = () => ctasEl.getCtas();
   return el;
 }
 function renderThisweek(items) {
   const c = document.getElementById('thisweek-list');
   c.innerHTML = '';
-  items.forEach(item => c.appendChild(makeThisweekItem(item)));
+  items.forEach(item => c.appendChild(makeThisweekItem(item, renderThisweekPreview)));
   if (weekSortable) weekSortable.destroy();
-  weekSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150 });
+  weekSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150, onEnd: renderThisweekPreview });
+  renderThisweekPreview();
 }
 function getThisweekFromUI() {
   return [...document.querySelectorAll('#thisweek-list .list-item')].map(el => ({
@@ -1255,7 +1341,151 @@ function getThisweekFromUI() {
   }));
 }
 document.getElementById('add-thisweek-btn').addEventListener('click', () => {
-  document.getElementById('thisweek-list').appendChild(makeThisweekItem({}));
+  document.getElementById('thisweek-list').appendChild(makeThisweekItem({}, renderThisweekPreview));
+  renderThisweekPreview();
+});
+
+// ============================================================
+// Live bulletin section previews
+// ============================================================
+function setPreviewHtml(containerId, statusId, html, enabled) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = html;
+  el.classList.toggle('bulletin-preview--off', !enabled);
+  const status = document.getElementById(statusId);
+  status.textContent = enabled ? '✓ Showing on bulletin' : '✕ Hidden from bulletin';
+  status.className = 'bp-status ' + (enabled ? 'bp-status--on' : 'bp-status--off');
+}
+
+function formatDateBadge(dateStr) {
+  if (!dateStr) return { month: '—', day: '–' };
+  const d = new Date(dateStr + 'T12:00:00');
+  if (isNaN(d.getTime())) return { month: '—', day: '–' };
+  return { month: d.toLocaleDateString('en-US', { month: 'short' }).toUpperCase(), day: d.getDate() };
+}
+
+function groupThisWeekJS(items) {
+  if (!items || !items.length) return [];
+  const dayOrder = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  function parseTime(t) {
+    if (!t) return 0;
+    const m = t.match(/(\d+):(\d+)\s*(AM|PM)/i);
+    if (!m) return 0;
+    let h = parseInt(m[1], 10);
+    const mins = parseInt(m[2], 10);
+    const p = m[3].toUpperCase();
+    if (p === 'PM' && h !== 12) h += 12;
+    if (p === 'AM' && h === 12) h = 0;
+    return h * 60 + mins;
+  }
+  const sorted = [...items].sort((a, b) => {
+    const dd = dayOrder.indexOf(a.day) - dayOrder.indexOf(b.day);
+    if (dd !== 0) return dd;
+    return parseTime(a.time) - parseTime(b.time);
+  });
+  const groups = [];
+  for (const item of sorted) {
+    const last = groups[groups.length - 1];
+    if (last && last.day === item.day) last.items.push(item);
+    else groups.push({ day: item.day, items: [item] });
+  }
+  return groups;
+}
+
+function ctaChipsHtml(ctas) {
+  if (!ctas || !ctas.length) return '';
+  return `<div>${ctas.map(c => `<span class="bp-cta-chip">🔗 ${escHtml(c.label)}</span>`).join('')}</div>`;
+}
+
+function renderScripturePreview() {
+  const verse = document.getElementById('f-verse').value.trim();
+  const reference = document.getElementById('f-reference').value.trim();
+  const sermonTitle = document.getElementById('f-sermon-title').value.trim();
+  const sermonSeries = document.getElementById('f-sermon-series').value.trim();
+  const imageUrl = scriptureImgWidget ? scriptureImgWidget.getImageUrl() : '';
+  const blend = scriptureImgWidget ? scriptureImgWidget.getBlendMode() : '';
+  const showSermon = sermonTitle || sermonSeries;
+  const html = `
+    <div class="bp-card">
+      <div class="bp-card__header">
+        <span class="bp-card__icon">📖</span>
+        <span class="bp-card__title">This Week's Message</span>
+      </div>
+      <div class="bp-scripture-block">
+        <p class="bp-verse">${verse ? '&ldquo;' + escHtml(verse) + '&rdquo;' : '<span class="bp-empty">Scripture verse will appear here…</span>'}</p>
+        ${reference ? `<cite class="bp-reference">— ${escHtml(reference)}</cite>` : ''}
+      </div>
+      ${showSermon ? `
+      <div class="bp-sermon-info">
+        ${imageUrl ? `<div class="bp-image bp-image--1x1"><img src="${escHtml(imageUrl)}"${blend ? ` style="mix-blend-mode:${blend}"` : ''} /></div>` : ''}
+        ${sermonTitle ? `<div><span class="bp-sermon-label">Sermon</span><div class="bp-sermon-title">${escHtml(sermonTitle)}</div></div>` : ''}
+        ${sermonSeries ? `<span class="bp-sermon-series">${escHtml(sermonSeries)}</span>` : ''}
+      </div>` : ''}
+    </div>
+  `;
+  setPreviewHtml('scripture-preview', 'scripture-preview-status', html, document.getElementById('f-scripture-enabled').checked);
+}
+
+function renderAnnouncementsPreview() {
+  const items = getAnnouncementsFromUI();
+  const body = items.length ? `<div class="bp-list">${items.map(item => `
+    <div class="bp-item">
+      ${item.imageUrl ? `<div class="bp-image bp-image--16x9"><img src="${escHtml(item.imageUrl)}"${item.imageBlendMode ? ` style="mix-blend-mode:${item.imageBlendMode}"` : ''} /></div>` : ''}
+      <div class="bp-item-title">${item.title ? escHtml(item.title) : '<span class="bp-empty">Untitled announcement</span>'}</div>
+      ${item.body ? `<p class="bp-item-body">${escHtml(item.body)}</p>` : ''}
+      ${ctaChipsHtml(item.ctas)}
+    </div>`).join('')}</div>` : '<p class="bp-empty-state">No announcements this week.</p>';
+  const html = `<div class="bp-card"><div class="bp-card__header"><span class="bp-card__icon">📣</span><span class="bp-card__title">Announcements</span></div>${body}</div>`;
+  setPreviewHtml('announcements-preview', 'announcements-preview-status', html, document.getElementById('f-announcements-enabled').checked);
+}
+
+function renderSavedatesPreview() {
+  const items = getSavedatesFromUI();
+  const body = items.length ? `<div class="bp-list">${items.map(item => {
+    const badge = formatDateBadge(item.date);
+    return `
+    <div class="bp-event">
+      ${item.imageUrl ? `<div class="bp-image bp-image--16x9" style="grid-column:1 / -1;margin-bottom:0;"><img src="${escHtml(item.imageUrl)}"${item.imageBlendMode ? ` style="mix-blend-mode:${item.imageBlendMode}"` : ''} /></div>` : ''}
+      <div class="bp-event__date"><span class="bp-event__month">${escHtml(badge.month)}</span><span class="bp-event__day">${escHtml(String(badge.day))}</span></div>
+      <div class="bp-event__content">
+        <div class="bp-item-title">${item.title ? escHtml(item.title) : '<span class="bp-empty">Untitled event</span>'}</div>
+        ${item.time ? `<div class="bp-item-time">${escHtml(item.time)}</div>` : ''}
+        ${item.description ? `<p class="bp-item-body">${escHtml(item.description)}</p>` : ''}
+        ${ctaChipsHtml(item.ctas)}
+      </div>
+    </div>`;
+  }).join('')}</div>` : '<p class="bp-empty-state">No upcoming dates to save.</p>';
+  const html = `<div class="bp-card"><div class="bp-card__header"><span class="bp-card__icon">🗓️</span><span class="bp-card__title">Save the Dates</span></div>${body}</div>`;
+  setPreviewHtml('savedates-preview', 'savedates-preview-status', html, document.getElementById('f-savedates-enabled').checked);
+}
+
+function renderThisweekPreview() {
+  const items = getThisweekFromUI();
+  const groups = groupThisWeekJS(items);
+  const body = groups.length ? groups.map(group => `
+    <div class="bp-day-group">
+      <h3 class="bp-day-heading">${escHtml(group.day)}</h3>
+      <div class="bp-list">
+        ${group.items.map(item => `
+        <div class="bp-item">
+          <div class="bp-item-title">${item.title ? escHtml(item.title) : '<span class="bp-empty">Untitled item</span>'}</div>
+          ${item.time ? `<div class="bp-item-time">${escHtml(item.time)}</div>` : ''}
+          ${item.location ? `<div class="bp-item-location">${escHtml(item.location)}</div>` : ''}
+          ${item.description ? `<p class="bp-item-body">${escHtml(item.description)}</p>` : ''}
+          ${ctaChipsHtml(item.ctas)}
+        </div>`).join('')}
+      </div>
+    </div>
+  `).join('') : '<p class="bp-empty-state">No schedule this week.</p>';
+  const html = `<div class="bp-card"><div class="bp-card__header"><span class="bp-card__icon">✅</span><span class="bp-card__title">This Week at Calvary</span></div>${body}</div>`;
+  setPreviewHtml('thisweek-preview', 'thisweek-preview-status', html, document.getElementById('f-thisweek-enabled').checked);
+}
+
+['input', 'change'].forEach(evt => {
+  document.getElementById('scripture-body').addEventListener(evt, renderScripturePreview);
+  document.getElementById('announcements-list').addEventListener(evt, renderAnnouncementsPreview);
+  document.getElementById('savedates-list').addEventListener(evt, renderSavedatesPreview);
+  document.getElementById('thisweek-list').addEventListener(evt, renderThisweekPreview);
 });
 
 // ============================================================
@@ -1339,12 +1569,19 @@ function updateSectionBody(cbId, bodyId) {
   const body = document.getElementById(bodyId);
   body.classList.toggle('section-body--disabled', !cb.checked);
 }
+const SECTION_PREVIEW_RENDERERS = {
+  scripture:     () => renderScripturePreview(),
+  announcements: () => renderAnnouncementsPreview(),
+  savedates:     () => renderSavedatesPreview(),
+  thisweek:      () => renderThisweekPreview(),
+};
 ['scripture', 'announcements', 'savedates', 'thisweek'].forEach(key => {
   const cbId = `f-${key}-enabled`;
   const bodyId = `${key}-body`;
   document.getElementById(cbId).addEventListener('change', () => {
     updateSectionBody(cbId, bodyId);
     renderSectionOrder(getSectionOrderFromUI());
+    SECTION_PREVIEW_RENDERERS[key]();
   });
 });
 
@@ -1632,7 +1869,7 @@ document.getElementById('download-template-btn').addEventListener('click', () =>
 // ============================================================
 // Scripture image widget (singleton — mounted once on load)
 // ============================================================
-scriptureImgWidget = makeImageUpload('img-preview-aspect--1x1', '1:1 square · 800×800 · max 500 KB', 'sermon', '#EEE8DC');
+scriptureImgWidget = makeImageUpload('img-preview-aspect--1x1', '1:1 square · 800×800 · max 500 KB', 'sermon', '#EEE8DC', () => renderScripturePreview());
 document.getElementById('scripture-img-widget-mount').appendChild(scriptureImgWidget);
 </script>
 </body>
