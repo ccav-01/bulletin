@@ -84,6 +84,9 @@
   /* Layout */
   --max-width: 1100px;
   --toc-width: 230px;
+  --header-h: 56px;
+  /* Multiplier applied to logo/badge/header sizing on very large viewports */
+  --ui-scale: 1;
 }
 
 /* ---- Reset ------------------------------------------------- */
@@ -238,14 +241,14 @@ h3 {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 0 var(--space-6);
-  height: 56px;
+  height: calc(var(--header-h) * var(--ui-scale));
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-5);
 }
 .site-header__logo img {
-  height: var(--logo-h, 38px);
+  height: calc(var(--logo-h, 38px) * var(--ui-scale));
   display: block;
   width: auto;
 }
@@ -305,7 +308,7 @@ h3 {
 }
 .bulletin-hero__badge {
   margin: 0 auto var(--space-6);
-  height: var(--badge-h, 100px);
+  height: calc(var(--badge-h, 100px) * var(--ui-scale));
   width: auto;
   max-width: none;
   display: block;
@@ -326,7 +329,7 @@ h3 {
 /* ---- TOC -------------------------------------------------- */
 .toc {
   position: sticky;
-  top: calc(56px + var(--space-5));
+  top: calc(var(--header-h) * var(--ui-scale) + var(--space-5));
   background: var(--bg-2);
   border: 1px solid var(--rule);
   border-radius: var(--r-lg);
@@ -384,7 +387,7 @@ h3 {
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   position: sticky;
-  top: 56px;
+  top: calc(var(--header-h) * var(--ui-scale));
   z-index: 90;
 }
 .toc-mobile::-webkit-scrollbar { display: none; }
@@ -435,7 +438,7 @@ h3 {
   border-radius: var(--r-lg);
   padding: var(--space-6);
   box-shadow: var(--shadow-sm);
-  scroll-margin-top: calc(56px + var(--space-5));
+  scroll-margin-top: calc(var(--header-h) * var(--ui-scale) + var(--space-5));
 }
 
 .section-card__header {
@@ -969,6 +972,17 @@ h3 {
   margin: 0;
 }
 
+/* ---- Back to Website (floating) ---------------------------- */
+.back-to-website {
+  position: fixed;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  z-index: 95; /* below header (100), above mobile TOC (90) */
+  box-shadow: var(--shadow-md);
+  font-size: calc(13px * var(--ui-scale));
+  padding: calc(10px * var(--ui-scale)) calc(20px * var(--ui-scale));
+}
+
 /* ---- Responsive ------------------------------------------- */
 @media (max-width: 768px) {
   :root {
@@ -988,6 +1002,7 @@ h3 {
   .bulletin-hero { padding: var(--space-8) var(--space-4) var(--space-7); }
   .site-header__inner { padding: 0 var(--space-4); }
   .site-header__nav .btn { padding: 7px 12px; font-size: 11px; }
+  .back-to-website { bottom: var(--space-4); right: var(--space-4); padding: 8px 14px; font-size: 11px; }
 }
 
 @media (max-width: 480px) {
@@ -997,9 +1012,17 @@ h3 {
   .item-image--1x1 { width: 100%; }
 }
 
+/* Scale logo/badge/header up on very large effective viewports (2K/4K) */
+@media (min-width: 2200px) {
+  :root { --ui-scale: 1.3; }
+}
+@media (min-width: 3400px) {
+  :root { --ui-scale: 1.85; }
+}
+
 /* ---- Print ------------------------------------------------ */
 @media print {
-  .site-header, .toc, .toc-mobile, .site-footer, .btn { display: none !important; }
+  .site-header, .toc, .toc-mobile, .site-footer, .btn, .back-to-website { display: none !important; }
   body { background: #fff; font-size: 11pt; }
   .bulletin-layout { display: block; padding: 0; }
   .section-card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; margin-bottom: 1rem; }

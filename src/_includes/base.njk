@@ -16,6 +16,14 @@
       --badge-h: {{ bulletin.appearance.badgeDesktop or 100 }}px;
       --badge-h-mobile: {{ bulletin.appearance.badgeMobile or 80 }}px;
     }
+    /* This block loads after styles.css, so the mobile swap must happen here too
+       or the values above always win the cascade. */
+    @media (max-width: 768px) {
+      :root {
+        --logo-h: var(--logo-h-mobile);
+        --badge-h: var(--badge-h-mobile);
+      }
+    }
   </style>
   <script src="/assets/js/lucide.min.js" defer></script>
   <script>document.addEventListener('DOMContentLoaded', () => lucide.createIcons());</script>
@@ -24,7 +32,7 @@
 
   <header class="site-header" role="banner">
     <div class="site-header__inner">
-      <a href="/" class="site-header__logo" aria-label="Calvary Chapel Antelope Valley — home">
+      <a href="{{ bulletin.contact.website or "/" }}" class="site-header__logo" aria-label="Calvary Chapel Antelope Valley — main website">
         <img src="/assets/ccav-wordmark-white.png" alt="Calvary Chapel Antelope Valley" />
       </a>
       <nav class="site-header__nav" aria-label="Site navigation">
@@ -68,6 +76,12 @@
       </p>
     </div>
   </footer>
+
+  {% if bulletin.contact.website and bulletin.backToWebsiteEnabled !== false %}
+  <a href="{{ bulletin.contact.website }}" class="btn btn--ochre back-to-website">
+    <i data-lucide="arrow-left"></i> Back to Website
+  </a>
+  {% endif %}
 
 </body>
 </html>

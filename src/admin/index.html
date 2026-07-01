@@ -297,7 +297,7 @@
       <div class="setup-content">
         <ol>
           <li>Add their GitHub account as a collaborator on <code>ccav-01/bulletin</code> — repo Settings &rarr; Collaborators, role: Write.</li>
-          <li>Go to <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub &rarr; Settings &rarr; Personal access tokens (fine-grained)</a> <em>while signed in as them</em>, and create a token scoped to <code>ccav-01/bulletin</code> with <strong>Contents: Read &amp; Write</strong>.</li>
+          <li>Go to <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub &rarr; Settings &rarr; Personal access tokens (fine-grained)</a> <em>while signed in as them</em>, and create a token scoped to <code>ccav-01/bulletin</code> with <strong>Contents: Read &amp; Write</strong>. Optionally also grant <strong>Actions: Read</strong> so the editor shows live deploy status after publishing.</li>
           <li>Send them the token as their access code. They paste it above once — the browser saves it from there.</li>
           <li>To remove access, revoke the token in GitHub.</li>
         </ol>
@@ -573,7 +573,7 @@
       <!-- APPEARANCE -->
       <section class="editor-section" id="section-appearance">
         <div class="section-title">Appearance</div>
-        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.5;">Adjust the size of the logo (site header) and badge (hero area). Use separate values for desktop and mobile so neither is ever stretched.</p>
+        <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.5;">Adjust the size of the logo (site header) and badge (hero area). Use separate values for desktop and mobile so neither is ever stretched. On very large screens (2K/4K) these sizes automatically scale up.</p>
 
         <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink);margin-bottom:0.75rem;">Logo (Header Wordmark)</div>
         <div class="size-control">
@@ -608,6 +608,15 @@
           </div>
           <input type="range" id="f-badge-mobile" min="40" max="160" step="2" value="80" />
         </div>
+
+        <hr style="border:none;border-top:1px solid var(--border);margin:1.25rem 0;" />
+
+        <div style="font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink);margin-bottom:0.75rem;">Back to Website Button</div>
+        <label class="toggle-label">
+          <input type="checkbox" id="f-backtowebsite-enabled" class="toggle-input" checked />
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          Show floating &ldquo;Back to Website&rdquo; button on the bulletin
+        </label>
 
         <div class="preview-container">
           <div class="preview-toolbar">
@@ -689,6 +698,68 @@ async function putFile(p, content, message) {
 async function loadBulletin() {
   const data = await ghFetch(`contents/${BULLETIN_PATH}?ref=${GITHUB_BRANCH}`);
   return JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, '')))));
+}
+
+// ============================================================
+// Deploy status tracking
+// ============================================================
+const DEPLOY_WORKFLOW = '.github/workflows/deploy.yml';
+const EMAIL_WORKFLOW  = '.github/workflows/sync-email.yml';
+let deployPollGeneration = 0;
+
+// Polls the Actions runs for the given commit and walks the status bar
+// through committed → queued → building → live/failed. Fire-and-forget.
+async function trackDeploy(sha, initialMsg = 'Committed — waiting for GitHub to start building…') {
+  const gen = ++deployPollGeneration;
+  const deadline = Date.now() + 6 * 60 * 1000;
+  setStatus(initialMsg, 'info', '⏳');
+  while (Date.now() < deadline) {
+    await new Promise(r => setTimeout(r, 5000));
+    if (gen !== deployPollGeneration) return; // superseded by a newer publish
+    let runs;
+    try {
+      runs = (await ghFetch(`actions/runs?head_sha=${sha}&per_page=10`)).workflow_runs || [];
+    } catch (err) {
+      // Most likely a fine-grained token without Actions: Read — fall back to the static message
+      setStatus('Published! GitHub Actions is rebuilding the site (~60 seconds). Add “Actions: Read” to your token to see live deploy status here.', 'success', '✅');
+      return;
+    }
+    if (gen !== deployPollGeneration) return;
+    const deploy = runs.find(r => r.path === DEPLOY_WORKFLOW);
+    const email  = runs.find(r => r.path === EMAIL_WORKFLOW);
+    if (!deploy || deploy.status !== 'completed') {
+      if (!deploy || deploy.status === 'queued' || deploy.status === 'waiting' || deploy.status === 'pending') {
+        setStatus('Build queued on GitHub…', 'info', '⏳');
+      } else {
+        setStatus('Building & deploying the site…', 'info', '🔄');
+      }
+      continue;
+    }
+    if (deploy.conclusion === 'cancelled' || deploy.conclusion === 'skipped') {
+      setStatus('This publish was superseded by a newer one.', 'info', 'ℹ️');
+      return;
+    }
+    if (deploy.conclusion !== 'success') {
+      setStatus(`Site deploy failed (${deploy.name}).`, 'error', '❌', { url: deploy.html_url, text: 'View the failed run' });
+      return;
+    }
+    // Site is live — report the email sync separately
+    if (!email || email.status !== 'completed') {
+      setStatus('Site is live! Finishing the Mailchimp email sync…', 'info', '📧');
+      continue;
+    }
+    if (email.conclusion === 'success') {
+      setStatus('Site is live and the email draft synced to Mailchimp.', 'success', '✅');
+    } else if (email.conclusion === 'cancelled' || email.conclusion === 'skipped') {
+      setStatus('Site is live. (Email sync was superseded by a newer publish.)', 'success', '✅');
+    } else {
+      setStatus(`Site is live, but the Mailchimp email sync failed (${email.name}).`, 'error', '❌', { url: email.html_url, text: 'View the failed run' });
+    }
+    return;
+  }
+  if (gen === deployPollGeneration) {
+    setStatus('Still building — check the repo’s Actions tab if this persists.', 'info', '⏳');
+  }
 }
 
 // ============================================================
@@ -817,12 +888,24 @@ document.querySelectorAll('[data-section]').forEach(link => {
 // ============================================================
 // Status bar
 // ============================================================
-function setStatus(msg, type = 'info', icon = 'ℹ️') {
+let statusHideTimer = null;
+function setStatus(msg, type = 'info', icon = 'ℹ️', link = null) {
+  clearTimeout(statusHideTimer);
   const bar = document.getElementById('status-bar');
   bar.className = type;
   document.getElementById('status-icon').textContent = icon;
-  document.getElementById('status-msg').textContent = msg;
-  if (type === 'success') setTimeout(() => { bar.className = ''; }, 5000);
+  const msgEl = document.getElementById('status-msg');
+  msgEl.textContent = msg;
+  if (link) {
+    msgEl.append(' ');
+    const a = document.createElement('a');
+    a.href = link.url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = link.text;
+    msgEl.appendChild(a);
+  }
+  if (type === 'success') statusHideTimer = setTimeout(() => { bar.className = ''; }, 5000);
 }
 
 // ============================================================
@@ -866,6 +949,7 @@ function populateForm(data) {
   document.getElementById('f-facebook').value   = data.contact?.facebook || '';
   document.getElementById('f-instagram').value  = data.contact?.instagram || '';
   document.getElementById('f-youtube').value    = data.contact?.youtube || '';
+  document.getElementById('f-backtowebsite-enabled').checked = data.backToWebsiteEnabled !== false;
   setSlider('f-logo-desktop',  'logo-desktop-val',  data.appearance?.logoDesktop  ?? 38);
   setSlider('f-logo-mobile',   'logo-mobile-val',   data.appearance?.logoMobile   ?? 32);
   setSlider('f-badge-desktop', 'badge-desktop-val', data.appearance?.badgeDesktop ?? 100);
@@ -904,6 +988,7 @@ function extractForm() {
     announcements: getAnnouncementsFromUI(),
     savetheDates: getSavedatesFromUI(),
     thisWeek: getThisweekFromUI(),
+    backToWebsiteEnabled: document.getElementById('f-backtowebsite-enabled').checked,
     appearance: {
       logoDesktop:  parseInt(document.getElementById('f-logo-desktop').value,  10),
       logoMobile:   parseInt(document.getElementById('f-logo-mobile').value,   10),
@@ -1503,16 +1588,16 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
   if (editingArchivePath) {
     setStatus('Saving archive…', 'info', '⏳');
     try {
-      await putFile(editingArchivePath, JSON.stringify(data, null, 2), `Update archived bulletin for ${data.date}`);
-      setStatus(`Archive for ${data.date} saved. Site will rebuild shortly.`, 'success', '✅');
+      const res = await putFile(editingArchivePath, JSON.stringify(data, null, 2), `Update archived bulletin for ${data.date}`);
+      trackDeploy(res.commit.sha);
     } catch (err) { setStatus('Error saving archive: ' + err.message, 'error', '❌'); }
     finally { btn.disabled = false; }
   } else {
     setStatus('Publishing bulletin…', 'info', '⏳');
     try {
-      await putFile(BULLETIN_PATH, JSON.stringify(data, null, 2), `Update bulletin for ${data.date}`);
-      setStatus('Published! GitHub Actions is rebuilding the site (~60 seconds).', 'success', '✅');
+      const res = await putFile(BULLETIN_PATH, JSON.stringify(data, null, 2), `Update bulletin for ${data.date}`);
       state = data;
+      trackDeploy(res.commit.sha);
     } catch (err) { setStatus('Error publishing: ' + err.message, 'error', '❌'); }
     finally { btn.disabled = false; }
   }
@@ -1545,11 +1630,13 @@ document.getElementById('archive-btn').addEventListener('click', async () => {
       thisWeekEnabled: current.thisWeekEnabled ?? true,
       sectionOrder: current.sectionOrder || DEFAULT_SECTION_ORDER,
       announcements: current.announcements || [], savetheDates: current.savetheDates || [], thisWeek: current.thisWeek || [],
+      backToWebsiteEnabled: current.backToWebsiteEnabled ?? true,
+      appearance: current.appearance,
       giving: current.giving, contact: current.contact,
     };
-    await putFile(BULLETIN_PATH, JSON.stringify(blank, null, 2), `Start new bulletin for ${nextDate}`);
+    const res = await putFile(BULLETIN_PATH, JSON.stringify(blank, null, 2), `Start new bulletin for ${nextDate}`);
     state = blank; populateForm(blank);
-    setStatus(`Archived ${current.date} and started bulletin for ${nextDate}.`, 'success', '✅');
+    trackDeploy(res.commit.sha, `Archived ${current.date} and started bulletin for ${nextDate}. Waiting for GitHub to rebuild…`);
   } catch (err) { setStatus('Error archiving: ' + err.message, 'error', '❌'); }
   finally { btn.disabled = false; }
 });
