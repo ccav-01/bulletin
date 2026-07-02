@@ -1,6 +1,6 @@
 {
   "date": "2026-07-05",
-  "theme": "Acts 23",
+  "theme": "Acts 24",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -27,8 +27,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Acts 23",
-    "imageUrl": ""
+    "sermonSeries": "Acts 24"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -42,6 +41,11 @@
     "scripture"
   ],
   "announcements": [
+    {
+      "title": "Office Closed ",
+      "body": "Office will be closed on Friday July 3rd due to Independence Day.",
+      "ctas": []
+    },
     {
       "title": "VBS Volunteer Registration",
       "body": "Come out and serve on July 19th - 23rd from 5 PM - 9 PM for VBS. We will need lots of volunteers to help so please fill out the volunteer registration form at the table in the courtyard. ",
@@ -58,8 +62,8 @@
       "ctas": []
     },
     {
-      "title": "Office Closed ",
-      "body": "Office will be closed on Friday July 3rd due to Independence Day.",
+      "title": "Baptism",
+      "body": "Come join us August 2nd after second service for food, fellowship and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized. \n",
       "ctas": []
     }
   ],
