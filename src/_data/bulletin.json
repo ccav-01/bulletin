@@ -27,8 +27,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Acts 24",
-    "imageUrl": ""
+    "sermonSeries": "Acts 24"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -43,11 +42,6 @@
   ],
   "announcements": [
     {
-      "title": "Office Closed ",
-      "body": "Office will be closed on Friday July 3rd due to Independence Day.",
-      "ctas": []
-    },
-    {
       "title": "VBS Volunteer Registration",
       "body": "Come out and serve on July 19th - 23rd from 5 PM - 9 PM for VBS. We will need lots of volunteers to help so please fill out the volunteer registration form at the table in the courtyard. ",
       "ctas": []
@@ -55,6 +49,16 @@
     {
       "title": "VBS Volunteer Meeting ",
       "body": "VBS Volunteers! We will be having a meeting on Sunday July 12th after 2nd service in the 4th and 5th grade classroom.",
+      "ctas": []
+    },
+    {
+      "title": "VBS Set Up",
+      "body": "VBS set up is starting Friday July 17th at 12 noon. We will need lots of help to set up everything so please sign up in the foyer.\n",
+      "ctas": []
+    },
+    {
+      "title": "Grounds For Grace High School Bible Study ",
+      "body": "Come and join us at Amate Coffee from 6 PM - 8 PM on July 17th  to fill your cup with coffe and your heart with truth. More information and sign up in the foyer.",
       "ctas": []
     },
     {
@@ -158,7 +162,7 @@
     {
       "title": "Praise & Prayer",
       "day": "Wednesday",
-      "time": "6:00 PM",
+      "time": "5:30 PM",
       "location": "Westminster Room",
       "description": "",
       "ctas": []
@@ -166,7 +170,7 @@
     {
       "title": "Evening Service",
       "day": "Wednesday",
-      "time": "7:00 PM",
+      "time": "6:30 PM",
       "location": "",
       "description": "",
       "ctas": []
@@ -175,6 +179,22 @@
       "title": "Senior’s Study",
       "day": "Thursday",
       "time": "10:00 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "VBS Set Up",
+      "day": "Friday",
+      "time": "12 noon",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Grounds for Grace High School Bible Study at Amate Coffee",
+      "day": "Friday",
+      "time": "6 PM - 8 PM ",
       "location": "",
       "description": "",
       "ctas": []
