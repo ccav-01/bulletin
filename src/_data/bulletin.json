@@ -42,11 +42,6 @@
   ],
   "announcements": [
     {
-      "title": "Baptism",
-      "body": "Come join us August 2nd after second service for food, fellowship and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized. \n",
-      "ctas": []
-    },
-    {
       "title": "VBS ",
       "body": "Tonight is our first night of VBS. There’s still time to register your children. Bring them out so they can join in the fun. VBS will be July 19th - 23rd from 5:30 PM - 8:30 PM.",
       "ctas": []
@@ -54,6 +49,11 @@
     {
       "title": "No Services During the Week Due to VBS ",
       "body": "Just a reminder there will be no men’s and women’s bible study tuesday July 21st and no wednesday evening service July 22nd due to VBS those days.\n",
+      "ctas": []
+    },
+    {
+      "title": "Baptism",
+      "body": "Come join us August 2nd after second service for food, fellowship and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized. \n",
       "ctas": []
     }
   ],
