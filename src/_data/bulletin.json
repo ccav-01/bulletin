@@ -1,6 +1,6 @@
 {
   "date": "2026-07-19",
-  "theme": "Acts 24",
+  "theme": "Acts 25-26",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -27,8 +27,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Acts 24",
-    "imageUrl": ""
+    "sermonSeries": "Acts 24"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -43,33 +42,18 @@
   ],
   "announcements": [
     {
-      "title": "VBS Volunteer Registration",
-      "body": "Come out and serve on July 19th - 23rd from 5 PM - 9 PM for VBS. We will need lots of volunteers to help so please fill out the volunteer registration form at the table in the courtyard. ",
-      "ctas": []
-    },
-    {
-      "title": "VBS Volunteer Meeting ",
-      "body": "VBS Volunteers! We will be having a meeting on Sunday July 12th after 2nd service in the 4th and 5th grade classroom.",
-      "ctas": []
-    },
-    {
-      "title": "VBS Set Up",
-      "body": "VBS set up is starting Friday July 17th at 12 noon. We will need lots of help to set up everything so please sign up in the foyer.\n",
-      "ctas": []
-    },
-    {
-      "title": "Grounds For Grace High School Bible Study ",
-      "body": "Come and join us at Amate Coffee from 6 PM - 8 PM on July 17th  to fill your cup with coffe and your heart with truth. More information and sign up in the foyer.",
-      "ctas": []
-    },
-    {
-      "title": "Men's Breakfast ",
-      "body": "Come join us for the men’s breakfast Saturday July 18th from 8 AM - 10 AM. There will be food, fellowship and Pastor Fabian Moreno from CC Santa Paula will be bringing the Word. Sign up in the foyer. ",
-      "ctas": []
-    },
-    {
       "title": "Baptism",
       "body": "Come join us August 2nd after second service for food, fellowship and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized. \n",
+      "ctas": []
+    },
+    {
+      "title": "VBS ",
+      "body": "Tonight is our first night of VBS. There’s still time to register your children. Bring them out so they can join in the fun. VBS will be July 19th - 23rd from 5:30 PM - 8:30 PM.",
+      "ctas": []
+    },
+    {
+      "title": "No Services During the Week Due to VBS ",
+      "body": "Just a reminder there will be no men’s and women’s bible study tuesday July 21st and no wednesday evening service July 22nd due to VBS those days.\n",
       "ctas": []
     }
   ],
@@ -129,49 +113,33 @@
       "ctas": []
     },
     {
-      "title": "Men's Discipleship",
-      "day": "Tuesday",
-      "time": "5 PM",
+      "title": "VBS July 19th ",
+      "day": "Sunday",
+      "time": "5:30 PM - 8:30 PM ",
       "location": "",
       "description": "",
       "ctas": []
     },
     {
-      "title": "Women's Joy Bible Study ",
-      "day": "Tuesday",
-      "time": "5 PM",
+      "title": "VBS July 20th ",
+      "day": "Monday",
+      "time": "5:30 PM - 8:30 PM",
       "location": "",
       "description": "",
       "ctas": []
     },
     {
-      "title": "Men's Bible Study",
+      "title": "VBS July 21st ",
       "day": "Tuesday",
-      "time": "6:30 PM",
+      "time": "5:30 PM  - 8:30 PM ",
       "location": "",
       "description": "",
       "ctas": []
     },
     {
-      "title": "Women's Summer Book Club ",
-      "day": "Tuesday",
-      "time": "6:30 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Praise & Prayer",
+      "title": "VBS July 22nd",
       "day": "Wednesday",
-      "time": "5:30 PM",
-      "location": "Westminster Room",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Evening Service",
-      "day": "Wednesday",
-      "time": "6:30 PM",
+      "time": "5:30 PM - 8:30 PM",
       "location": "",
       "description": "",
       "ctas": []
@@ -185,25 +153,9 @@
       "ctas": []
     },
     {
-      "title": "VBS Set Up",
-      "day": "Friday",
-      "time": "12 noon",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Grounds for Grace High School Bible Study at Amate Coffee",
-      "day": "Friday",
-      "time": "6 PM - 8 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Men's Breakfast ",
-      "day": "Saturday",
-      "time": "8 AM - 10 AM ",
+      "title": "VBS July 23rd ",
+      "day": "Thursday",
+      "time": "5:30 PM - 8:30 PM",
       "location": "",
       "description": "",
       "ctas": []
