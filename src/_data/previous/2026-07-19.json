@@ -1,0 +1,169 @@
+{
+  "date": "2026-07-19",
+  "theme": "Acts 25-26",
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": [
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "6:30 PM"
+      }
+    ],
+    "pastor": "Pastor Josh Hueser",
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
+  },
+  "scripture": {
+    "verse": "",
+    "reference": "",
+    "sermonTitle": "",
+    "sermonSeries": "Acts 24"
+  },
+  "scriptureEnabled": false,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "announcements",
+    "savetheDates",
+    "service",
+    "thisWeek",
+    "scripture"
+  ],
+  "announcements": [
+    {
+      "title": "VBS ",
+      "body": "Sunday July 19th is our first night of VBS. There’s still time to register your children. Bring them out so they can join in the fun. VBS will be July 19th - 23rd from 5:30 PM - 8:30 PM.",
+      "ctas": []
+    },
+    {
+      "title": "No Services During the Week Due to VBS ",
+      "body": "Just a reminder there will be no men’s and women’s bible study tuesday July 21st and no wednesday evening service July 22nd due to VBS those days.\n",
+      "ctas": []
+    },
+    {
+      "title": "Baptism",
+      "body": "Come join us August 2nd after second service for food, fellowship and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized. \n",
+      "ctas": []
+    }
+  ],
+  "savetheDates": [
+    {
+      "title": "Men’s Breakfast",
+      "date": "2026-08-15",
+      "time": "8:00 AM - 10:00 AM",
+      "description": "Men’s Breakfast here at the church.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Retreat at Verdugo Pines",
+      "date": "2026-09-18",
+      "time": "",
+      "description": "Men’s Retreat at Verdugo Pines will take place September 18th through September 20th.",
+      "ctas": []
+    }
+  ],
+  "thisWeek": [
+    {
+      "title": "Praise & Prayer",
+      "day": "Sunday",
+      "time": "7:30 AM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "1st Service",
+      "day": "Sunday",
+      "time": "8:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "2nd Service",
+      "day": "Sunday",
+      "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "VBS July 19th ",
+      "day": "Sunday",
+      "time": "5:30 PM - 8:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "VBS July 20th ",
+      "day": "Monday",
+      "time": "5:30 PM - 8:30 PM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "VBS July 21st ",
+      "day": "Tuesday",
+      "time": "5:30 PM  - 8:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "VBS July 22nd",
+      "day": "Wednesday",
+      "time": "5:30 PM - 8:30 PM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Senior’s Study",
+      "day": "Thursday",
+      "time": "10:00 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "VBS July 23rd ",
+      "day": "Thursday",
+      "time": "5:30 PM - 8:30 PM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    }
+  ],
+  "backToWebsiteEnabled": true,
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
+  "giving": {
+    "url": "https://www.calvarychapelav.org/giving/",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 942-0404",
+    "email": "ccav@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
+  }
+}
