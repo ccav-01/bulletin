@@ -1,6 +1,6 @@
 {
   "date": "2026-08-02",
-  "theme": "Acts 27",
+  "theme": "Pastor Prasanth",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -27,8 +27,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Acts 27",
-    "imageUrl": ""
+    "sermonSeries": "Pastor Prasanth"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -44,7 +43,7 @@
   "announcements": [
     {
       "title": "Baptism",
-      "body": "Come join us August 2nd after second service for food, fellowship and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized. \n",
+      "body": "Come join us today August 2nd after second service for food, fellowship and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized. \n",
       "ctas": []
     },
     {
@@ -95,6 +94,14 @@
       "title": "2nd Service",
       "day": "Sunday",
       "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Baptism ",
+      "day": "Sunday",
+      "time": "After second service ",
       "location": "",
       "description": "",
       "ctas": []
