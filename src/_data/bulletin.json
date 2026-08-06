@@ -1,6 +1,6 @@
 {
   "date": "2026-08-09",
-  "theme": "Pastor Prasanth",
+  "theme": "Acts 28 ",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -27,8 +27,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Pastor Prasanth",
-    "imageUrl": ""
+    "sermonSeries": "Acts 28"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -42,11 +41,6 @@
     "scripture"
   ],
   "announcements": [
-    {
-      "title": "Baptism",
-      "body": "Come join us August 2nd after second service for food, fellowship and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized. \n",
-      "ctas": []
-    },
     {
       "title": "Men's Breakfast ",
       "body": "Come join us for the men’s breakfast Saturday August 15th  from 8 AM - 10 AM. There will be food, fellowship and Pastor David Johnson from CC Conejo Valley will be bringing the Word. Sign up in the foyer.",
@@ -95,14 +89,6 @@
       "title": "2nd Service",
       "day": "Sunday",
       "time": "10:30 AM",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Baptism ",
-      "day": "Sunday",
-      "time": "After second service ",
       "location": "",
       "description": "",
       "ctas": []
@@ -159,6 +145,14 @@
       "title": "Senior's Study ",
       "day": "Thursday",
       "time": "10 AM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Men's Breakfast ",
+      "day": "Saturday",
+      "time": "8 AM - 10 AM ",
       "location": "",
       "description": "",
       "ctas": []
