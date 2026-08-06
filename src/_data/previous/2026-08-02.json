@@ -1,0 +1,185 @@
+{
+  "date": "2026-08-02",
+  "theme": "Pastor Prasanth",
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": [
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "6:30 PM"
+      }
+    ],
+    "pastor": "Pastor Josh Hueser",
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
+  },
+  "scripture": {
+    "verse": "",
+    "reference": "",
+    "sermonTitle": "",
+    "sermonSeries": "Pastor Prasanth"
+  },
+  "scriptureEnabled": false,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "announcements",
+    "savetheDates",
+    "service",
+    "thisWeek",
+    "scripture"
+  ],
+  "announcements": [
+    {
+      "title": "Baptism",
+      "body": "Come join us August 2nd after second service for food, fellowship and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized. \n",
+      "ctas": []
+    },
+    {
+      "title": "Men's Breakfast ",
+      "body": "Come join us for the men’s breakfast Saturday August 15th  from 8 AM - 10 AM. There will be food, fellowship and Pastor David Johnson from CC Conejo Valley will be bringing the Word. Sign up in the foyer.",
+      "ctas": []
+    },
+    {
+      "title": "Grounds For Grace High School Bible Study ",
+      "body": "High schoolers come join us to fill your cup with coffee and your heart with the truth at Amate Coffee August 21st from 6 PM - 8 PM. Sign up in the foyer.",
+      "ctas": []
+    }
+  ],
+  "savetheDates": [
+    {
+      "title": "Men’s Breakfast",
+      "date": "2026-08-15",
+      "time": "8:00 AM - 10:00 AM",
+      "description": "Men’s Breakfast here at the church.",
+      "ctas": []
+    },
+    {
+      "title": "Men’s Retreat at Verdugo Pines",
+      "date": "2026-09-18",
+      "time": "",
+      "description": "Men’s Retreat at Verdugo Pines will take place September 18th through September 20th.",
+      "ctas": []
+    }
+  ],
+  "thisWeek": [
+    {
+      "title": "Praise & Prayer",
+      "day": "Sunday",
+      "time": "7:30 AM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "1st Service",
+      "day": "Sunday",
+      "time": "8:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "2nd Service",
+      "day": "Sunday",
+      "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Baptism ",
+      "day": "Sunday",
+      "time": "After second service ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Men's Discipleship ",
+      "day": "Tuesday",
+      "time": "5 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Women's Inductive Bible Study ",
+      "day": "Tuesday",
+      "time": "5 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Men's Bible Study Through Galatians ",
+      "day": "Tuesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Women's Summer Book Club ",
+      "day": "Tuesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Praise and Prayer ",
+      "day": "Wednesday",
+      "time": "5:30 PM ",
+      "location": "Westminister Room ",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Wednesday Evening Service Through Revelation ",
+      "day": "Wednesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Senior's Study ",
+      "day": "Thursday",
+      "time": "10 AM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    }
+  ],
+  "backToWebsiteEnabled": true,
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
+  "giving": {
+    "url": "https://www.calvarychapelav.org/giving/",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 942-0404",
+    "email": "ccav@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
+  }
+}
