@@ -1,5 +1,5 @@
 {
-  "date": "2026-08-02",
+  "date": "2026-08-09",
   "theme": "Pastor Prasanth",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
@@ -27,7 +27,8 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Pastor Prasanth"
+    "sermonSeries": "Pastor Prasanth",
+    "imageUrl": ""
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
