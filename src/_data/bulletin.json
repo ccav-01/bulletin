@@ -1,6 +1,6 @@
 {
   "date": "2026-08-16",
-  "theme": "Acts 28 ",
+  "theme": "\"His Divine Power\" 2 Peter 1:1-11 ",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -27,8 +27,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "Acts 28",
-    "imageUrl": ""
+    "sermonSeries": "\"His Divine Power\" 2 Peter 1:1-11"
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -43,24 +42,22 @@
   ],
   "announcements": [
     {
-      "title": "Men's Breakfast ",
-      "body": "Come join us for the men’s breakfast Saturday August 15th  from 8 AM - 10 AM. There will be food, fellowship and Pastor David Johnston from CC Conejo Valley will be bringing the Word. Sign up in the foyer.",
+      "title": "Grounds For Grace High School Bible Study ",
+      "body": "High schoolers come join us to fill your cup with coffee and your heart with the truth at Amate Coffee August 21st from 6 PM - 8 PM. Sign up in the foyer.",
       "ctas": []
     },
     {
-      "title": "Grounds For Grace High School Bible Study ",
-      "body": "High schoolers come join us to fill your cup with coffee and your heart with the truth at Amate Coffee August 21st from 6 PM - 8 PM. Sign up in the foyer.",
+      "title": "Children's Ministry Needs ",
+      "body": "Do you have a heart for children and to pour into the next generation? We need teachers in the 1st service 3-5 graders class. We are also in need of some welcoming greeters/check in/security to be at the children’s ministry gate during 1st service and on Wednesday evenings. If you are interested, please contact Kendra Reyna at 310-365-8396.\n",
+      "ctas": []
+    },
+    {
+      "title": "Marriage Couples Dinner ",
+      "body": "Attention married and engaged couples. Save the date for our upcoming couples dinner on October 17th with guest speaker Pastor Rob Salvato and his wife Denise Salvato from Calvary Chapel Vista. You won’t want to miss this. Sign ups coming soon. ",
       "ctas": []
     }
   ],
   "savetheDates": [
-    {
-      "title": "Men’s Breakfast",
-      "date": "2026-08-15",
-      "time": "8:00 AM - 10:00 AM",
-      "description": "Men’s Breakfast here at the church.",
-      "ctas": []
-    },
     {
       "title": "Men’s Retreat at Verdugo Pines",
       "date": "2026-09-18",
@@ -146,14 +143,6 @@
       "title": "Senior's Study ",
       "day": "Thursday",
       "time": "10 AM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Men's Breakfast ",
-      "day": "Saturday",
-      "time": "8 AM - 10 AM ",
       "location": "",
       "description": "",
       "ctas": []
