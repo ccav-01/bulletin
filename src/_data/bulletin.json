@@ -1,6 +1,6 @@
 {
   "date": "2026-08-16",
-  "theme": "\"His Divine Power\" 2 Peter 1:1-11 ",
+  "theme": "\"His Divine Power\" 2 Peter 1:1-11 With Guest Speaker: Zeke Flores ",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -143,6 +143,14 @@
       "title": "Senior's Study ",
       "day": "Thursday",
       "time": "10 AM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Grounds for Grace High School Bible Study at Amate Coffee",
+      "day": "Friday",
+      "time": "6 PM - 8 PM ",
       "location": "",
       "description": "",
       "ctas": []
