@@ -51,6 +51,11 @@
     .admin-header { background: var(--ink); color: var(--paper); padding: 0.75rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .admin-header__logo img { height: 28px; display: block; }
     .admin-header__actions { display: flex; gap: 0.75rem; align-items: center; }
+    .draft-status { display: inline-flex; align-items: center; gap: 0.4rem; max-width: 220px; font-size: 0.72rem; font-weight: 600; color: rgba(247,243,236,0.65); white-space: nowrap; }
+    .draft-status__dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+    .draft-status--saving { color: #e9c46a; }
+    .draft-status--saved { color: #a8c78f; }
+    .draft-status--error { color: #f1a49a; white-space: normal; }
 
     /* ---- Status ---- */
     #status-bar { padding: 0.6rem 1.5rem; font-size: 0.85rem; font-weight: 600; display: none; align-items: center; gap: 0.5rem; }
@@ -65,6 +70,7 @@
     .admin-sidebar nav li a { display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem; font-size: 0.875rem; color: var(--muted); text-decoration: none; transition: background 0.15s, color 0.15s; }
     .admin-sidebar nav li a:hover, .admin-sidebar nav li a.active { background: var(--paper-2); color: var(--ink); font-weight: 600; }
     .admin-main { flex: 1; padding: 1.5rem; max-width: 820px; }
+    .admin-main[inert] { opacity: 0.65; cursor: wait; }
 
     /* ---- Sections ---- */
     .editor-section { display: none; }
@@ -118,6 +124,7 @@
     .btn--danger:hover { background: var(--danger); color: #fff; }
     .btn--sm { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
     .btn--full { width: 100%; justify-content: center; }
+    .btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
     /* ---- Section header with toggle ---- */
     .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--paper-2); }
@@ -238,6 +245,13 @@
 
     @media (max-width: 640px) {
       .admin-sidebar { display: none; }
+      .admin-header { padding-inline: 0.85rem; }
+      .admin-header__actions { gap: 0.5rem; }
+      #header-user { display: none; }
+      .admin-header__logo img { height: 22px; max-width: 105px; object-fit: contain; }
+      .draft-status { min-width: 0; max-width: 90px; }
+      #draft-status-text { overflow: hidden; text-overflow: ellipsis; }
+      #signout-btn { padding-inline: 0.6rem; }
       .field-row { grid-template-columns: 1fr; }
       .cta-row { grid-template-columns: 1fr auto; }
       .cta-row input:nth-child(2) { display: none; }
@@ -277,7 +291,7 @@
     </div>
     <h2>Bulletin Admin</h2>
     <p>Enter your access code to edit and publish the weekly bulletin.</p>
-    <form id="auth-form" autocomplete="on" onsubmit="handleSignIn(event)">
+    <form id="auth-form" autocomplete="on">
       <!-- Hidden username field anchors the browser password manager to this site -->
       <input type="text" name="username" value="ccav-01/bulletin" autocomplete="username"
              style="position:absolute;opacity:0;pointer-events:none;width:0;" aria-hidden="true" tabindex="-1" />
@@ -313,6 +327,10 @@
       <img src="/assets/ccav-wordmark-white.png" alt="Calvary Chapel AV" />
     </div>
     <div class="admin-header__actions">
+      <span class="draft-status" id="draft-status" aria-live="polite" title="Drafts are stored in this browser until you publish.">
+        <span class="draft-status__dot" aria-hidden="true"></span>
+        <span id="draft-status-text">No draft loaded</span>
+      </span>
       <span id="header-user" style="font-size:0.75rem;opacity:0.6;"></span>
       <button class="btn btn--ghost btn--sm" id="signout-btn" style="color:rgba(247,243,236,0.7);border-color:rgba(247,243,236,0.2);">Sign Out</button>
     </div>
@@ -374,7 +392,9 @@
         <div class="publish-actions">
           <div class="publish-actions__title">Publish</div>
           <p class="publish-actions__desc">
-            <strong>Publish Bulletin</strong> saves your changes to GitHub and triggers a site rebuild (takes ~60 seconds).<br>
+            Your edits are saved as a draft in this browser as you go.<br>
+            <strong>Publish Bulletin</strong> sends the draft to GitHub and triggers a site rebuild (takes ~60 seconds).<br>
+            Images upload to GitHub as soon as you select them; their bulletin placement stays in your browser draft.<br>
             <strong>Archive &amp; Start New</strong> moves this bulletin to the Past Bulletins archive, then resets the form for next week.
           </p>
           <div class="publish-actions__buttons">
@@ -659,14 +679,45 @@ const GITHUB_BRANCH  = 'main';
 const BULLETIN_PATH  = 'src/_data/bulletin.json';
 const PREVIOUS_PATH  = 'src/_data/previous';
 const SESSION_KEY    = 'bulletin_admin_token';
+const DRAFT_KEY_PREFIX = 'bulletin_admin_draft_v1';
+const TAB_DRAFT_KEY_PREFIX = 'bulletin_admin_tab_draft_v1';
+const DRAFT_SAVE_DELAY = 700;
+const LOCAL_STORAGE_AREA = (() => { try { return window.localStorage; } catch (_) { return null; } })();
+const SESSION_STORAGE_AREA = (() => { try { return window.sessionStorage; } catch (_) { return null; } })();
+
+function safeStorageGet(storage, key) {
+  if (!storage) return null;
+  try { return storage.getItem(key); } catch (_) { return null; }
+}
+function safeStorageSet(storage, key, value) {
+  if (!storage) return false;
+  try { storage.setItem(key, value); return true; } catch (_) { return false; }
+}
+function safeStorageRemove(storage, key) {
+  if (!storage) return false;
+  try { storage.removeItem(key); return true; } catch (_) { return false; }
+}
 
 // ============================================================
 // State
 // ============================================================
 let state = {};
 let githubToken = '';
+let githubLogin = '';
 let editingArchivePath = null;
+let editorBaseData = {};
 let scriptureImgWidget = null;
+let draftAutosaveReady = false;
+let draftHydrating = false;
+let draftSaveTimer = null;
+let pendingDraftTarget = null;
+let pendingImageUploads = 0;
+let persistenceOperationActive = false;
+let draftSaveBlocked = false;
+const publishedDataByPath = new Map();
+const publishedShaByPath = new Map();
+const draftRawByPath = new Map();
+const draftWriterId = globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`;
 
 // ============================================================
 // GitHub API
@@ -683,21 +734,39 @@ async function ghFetch(path, opts = {}) {
     ...opts,
     headers: { ...ghHeaders(), ...(opts.headers || {}) },
   });
-  if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.message || `GitHub API ${res.status}`); }
+  if (!res.ok) {
+    const e = await res.json().catch(() => ({}));
+    const error = new Error(e.message || `GitHub API ${res.status}`);
+    error.status = res.status;
+    throw error;
+  }
   return res.json();
 }
 async function getFileSha(p) {
-  try { return (await ghFetch(`contents/${p}?ref=${GITHUB_BRANCH}`)).sha; } catch (_) { return null; }
+  try {
+    return (await ghFetch(`contents/${p}?ref=${GITHUB_BRANCH}`)).sha;
+  } catch (err) {
+    if (err.status === 404) return null;
+    throw err;
+  }
 }
-async function putFile(p, content, message) {
+async function putFile(p, content, message, expectedSha = undefined) {
   const sha = await getFileSha(p);
+  if (expectedSha !== undefined && sha !== expectedSha) {
+    const error = new Error('This file changed on GitHub after you opened it. Your browser draft is safe — reload to review the newer published version before trying again.');
+    error.code = 'CONTENT_CONFLICT';
+    throw error;
+  }
   const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: GITHUB_BRANCH };
   if (sha) body.sha = sha;
   return ghFetch(`contents/${p}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
 }
 async function loadBulletin() {
-  const data = await ghFetch(`contents/${BULLETIN_PATH}?ref=${GITHUB_BRANCH}`);
-  return JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, '')))));
+  const file = await ghFetch(`contents/${BULLETIN_PATH}?ref=${GITHUB_BRANCH}`);
+  return {
+    data: JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, ''))))),
+    sha: file.sha,
+  };
 }
 
 // ============================================================
@@ -800,8 +869,26 @@ const authScreen  = document.getElementById('auth-screen');
 const adminShell  = document.getElementById('admin-shell');
 
 // Restore token — localStorage for "remember me", sessionStorage for tab-only
-const stored = localStorage.getItem(SESSION_KEY) || sessionStorage.getItem(SESSION_KEY);
+const storedLocalToken = safeStorageGet(LOCAL_STORAGE_AREA, SESSION_KEY);
+const storedSessionToken = safeStorageGet(SESSION_STORAGE_AREA, SESSION_KEY);
+const stored = storedLocalToken || storedSessionToken;
+const storedTokenWasRemembered = Boolean(storedLocalToken);
 if (stored) githubToken = stored;
+
+function persistAuthToken(token, remember) {
+  if (remember) {
+    safeStorageRemove(SESSION_STORAGE_AREA, SESSION_KEY);
+    if (safeStorageSet(LOCAL_STORAGE_AREA, SESSION_KEY, token)) return true;
+    return safeStorageSet(SESSION_STORAGE_AREA, SESSION_KEY, token);
+  }
+  safeStorageRemove(LOCAL_STORAGE_AREA, SESSION_KEY);
+  return safeStorageSet(SESSION_STORAGE_AREA, SESSION_KEY, token);
+}
+
+function clearStoredAuthToken() {
+  safeStorageRemove(LOCAL_STORAGE_AREA, SESSION_KEY);
+  safeStorageRemove(SESSION_STORAGE_AREA, SESSION_KEY);
+}
 
 async function handleSignIn(e) {
   e.preventDefault();
@@ -822,21 +909,36 @@ async function handleSignIn(e) {
         'X-GitHub-Api-Version': '2022-11-28',
       },
     });
-    if (!userRes.ok) throw new Error('Invalid token — please check and try again.');
+    if (!userRes.ok) {
+      const error = new Error('Invalid token — please check and try again.');
+      error.status = userRes.status;
+      throw error;
+    }
     const user = await userRes.json();
 
     // Set token so ghFetch works, then load bulletin (verifies repo read access)
     githubToken = token;
-    state = await loadBulletin();
+    githubLogin = user.login;
+    const loaded = await loadBulletin();
+    state = loaded.data;
+    editingArchivePath = null;
 
-    if (remember) localStorage.setItem(SESSION_KEY, token);
-    else sessionStorage.setItem(SESSION_KEY, token);
-    populateForm(state);
+    const tokenStored = persistAuthToken(token, remember);
+    activateEditorTarget(BULLETIN_PATH, state, loaded.sha);
+    draftAutosaveReady = true;
     authScreen.style.display = 'none';
     adminShell.style.display = 'flex';
     document.getElementById('header-user').textContent = user.login;
+    updateArchiveEditMode();
+    navigateTo('overview');
+    if (!tokenStored) {
+      setStatus('Signed in, but this browser blocked session storage. You will need to sign in again after a refresh.', 'info', '⚠️');
+    }
   } catch (err) {
+    draftAutosaveReady = false;
     githubToken = '';
+    githubLogin = '';
+    if (err.status === 401) clearStoredAuthToken();
     showAuthError(err.message);
   } finally {
     btn.textContent = 'Sign In & Load Bulletin'; btn.disabled = false;
@@ -851,18 +953,33 @@ function showAuthError(msg) {
 document.getElementById('auth-form').addEventListener('submit', handleSignIn);
 
 document.getElementById('signout-btn').addEventListener('click', () => {
-  localStorage.removeItem(SESSION_KEY);
-  sessionStorage.removeItem(SESSION_KEY);
+  if (!canStartPersistenceOperation()) return;
+  if (!draftSavedBefore('sign out')) return;
+  draftAutosaveReady = false;
+  clearStoredAuthToken();
   githubToken = '';
+  githubLogin = '';
+  editingArchivePath = null;
+  draftSaveBlocked = false;
+  editorBaseData = {};
+  publishedDataByPath.clear();
+  publishedShaByPath.clear();
+  draftRawByPath.clear();
   document.getElementById('pat-input').value = '';
   adminShell.style.display = 'none';
   authScreen.style.display = 'flex';
+  setDraftStatus('No draft loaded');
+  clearTimeout(statusHideTimer);
+  document.getElementById('status-bar').className = '';
+  document.getElementById('status-msg').textContent = '';
+  updateArchiveEditMode();
+  navigateTo('overview');
 });
 
 // Auto sign-in if we have a stored token
 if (githubToken) {
   document.getElementById('pat-input').value = githubToken;
-  document.getElementById('remember-me').checked = true;
+  document.getElementById('remember-me').checked = storedTokenWasRemembered;
   document.getElementById('auth-form').dispatchEvent(new Event('submit'));
 }
 
@@ -909,6 +1026,395 @@ function setStatus(msg, type = 'info', icon = 'ℹ️', link = null) {
 }
 
 // ============================================================
+// Browser draft autosave
+// ============================================================
+function currentEditorPath() {
+  return editingArchivePath || BULLETIN_PATH;
+}
+
+function updateBusyControls() {
+  const actionsLocked = persistenceOperationActive || pendingImageUploads > 0;
+  ['publish-btn', 'archive-btn', 'exit-archive-btn', 'signout-btn'].forEach(id => {
+    const button = document.getElementById(id);
+    if (button) button.disabled = actionsLocked;
+  });
+  const main = document.querySelector('.admin-main');
+  if (main) main.inert = actionsLocked;
+}
+
+function setPersistenceOperationActive(active) {
+  persistenceOperationActive = active;
+  updateBusyControls();
+}
+
+function canStartPersistenceOperation() {
+  if (persistenceOperationActive) return false;
+  if (pendingImageUploads > 0) {
+    setStatus('Wait for the image upload to finish before continuing.', 'info', '⏳');
+    return false;
+  }
+  return true;
+}
+
+function draftStorageKey(path) {
+  return `${DRAFT_KEY_PREFIX}:${encodeURIComponent(githubLogin)}:${encodeURIComponent(path)}`;
+}
+
+function tabDraftStorageKey(path) {
+  return `${TAB_DRAFT_KEY_PREFIX}:${encodeURIComponent(githubLogin)}:${encodeURIComponent(path)}`;
+}
+
+function readTabRecoveryDraft(path) {
+  const raw = safeStorageGet(SESSION_STORAGE_AREA, tabDraftStorageKey(path));
+  if (!raw) return null;
+  try {
+    const draft = JSON.parse(raw);
+    if (draft?.version !== 1 || draft.targetPath !== path || !draft.data || !draft.savedAt) throw new Error('Invalid recovery draft');
+    return draft;
+  } catch (_) {
+    safeStorageRemove(SESSION_STORAGE_AREA, tabDraftStorageKey(path));
+    return null;
+  }
+}
+
+function writeTabRecoveryDraft(path, record) {
+  return safeStorageSet(SESSION_STORAGE_AREA, tabDraftStorageKey(path), JSON.stringify(record));
+}
+
+function removeTabRecoveryDraft(path) {
+  safeStorageRemove(SESSION_STORAGE_AREA, tabDraftStorageKey(path));
+}
+
+function sortJsonValue(value) {
+  if (Array.isArray(value)) return value.map(sortJsonValue);
+  if (value && typeof value === 'object') {
+    return Object.keys(value).sort().reduce((result, key) => {
+      result[key] = sortJsonValue(value[key]);
+      return result;
+    }, {});
+  }
+  return value;
+}
+
+function sameFormData(a, b) {
+  return JSON.stringify(sortJsonValue(a)) === JSON.stringify(sortJsonValue(b));
+}
+
+function setDraftStatus(message, type = '') {
+  const el = document.getElementById('draft-status');
+  if (!el) return;
+  el.className = `draft-status${type ? ` draft-status--${type}` : ''}`;
+  document.getElementById('draft-status-text').textContent = message;
+}
+
+function formatDraftTime(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+}
+
+function removeDraftRecord(path) {
+  try {
+    const key = draftStorageKey(path);
+    const currentRaw = localStorage.getItem(key);
+    const expectedRaw = draftRawByPath.has(path) ? draftRawByPath.get(path) : null;
+    if (currentRaw !== expectedRaw) return 'conflict';
+    localStorage.removeItem(key);
+    draftRawByPath.set(path, null);
+    return 'ok';
+  } catch (_) {
+    return 'error';
+  }
+}
+
+function readDraftRecord(path, reportError = true) {
+  let raw;
+  try {
+    raw = localStorage.getItem(draftStorageKey(path));
+    draftRawByPath.set(path, raw);
+    if (!raw) return null;
+    const draft = JSON.parse(raw);
+    if (draft?.version !== 1 || draft.targetPath !== path || !draft.data || !draft.savedAt) {
+      throw new Error('Unsupported draft data');
+    }
+    return draft;
+  } catch (_) {
+    if (raw !== undefined) removeDraftRecord(path);
+    return reportError ? { invalid: raw !== undefined, unavailable: raw === undefined } : null;
+  }
+}
+
+function writeDraftRecord(path, record) {
+  try {
+    const key = draftStorageKey(path);
+    const currentRaw = localStorage.getItem(key);
+    const expectedRaw = draftRawByPath.has(path) ? draftRawByPath.get(path) : null;
+    if (currentRaw !== expectedRaw) return 'conflict';
+    const serialized = JSON.stringify(record);
+    localStorage.setItem(key, serialized);
+    draftRawByPath.set(path, serialized);
+    return 'ok';
+  } catch (_) {
+    return 'error';
+  }
+}
+
+function showDraftWriteFailure(result, recoverySaved = false) {
+  draftSaveBlocked = true;
+  if (result === 'conflict') {
+    setDraftStatus(
+      recoverySaved
+        ? 'Another tab has a different draft — this tab has a recovery copy'
+        : 'Another tab has a different draft — keep this tab open',
+      'error'
+    );
+  } else if (result === 'error') {
+    setDraftStatus(
+      recoverySaved
+        ? 'Draft saved only in this tab — shared storage is unavailable'
+        : 'Draft not saved — browser storage is unavailable',
+      'error'
+    );
+  }
+}
+
+function chooseEditorData(path, publishedData, publishedSha) {
+  draftSaveBlocked = false;
+  const sharedDraft = readDraftRecord(path);
+  let recoveryDraft = readTabRecoveryDraft(path);
+  if (recoveryDraft && sameFormData(recoveryDraft.data, publishedData)) {
+    removeTabRecoveryDraft(path);
+    recoveryDraft = null;
+  }
+  const draft = recoveryDraft || sharedDraft;
+  const isRecovery = Boolean(recoveryDraft);
+  if (!draft) {
+    draftSaveBlocked = false;
+    return { data: publishedData, message: 'No draft changes', type: '' };
+  }
+  if (draft.invalid) return { data: publishedData, message: 'Unreadable draft discarded', type: 'error' };
+  if (draft.unavailable) return { data: publishedData, message: 'Draft storage unavailable', type: 'error' };
+
+  if (sameFormData(draft.data, publishedData)) {
+    const result = removeDraftRecord(path);
+    if (result !== 'ok') {
+      return {
+        data: publishedData,
+        message: result === 'conflict' ? 'Another tab has a different draft' : 'Draft storage unavailable',
+        type: 'error',
+      };
+    }
+    draftSaveBlocked = false;
+    return { data: publishedData, message: 'No draft changes', type: '' };
+  }
+
+  const savedAt = formatDraftTime(draft.savedAt);
+  if (draft.baseSha === publishedSha) {
+    draftSaveBlocked = false;
+    const source = isRecovery ? 'this tab’s recovery draft' : 'your browser draft';
+    setStatus(`Restored ${source}${savedAt ? ` from ${savedAt}` : ''}.`, 'info', '💾');
+    return {
+      data: draft.data,
+      message: `${isRecovery ? 'Tab recovery' : 'Draft'} restored${savedAt ? ` · ${savedAt}` : ''}`,
+      type: 'saved',
+    };
+  }
+
+  const restore = confirm(
+    `A browser draft${savedAt ? ` saved at ${savedAt}` : ''} was based on an older published bulletin.\n\n` +
+    'Choose OK to restore and review that draft, or Cancel to discard it and load the latest published version.'
+  );
+  if (!restore) {
+    const result = isRecovery ? (removeTabRecoveryDraft(path), 'ok') : removeDraftRecord(path);
+    if (result === 'ok') {
+      setStatus('Discarded the older browser draft and loaded the latest published version.', 'success', '✅');
+      draftSaveBlocked = false;
+    } else {
+      showDraftWriteFailure(result);
+      setStatus('Loaded the latest published version, but another tab changed the saved browser draft.', 'info', '⚠️');
+    }
+    return result === 'ok'
+      ? { data: publishedData, message: 'No draft changes', type: '' }
+      : { data: publishedData, message: 'Another tab has a different draft', type: 'error' };
+  }
+
+  const acknowledgedDraft = {
+    ...draft,
+    baseSha: publishedSha,
+    writerId: draftWriterId,
+    revision: (draft.revision || 0) + 1,
+  };
+  if (isRecovery) {
+    writeTabRecoveryDraft(path, acknowledgedDraft);
+  } else {
+    const result = writeDraftRecord(path, acknowledgedDraft);
+    if (result !== 'ok') showDraftWriteFailure(result, writeTabRecoveryDraft(path, acknowledgedDraft));
+  }
+  setStatus('Restored an older browser draft. Review it carefully before publishing.', 'info', '⚠️');
+  return { data: draft.data, message: 'Older draft restored · review', type: 'error' };
+}
+
+function populateFormWithoutAutosave(data) {
+  const wasHydrating = draftHydrating;
+  draftHydrating = true;
+  try {
+    populateForm(data);
+  } finally {
+    draftHydrating = wasHydrating;
+  }
+}
+
+function activateEditorTarget(path, publishedData, publishedSha, restoreDraft = true) {
+  publishedDataByPath.set(path, publishedData);
+  publishedShaByPath.set(path, publishedSha || null);
+  const selected = restoreDraft
+    ? chooseEditorData(path, publishedData, publishedSha || null)
+    : { data: publishedData, message: 'No draft changes', type: '' };
+  editorBaseData = selected.data;
+  populateFormWithoutAutosave(selected.data);
+  setDraftStatus(selected.message, selected.type);
+}
+
+function saveDraftNow(targetPath = currentEditorPath()) {
+  if (!draftAutosaveReady || draftHydrating || !githubLogin || targetPath !== currentEditorPath()) return 'ok';
+  if (pendingDraftTarget === targetPath) pendingDraftTarget = null;
+  draftSaveTimer = null;
+
+  try {
+    const data = extractForm({ forDraft: true });
+    const publishedData = publishedDataByPath.get(targetPath);
+    if (publishedData && sameFormData(data, publishedData)) {
+      const result = removeDraftRecord(targetPath);
+      removeTabRecoveryDraft(targetPath);
+      if (result === 'ok') {
+        draftSaveBlocked = false;
+        setDraftStatus('No draft changes');
+      } else if (result === 'error') {
+        draftSaveBlocked = false;
+        setDraftStatus('No draft changes · shared storage unavailable', 'error');
+        return 'ok';
+      } else {
+        showDraftWriteFailure(result);
+      }
+      return result;
+    }
+
+    const savedAt = new Date().toISOString();
+    const previousRaw = draftRawByPath.get(targetPath);
+    let previousRevision = 0;
+    if (previousRaw) {
+      try { previousRevision = JSON.parse(previousRaw).revision || 0; } catch (_) {}
+    }
+    const record = {
+      version: 1,
+      targetPath,
+      baseSha: publishedShaByPath.get(targetPath) || null,
+      savedAt,
+      writerId: draftWriterId,
+      revision: previousRevision + 1,
+      data,
+    };
+    const result = writeDraftRecord(targetPath, record);
+    if (result === 'ok') {
+      removeTabRecoveryDraft(targetPath);
+      draftSaveBlocked = false;
+      setDraftStatus(`Draft saved · ${formatDraftTime(savedAt)}`, 'saved');
+    } else {
+      const recoverySaved = writeTabRecoveryDraft(targetPath, record);
+      showDraftWriteFailure(result, recoverySaved);
+      if (result === 'error' && recoverySaved) {
+        draftSaveBlocked = false;
+        return 'ok';
+      }
+    }
+    return result;
+  } catch (_) {
+    showDraftWriteFailure('error');
+    return 'error';
+  }
+}
+
+function scheduleDraftSave() {
+  if (!draftAutosaveReady || draftHydrating) return;
+  const targetPath = currentEditorPath();
+  clearTimeout(draftSaveTimer);
+  pendingDraftTarget = targetPath;
+  setDraftStatus('Saving draft…', 'saving');
+  draftSaveTimer = setTimeout(() => saveDraftNow(targetPath), DRAFT_SAVE_DELAY);
+}
+
+function flushDraftSave() {
+  if (!draftAutosaveReady || draftHydrating) return 'ok';
+  const targetPath = pendingDraftTarget || currentEditorPath();
+  clearTimeout(draftSaveTimer);
+  draftSaveTimer = null;
+  pendingDraftTarget = null;
+  return saveDraftNow(targetPath);
+}
+
+function draftSavedBefore(actionLabel) {
+  const result = flushDraftSave();
+  if (result === 'ok') return true;
+  setStatus(
+    `Cannot ${actionLabel} until this draft is reconciled. Keep this tab open, close other admin tabs, then reload this tab and try again.`,
+    'error',
+    '❌'
+  );
+  return false;
+}
+
+function completePublishedSave(path, publishedData, publishedSha) {
+  if (pendingDraftTarget === path) {
+    clearTimeout(draftSaveTimer);
+    draftSaveTimer = null;
+    pendingDraftTarget = null;
+  }
+  publishedDataByPath.set(path, publishedData);
+  publishedShaByPath.set(path, publishedSha || null);
+  if (path === BULLETIN_PATH) state = publishedData;
+
+  if (currentEditorPath() === path) {
+    editorBaseData = publishedData;
+    saveDraftNow(path); // Clears the draft, unless the editor changed again while publishing.
+  } else {
+    const expectedRaw = draftRawByPath.get(path) || null;
+    let newerDraft = null;
+    try { newerDraft = expectedRaw ? JSON.parse(expectedRaw) : null; } catch (_) {}
+    if (!newerDraft || sameFormData(newerDraft.data, publishedData)) removeDraftRecord(path);
+    else writeDraftRecord(path, { ...newerDraft, baseSha: publishedSha || null });
+  }
+}
+
+['input', 'change'].forEach(eventName => {
+  document.querySelector('.admin-main').addEventListener(eventName, event => {
+    if (event.target.matches('input[type="file"]')) return;
+    scheduleDraftSave();
+  });
+});
+
+window.addEventListener('pagehide', flushDraftSave);
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') flushDraftSave();
+});
+window.addEventListener('beforeunload', event => {
+  const draftResult = flushDraftSave();
+  if (pendingImageUploads <= 0 && draftResult === 'ok' && !draftSaveBlocked) return;
+  event.preventDefault();
+  event.returnValue = '';
+});
+window.addEventListener('storage', event => {
+  if (!githubLogin || event.storageArea !== LOCAL_STORAGE_AREA) return;
+  const path = currentEditorPath();
+  if (event.key !== draftStorageKey(path)) return;
+  let currentRaw;
+  try { currentRaw = localStorage.getItem(event.key); } catch (_) { currentRaw = undefined; }
+  if (currentRaw !== undefined && currentRaw !== (draftRawByPath.get(path) || null)) {
+    draftSaveBlocked = true;
+    flushDraftSave(); // Preserves this tab's current form in its session recovery slot.
+  }
+});
+
+// ============================================================
 // Populate & extract
 // ============================================================
 function populateForm(data) {
@@ -916,6 +1422,8 @@ function populateForm(data) {
   document.getElementById('f-theme').value    = data.theme || '';
   document.getElementById('f-welcome').value  = data.welcomeMessage || '';
   renderTimes(data.service?.times || []);
+  document.getElementById('new-time-day').value = data.__draftUi?.newTimeDay || 'Sunday';
+  document.getElementById('new-time').value = data.__draftUi?.newTime || '';
   document.getElementById('f-pastor').value      = data.service?.pastor || '';
   document.getElementById('f-location').value    = data.service?.location || '';
   document.getElementById('f-address').value     = data.service?.address || '';
@@ -957,11 +1465,11 @@ function populateForm(data) {
   updateAppearancePreview();
 }
 
-function extractForm() {
-  return {
+function extractForm({ forDraft = false } = {}) {
+  const data = {
     date: document.getElementById('f-date').value,
     theme: document.getElementById('f-theme').value,
-    headerImage: state.headerImage || '',
+    headerImage: editorBaseData.headerImage || '',
     welcomeMessage: document.getElementById('f-welcome').value,
     service: {
       times: getTimesFromUI(),
@@ -985,9 +1493,9 @@ function extractForm() {
     savetheDatesEnabled:  document.getElementById('f-savedates-enabled').checked,
     thisWeekEnabled:      document.getElementById('f-thisweek-enabled').checked,
     sectionOrder: getSectionOrderFromUI(),
-    announcements: getAnnouncementsFromUI(),
-    savetheDates: getSavedatesFromUI(),
-    thisWeek: getThisweekFromUI(),
+    announcements: getAnnouncementsFromUI(forDraft),
+    savetheDates: getSavedatesFromUI(forDraft),
+    thisWeek: getThisweekFromUI(forDraft),
     backToWebsiteEnabled: document.getElementById('f-backtowebsite-enabled').checked,
     appearance: {
       logoDesktop:  parseInt(document.getElementById('f-logo-desktop').value,  10),
@@ -1005,6 +1513,18 @@ function extractForm() {
       youtube: document.getElementById('f-youtube').value,
     },
   };
+
+  if (forDraft) {
+    const newTime = document.getElementById('new-time').value;
+    const newTimeDay = document.getElementById('new-time-day').value;
+    if (newTime || newTimeDay !== 'Sunday') {
+      data.__draftUi = {
+        newTime,
+        newTimeDay,
+      };
+    }
+  }
+  return data;
 }
 
 // ============================================================
@@ -1053,6 +1573,7 @@ function renderSectionOrder(order) {
     animation: 150,
     filter: '.section-order-item--disabled',
     onMove: evt => !evt.related.classList.contains('section-order-item--disabled'),
+    onEnd: scheduleDraftSave,
   });
 }
 function getSectionOrderFromUI() {
@@ -1070,14 +1591,23 @@ function renderTimes(times) {
     `<span class="time-chip">${escHtml(t.day)} ${escHtml(t.time)}<button class="time-chip__remove" data-i="${i}" aria-label="Remove">×</button></span>`
   ).join('');
   list.querySelectorAll('.time-chip__remove').forEach(btn => {
-    btn.addEventListener('click', () => { currentTimes.splice(Number(btn.dataset.i), 1); renderTimes(currentTimes); });
+    btn.addEventListener('click', () => {
+      currentTimes.splice(Number(btn.dataset.i), 1);
+      renderTimes(currentTimes);
+      scheduleDraftSave();
+    });
   });
 }
 function getTimesFromUI() { return [...currentTimes]; }
 document.getElementById('add-time-btn').addEventListener('click', () => {
   const v = document.getElementById('new-time').value.trim();
   const day = document.getElementById('new-time-day').value;
-  if (v) { currentTimes.push({ day, time: v }); renderTimes(currentTimes); document.getElementById('new-time').value = ''; }
+  if (v) {
+    currentTimes.push({ day, time: v });
+    renderTimes(currentTimes);
+    document.getElementById('new-time').value = '';
+    scheduleDraftSave();
+  }
 });
 document.getElementById('new-time').addEventListener('keydown', e => {
   if (e.key === 'Enter') { e.preventDefault(); document.getElementById('add-time-btn').click(); }
@@ -1110,10 +1640,13 @@ function makeCtas(ctas, onChange) {
   addBtn.addEventListener('click', () => { rowsWrap.appendChild(makeCtaRow({}, onChange)); if (onChange) onChange(); });
   wrap.appendChild(rowsWrap);
   wrap.appendChild(addBtn);
-  wrap.getCtas = () => [...rowsWrap.querySelectorAll('.cta-row')].map(r => ({
-    label: r.querySelector('.cta-label-inp').value,
-    url:   r.querySelector('.cta-url-inp').value,
-  })).filter(c => c.label && c.url);
+  wrap.getCtas = (includeIncomplete = false) => {
+    const rows = [...rowsWrap.querySelectorAll('.cta-row')].map(r => ({
+      label: r.querySelector('.cta-label-inp').value,
+      url:   r.querySelector('.cta-url-inp').value,
+    }));
+    return includeIncomplete ? rows : rows.filter(c => c.label && c.url);
+  };
   return wrap;
 }
 
@@ -1159,6 +1692,8 @@ function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg, onChange)
   `;
 
   let currentUrl = '';
+  let currentBlobUrl = '';
+  let uploadGeneration = 0;
   const fileInput    = wrap.querySelector('input[type="file"]');
   const previewWrap  = wrap.querySelector('.img-preview-wrap');
   const previewImg   = wrap.querySelector('.img-preview-aspect img');
@@ -1174,14 +1709,18 @@ function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg, onChange)
   blendSelect.addEventListener('change', () => { applyBlend(); if (onChange) onChange(); });
 
   function showPreview(url, displaySrc) {
+    if (currentBlobUrl && currentBlobUrl !== displaySrc) URL.revokeObjectURL(currentBlobUrl);
     currentUrl = url;
     previewImg.src = displaySrc || url;
+    currentBlobUrl = displaySrc?.startsWith('blob:') ? displaySrc : '';
     urlDisplay.textContent = url;
     previewWrap.classList.add('has-image');
     applyBlend();
     if (onChange) onChange();
   }
   function clearPreview() {
+    if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);
+    currentBlobUrl = '';
     currentUrl = '';
     previewImg.src = '';
     urlDisplay.textContent = '';
@@ -1202,11 +1741,25 @@ function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg, onChange)
     const uploadPath = `${IMG_UPLOAD_PATH}/${filename}`;
     const publicUrl  = `/assets/images/uploads/${filename}`;
 
-    // Show local blob immediately so preview works before the site rebuilds
+    // Preview locally, but keep the saved URL unchanged until GitHub confirms the upload.
+    const generation = ++uploadGeneration;
     const blobUrl = URL.createObjectURL(file);
-    showPreview(publicUrl, blobUrl);
+    const previous = {
+      url: currentUrl,
+      src: previewImg.getAttribute('src') || '',
+      label: urlDisplay.textContent,
+      visible: previewWrap.classList.contains('has-image'),
+    };
+    previewImg.src = blobUrl;
+    urlDisplay.textContent = `Uploading ${publicUrl}`;
+    previewWrap.classList.add('has-image');
+    applyBlend();
 
     overlay.classList.add('active');
+    fileInput.disabled = true;
+    removeBtn.disabled = true;
+    pendingImageUploads += 1;
+    updateBusyControls();
     setStatus('Uploading image…', 'info', '⏳');
     try {
       const arrayBuffer = await file.arrayBuffer();
@@ -1223,14 +1776,27 @@ function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg, onChange)
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
+      if (generation !== uploadGeneration) return;
+      showPreview(publicUrl, blobUrl);
       setStatus('Image uploaded. It will appear on the bulletin after the next publish.', 'success', '✅');
     } catch (err) {
-      clearPreview();
+      if (generation !== uploadGeneration) return;
+      currentUrl = previous.url;
+      previewImg.src = previous.src;
+      urlDisplay.textContent = previous.label;
+      previewWrap.classList.toggle('has-image', previous.visible);
+      applyBlend();
       URL.revokeObjectURL(blobUrl);
       setStatus('Image upload failed: ' + err.message, 'error', '❌');
     } finally {
-      overlay.classList.remove('active');
-      fileInput.value = '';
+      pendingImageUploads = Math.max(0, pendingImageUploads - 1);
+      updateBusyControls();
+      if (generation === uploadGeneration) {
+        overlay.classList.remove('active');
+        fileInput.disabled = false;
+        removeBtn.disabled = false;
+        fileInput.value = '';
+      }
     }
   }
 
@@ -1247,6 +1813,11 @@ function makeImageUpload(aspectClass, hintText, slugPrefix, previewBg, onChange)
 // ============================================================
 // Announcements
 // ============================================================
+function handleAnnouncementsChange() {
+  renderAnnouncementsPreview();
+  scheduleDraftSave();
+}
+
 let annSortable;
 function makeAnnouncementItem(item, onChange) {
   const el = document.createElement('div');
@@ -1270,7 +1841,7 @@ function makeAnnouncementItem(item, onChange) {
   if (item.imageBlendMode) imgWidget.setBlendMode(item.imageBlendMode);
   el.appendChild(imgWidget);
   el.querySelector('.remove-btn').addEventListener('click', () => { el.remove(); if (onChange) onChange(); });
-  el._getCtas = () => ctasEl.getCtas();
+  el._getCtas = includeIncomplete => ctasEl.getCtas(includeIncomplete);
   el._getImageUrl = () => imgWidget.getImageUrl();
   el._getImageBlendMode = () => imgWidget.getBlendMode();
   return el;
@@ -1278,18 +1849,18 @@ function makeAnnouncementItem(item, onChange) {
 function renderAnnouncements(items) {
   const c = document.getElementById('announcements-list');
   c.innerHTML = '';
-  items.forEach(item => c.appendChild(makeAnnouncementItem(item, renderAnnouncementsPreview)));
+  items.forEach(item => c.appendChild(makeAnnouncementItem(item, handleAnnouncementsChange)));
   if (annSortable) annSortable.destroy();
-  annSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150, onEnd: renderAnnouncementsPreview });
+  annSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150, onEnd: handleAnnouncementsChange });
   renderAnnouncementsPreview();
 }
-function getAnnouncementsFromUI() {
+function getAnnouncementsFromUI(includeIncompleteCtas = false) {
   return [...document.querySelectorAll('#announcements-list .list-item')].map(el => ({
     title:           el.querySelector('.ann-title').value,
     body:            el.querySelector('.ann-body').value,
     imageUrl:        el._getImageUrl ? el._getImageUrl() : '',
     imageBlendMode:  el._getImageBlendMode ? el._getImageBlendMode() : '',
-    ctas:            el._getCtas ? el._getCtas() : [],
+    ctas:            el._getCtas ? el._getCtas(includeIncompleteCtas) : [],
   })).map(a => {
     if (!a.imageUrl) { const { imageUrl, imageBlendMode, ...rest } = a; return rest; }
     if (!a.imageBlendMode) { const { imageBlendMode, ...rest } = a; return rest; }
@@ -1297,13 +1868,18 @@ function getAnnouncementsFromUI() {
   });
 }
 document.getElementById('add-announcement-btn').addEventListener('click', () => {
-  document.getElementById('announcements-list').appendChild(makeAnnouncementItem({}, renderAnnouncementsPreview));
-  renderAnnouncementsPreview();
+  document.getElementById('announcements-list').appendChild(makeAnnouncementItem({}, handleAnnouncementsChange));
+  handleAnnouncementsChange();
 });
 
 // ============================================================
 // Save the Dates
 // ============================================================
+function handleSavedatesChange() {
+  renderSavedatesPreview();
+  scheduleDraftSave();
+}
+
 let saveSortable;
 function makeSavedateItem(item, onChange) {
   const el = document.createElement('div');
@@ -1331,7 +1907,7 @@ function makeSavedateItem(item, onChange) {
   if (item.imageBlendMode) imgWidget.setBlendMode(item.imageBlendMode);
   el.appendChild(imgWidget);
   el.querySelector('.remove-btn').addEventListener('click', () => { el.remove(); if (onChange) onChange(); });
-  el._getCtas = () => ctasEl.getCtas();
+  el._getCtas = includeIncomplete => ctasEl.getCtas(includeIncomplete);
   el._getImageUrl = () => imgWidget.getImageUrl();
   el._getImageBlendMode = () => imgWidget.getBlendMode();
   return el;
@@ -1339,12 +1915,12 @@ function makeSavedateItem(item, onChange) {
 function renderSavedates(items) {
   const c = document.getElementById('savedates-list');
   c.innerHTML = '';
-  items.forEach(item => c.appendChild(makeSavedateItem(item, renderSavedatesPreview)));
+  items.forEach(item => c.appendChild(makeSavedateItem(item, handleSavedatesChange)));
   if (saveSortable) saveSortable.destroy();
-  saveSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150, onEnd: renderSavedatesPreview });
+  saveSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150, onEnd: handleSavedatesChange });
   renderSavedatesPreview();
 }
-function getSavedatesFromUI() {
+function getSavedatesFromUI(includeIncompleteCtas = false) {
   return [...document.querySelectorAll('#savedates-list .list-item')].map(el => ({
     title:          el.querySelector('.sd-title').value,
     date:           el.querySelector('.sd-date').value,
@@ -1352,7 +1928,7 @@ function getSavedatesFromUI() {
     description:    el.querySelector('.sd-desc').value,
     imageUrl:       el._getImageUrl ? el._getImageUrl() : '',
     imageBlendMode: el._getImageBlendMode ? el._getImageBlendMode() : '',
-    ctas:           el._getCtas ? el._getCtas() : [],
+    ctas:           el._getCtas ? el._getCtas(includeIncompleteCtas) : [],
   })).map(s => {
     if (!s.imageUrl) { const { imageUrl, imageBlendMode, ...rest } = s; return rest; }
     if (!s.imageBlendMode) { const { imageBlendMode, ...rest } = s; return rest; }
@@ -1360,13 +1936,18 @@ function getSavedatesFromUI() {
   });
 }
 document.getElementById('add-savedate-btn').addEventListener('click', () => {
-  document.getElementById('savedates-list').appendChild(makeSavedateItem({}, renderSavedatesPreview));
-  renderSavedatesPreview();
+  document.getElementById('savedates-list').appendChild(makeSavedateItem({}, handleSavedatesChange));
+  handleSavedatesChange();
 });
 
 // ============================================================
 // This Week at Calvary
 // ============================================================
+function handleThisweekChange() {
+  renderThisweekPreview();
+  scheduleDraftSave();
+}
+
 let weekSortable;
 function makeThisweekItem(item, onChange) {
   const el = document.createElement('div');
@@ -1404,30 +1985,30 @@ function makeThisweekItem(item, onChange) {
   const ctasEl = makeCtas(item.ctas || [], onChange);
   el.appendChild(ctasEl);
   el.querySelector('.remove-btn').addEventListener('click', () => { el.remove(); if (onChange) onChange(); });
-  el._getCtas = () => ctasEl.getCtas();
+  el._getCtas = includeIncomplete => ctasEl.getCtas(includeIncomplete);
   return el;
 }
 function renderThisweek(items) {
   const c = document.getElementById('thisweek-list');
   c.innerHTML = '';
-  items.forEach(item => c.appendChild(makeThisweekItem(item, renderThisweekPreview)));
+  items.forEach(item => c.appendChild(makeThisweekItem(item, handleThisweekChange)));
   if (weekSortable) weekSortable.destroy();
-  weekSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150, onEnd: renderThisweekPreview });
+  weekSortable = Sortable.create(c, { handle: '.list-item__handle', ghostClass: 'sortable-ghost', animation: 150, onEnd: handleThisweekChange });
   renderThisweekPreview();
 }
-function getThisweekFromUI() {
+function getThisweekFromUI(includeIncompleteCtas = false) {
   return [...document.querySelectorAll('#thisweek-list .list-item')].map(el => ({
     title:       el.querySelector('.tw-title').value,
     day:         el.querySelector('.tw-day').value,
     time:        el.querySelector('.tw-time').value,
     location:    el.querySelector('.tw-location').value,
     description: el.querySelector('.tw-desc').value,
-    ctas:        el._getCtas ? el._getCtas() : [],
+    ctas:        el._getCtas ? el._getCtas(includeIncompleteCtas) : [],
   }));
 }
 document.getElementById('add-thisweek-btn').addEventListener('click', () => {
-  document.getElementById('thisweek-list').appendChild(makeThisweekItem({}, renderThisweekPreview));
-  renderThisweekPreview();
+  document.getElementById('thisweek-list').appendChild(makeThisweekItem({}, handleThisweekChange));
+  handleThisweekChange();
 });
 
 // ============================================================
@@ -1577,29 +2158,44 @@ function renderThisweekPreview() {
 // Publish
 // ============================================================
 document.getElementById('publish-btn').addEventListener('click', async () => {
+  if (!canStartPersistenceOperation()) return;
+  if (!draftSavedBefore(editingArchivePath ? 'save this archive' : 'publish')) return;
   const data = extractForm();
   const errors = validateUrls(data);
   if (errors.length) {
     setStatus('Cannot save — fix these URLs first:\n' + errors.join(' | '), 'error', '❌');
     return;
   }
+  setPersistenceOperationActive(true);
   const btn = document.getElementById('publish-btn');
   btn.disabled = true;
   if (editingArchivePath) {
+    const targetPath = editingArchivePath;
     setStatus('Saving archive…', 'info', '⏳');
     try {
-      const res = await putFile(editingArchivePath, JSON.stringify(data, null, 2), `Update archived bulletin for ${data.date}`);
+      const res = await putFile(
+        targetPath,
+        JSON.stringify(data, null, 2),
+        `Update archived bulletin for ${data.date}`,
+        publishedShaByPath.get(targetPath)
+      );
+      completePublishedSave(targetPath, data, res.content?.sha);
       trackDeploy(res.commit.sha);
     } catch (err) { setStatus('Error saving archive: ' + err.message, 'error', '❌'); }
-    finally { btn.disabled = false; }
+    finally { btn.disabled = false; setPersistenceOperationActive(false); }
   } else {
     setStatus('Publishing bulletin…', 'info', '⏳');
     try {
-      const res = await putFile(BULLETIN_PATH, JSON.stringify(data, null, 2), `Update bulletin for ${data.date}`);
-      state = data;
+      const res = await putFile(
+        BULLETIN_PATH,
+        JSON.stringify(data, null, 2),
+        `Update bulletin for ${data.date}`,
+        publishedShaByPath.get(BULLETIN_PATH)
+      );
+      completePublishedSave(BULLETIN_PATH, data, res.content?.sha);
       trackDeploy(res.commit.sha);
     } catch (err) { setStatus('Error publishing: ' + err.message, 'error', '❌'); }
-    finally { btn.disabled = false; }
+    finally { btn.disabled = false; setPersistenceOperationActive(false); }
   }
 });
 
@@ -1607,19 +2203,67 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
 // Archive & Start New
 // ============================================================
 document.getElementById('archive-btn').addEventListener('click', async () => {
-  if (!confirm('Archive the current bulletin and start a new week (content copied as a starting point)?')) return;
+  if (!canStartPersistenceOperation()) return;
+  if (!draftSavedBefore('archive and start a new week')) return;
   const current = extractForm();
+  const browserDraft = extractForm({ forDraft: true });
+  if (browserDraft.__draftUi && !browserDraft.__draftUi.newTime) delete browserDraft.__draftUi;
+  if (!sameFormData(browserDraft, current)) {
+    setStatus('Finish or remove the staged service time and incomplete links before archiving. Your browser draft is safe.', 'error', '❌');
+    return;
+  }
   const errors = validateUrls(current);
   if (errors.length) {
     setStatus('Cannot archive — fix these URLs first:\n' + errors.join(' | '), 'error', '❌');
     return;
   }
+  const [dateYear, dateMonth, dateDay] = current.date.split('-').map(Number);
+  const parsedDate = new Date(dateYear, dateMonth - 1, dateDay, 12);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(current.date) || Number.isNaN(parsedDate.getTime()) ||
+      parsedDate.getFullYear() !== dateYear || parsedDate.getMonth() !== dateMonth - 1 || parsedDate.getDate() !== dateDay) {
+    setStatus('Choose a valid bulletin date before archiving.', 'error', '❌');
+    return;
+  }
+  const nextDate = getNextSunday(current.date);
+  if (!confirm('Archive the current bulletin and start a new week (content copied as a starting point)?')) return;
+  if (!canStartPersistenceOperation()) return;
+  setPersistenceOperationActive(true);
   setStatus('Archiving…', 'info', '⏳');
   const btn = document.getElementById('archive-btn');
   btn.disabled = true;
+  const archivedPath = `src/_data/previous/${current.date}.json`;
+  let archiveReady = false;
+  let archiveSha = null;
   try {
-    await putFile(`src/_data/previous/${current.date}.json`, JSON.stringify(current, null, 2), `Archive bulletin for ${current.date}`);
-    const nextDate = getNextSunday(current.date);
+    const expectedLiveSha = publishedShaByPath.get(BULLETIN_PATH);
+    const liveSha = await getFileSha(BULLETIN_PATH);
+    if (liveSha !== expectedLiveSha) {
+      throw new Error('The live bulletin changed on GitHub after you opened it. Your browser draft is safe — reload before archiving.');
+    }
+
+    let existingArchive = null;
+    try {
+      existingArchive = await ghFetch(`contents/${archivedPath}?ref=${GITHUB_BRANCH}`);
+    } catch (err) {
+      if (err.status !== 404) throw err;
+    }
+    if (existingArchive) {
+      const existingData = JSON.parse(decodeURIComponent(escape(atob(existingArchive.content.replace(/\n/g, '')))));
+      if (!sameFormData(existingData, current)) {
+        throw new Error(`An archive for ${current.date} already exists with different content. Open that archive to review it before trying again.`);
+      }
+      archiveSha = existingArchive.sha;
+      archiveReady = true; // Safe retry after a prior partial archive operation.
+    } else {
+      const archiveResult = await putFile(
+        archivedPath,
+        JSON.stringify(current, null, 2),
+        `Archive bulletin for ${current.date}`,
+        null
+      );
+      archiveSha = archiveResult.content?.sha || null;
+      archiveReady = true;
+    }
     const blank = {
       date: nextDate, theme: current.theme, headerImage: current.headerImage, welcomeMessage: current.welcomeMessage,
       service: current.service,
@@ -1634,11 +2278,30 @@ document.getElementById('archive-btn').addEventListener('click', async () => {
       appearance: current.appearance,
       giving: current.giving, contact: current.contact,
     };
-    const res = await putFile(BULLETIN_PATH, JSON.stringify(blank, null, 2), `Start new bulletin for ${nextDate}`);
-    state = blank; populateForm(blank);
+    const latestArchiveSha = await getFileSha(archivedPath);
+    if (!archiveSha || latestArchiveSha !== archiveSha) {
+      throw new Error('The archive changed on GitHub during this operation. The live bulletin was not reset; review the archive before retrying.');
+    }
+    const res = await putFile(
+      BULLETIN_PATH,
+      JSON.stringify(blank, null, 2),
+      `Start new bulletin for ${nextDate}`,
+      publishedShaByPath.get(BULLETIN_PATH)
+    );
+    state = blank;
+    editingArchivePath = null;
+    removeDraftRecord(archivedPath);
+    const currentDraftRemoval = removeDraftRecord(BULLETIN_PATH);
+    activateEditorTarget(BULLETIN_PATH, blank, res.content?.sha, false);
+    if (currentDraftRemoval !== 'ok') showDraftWriteFailure(currentDraftRemoval);
     trackDeploy(res.commit.sha, `Archived ${current.date} and started bulletin for ${nextDate}. Waiting for GitHub to rebuild…`);
-  } catch (err) { setStatus('Error archiving: ' + err.message, 'error', '❌'); }
-  finally { btn.disabled = false; }
+  } catch (err) {
+    const prefix = archiveReady
+      ? 'The archive copy is saved, but the new week was not started. Retry Archive & Start New; the matching archive will be reused. '
+      : 'Error archiving: ';
+    setStatus(prefix + err.message, 'error', '❌');
+  }
+  finally { btn.disabled = false; setPersistenceOperationActive(false); }
 });
 
 function getNextSunday(dateStr) {
@@ -1702,7 +2365,7 @@ async function loadArchiveList() {
       `;
       const [editBtn, deleteBtn] = row.querySelectorAll('button');
       editBtn.addEventListener('click', () => editArchive(file.path, date));
-      deleteBtn.addEventListener('click', () => deleteArchive(file.path, date, row));
+      deleteBtn.addEventListener('click', () => deleteArchive(file.path, date, row, file.sha));
       listEl.appendChild(row);
       loadArchiveTheme(file.path, date);
     });
@@ -1724,36 +2387,58 @@ async function loadArchiveTheme(filePath, date) {
 }
 
 async function editArchive(filePath, date) {
+  if (!canStartPersistenceOperation()) return;
+  if (!draftSavedBefore('switch bulletins')) return;
+  setPersistenceOperationActive(true);
   setStatus(`Loading archive for ${date}…`, 'info', '⏳');
   try {
-    const data = await ghFetch(`contents/${filePath}?ref=${GITHUB_BRANCH}`);
-    const parsed = JSON.parse(decodeURIComponent(escape(atob(data.content.replace(/\n/g, '')))));
+    const file = await ghFetch(`contents/${filePath}?ref=${GITHUB_BRANCH}`);
+    const parsed = JSON.parse(decodeURIComponent(escape(atob(file.content.replace(/\n/g, '')))));
     editingArchivePath = filePath;
-    populateForm(parsed);
+    activateEditorTarget(filePath, parsed, file.sha);
     navigateTo('overview');
     updateArchiveEditMode();
     setStatus(`Editing archive: ${date}. Make changes and click "Save Archive" when done.`, 'info', '✏️');
   } catch (err) {
     setStatus('Error loading archive: ' + err.message, 'error', '❌');
+  } finally {
+    setPersistenceOperationActive(false);
   }
 }
 
-async function deleteArchive(filePath, date, rowEl) {
+async function deleteArchive(filePath, date, rowEl, expectedSha) {
+  if (!canStartPersistenceOperation()) return;
+  if (filePath === editingArchivePath) {
+    setStatus('Exit this archive before deleting it.', 'error', '❌');
+    return;
+  }
+  let savedBrowserDraft = false;
+  try { savedBrowserDraft = Boolean(localStorage.getItem(draftStorageKey(filePath))); } catch (_) {}
+  if (savedBrowserDraft) {
+    setStatus('This archive has an unsaved browser draft. Open it and publish or discard that draft before deleting the archive.', 'error', '❌');
+    return;
+  }
   if (!confirm(`Permanently delete the archived bulletin for ${date}? This cannot be undone.`)) return;
+  if (!canStartPersistenceOperation()) return;
+  setPersistenceOperationActive(true);
   setStatus(`Deleting archive for ${date}…`, 'info', '⏳');
   try {
-    const sha = await getFileSha(filePath);
-    if (!sha) throw new Error('File not found on GitHub.');
+    if (!expectedSha) throw new Error('File version is unavailable. Reload the archive list and try again.');
     const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${filePath}`, {
       method: 'DELETE',
       headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: `Delete archived bulletin for ${date}`, sha, branch: GITHUB_BRANCH }),
+      body: JSON.stringify({ message: `Delete archived bulletin for ${date}`, sha: expectedSha, branch: GITHUB_BRANCH }),
     });
     if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.message || `GitHub API ${res.status}`); }
     rowEl.remove();
+    removeDraftRecord(filePath);
+    publishedDataByPath.delete(filePath);
+    publishedShaByPath.delete(filePath);
     setStatus(`Deleted archive for ${date}.`, 'success', '✅');
   } catch (err) {
     setStatus('Error deleting archive: ' + err.message, 'error', '❌');
+  } finally {
+    setPersistenceOperationActive(false);
   }
 }
 
@@ -1778,10 +2463,12 @@ function updateArchiveEditMode() {
 }
 
 document.getElementById('exit-archive-btn').addEventListener('click', () => {
+  if (!canStartPersistenceOperation()) return;
+  if (!draftSavedBefore('exit this archive')) return;
   editingArchivePath = null;
-  populateForm(state);
+  activateEditorTarget(BULLETIN_PATH, state, publishedShaByPath.get(BULLETIN_PATH));
   updateArchiveEditMode();
-  setStatus('Back to current bulletin.', 'success', '✅');
+  setStatus('Back to current bulletin. Browser drafts remain saved until you publish.', 'success', '✅');
 });
 
 // ============================================================
@@ -1829,6 +2516,7 @@ function applyJsonImport(data, filename) {
     return;
   }
   document.getElementById('import-file-name').textContent = `✓ ${filename} — updated: ${updated.join(', ')}`;
+  scheduleDraftSave();
   setStatus(`Imported ${updated.join(', ')}. Review the sections, then publish when ready.`, 'success', '✅');
 }
 
@@ -1956,7 +2644,10 @@ document.getElementById('download-template-btn').addEventListener('click', () =>
 // ============================================================
 // Scripture image widget (singleton — mounted once on load)
 // ============================================================
-scriptureImgWidget = makeImageUpload('img-preview-aspect--1x1', '1:1 square · 800×800 · max 500 KB', 'sermon', '#EEE8DC', () => renderScripturePreview());
+scriptureImgWidget = makeImageUpload('img-preview-aspect--1x1', '1:1 square · 800×800 · max 500 KB', 'sermon', '#EEE8DC', () => {
+  renderScripturePreview();
+  scheduleDraftSave();
+});
 document.getElementById('scripture-img-widget-mount').appendChild(scriptureImgWidget);
 </script>
 </body>
