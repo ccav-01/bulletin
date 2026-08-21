@@ -1,0 +1,170 @@
+{
+  "date": "2026-08-16",
+  "theme": "\"His Divine Power\" 2 Peter 1:1-11 With Guest Speaker: Zeke Flores ",
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": [
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "6:30 PM"
+      }
+    ],
+    "pastor": "Pastor Josh Hueser",
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
+  },
+  "scripture": {
+    "verse": "",
+    "reference": "",
+    "sermonTitle": "",
+    "sermonSeries": "\"His Divine Power\" 2 Peter 1:1-11"
+  },
+  "scriptureEnabled": false,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "announcements",
+    "savetheDates",
+    "service",
+    "thisWeek",
+    "scripture"
+  ],
+  "announcements": [
+    {
+      "title": "Grounds For Grace High School Bible Study ",
+      "body": "High schoolers come join us to fill your cup with coffee and your heart with the truth at Amate Coffee August 21st from 6 PM - 8 PM. Sign up in the foyer.",
+      "ctas": []
+    },
+    {
+      "title": "Children's Ministry Needs ",
+      "body": "Do you have a heart for children and to pour into the next generation? We need teachers in the 1st service 3rd-5th graders class. We are also in need of some welcoming greeters/check in/security to be at the children’s ministry gate during 1st service and on Wednesday evenings. If you are interested, please contact Kendra Reyna at 310-365-8396.\n",
+      "ctas": []
+    },
+    {
+      "title": "Marriage Couples Dinner ",
+      "body": "Attention married and engaged couples. Save the date for our upcoming couples dinner on October 17th with guest speaker Pastor Rob Salvato and his wife Denise Salvato from Calvary Chapel Vista. You won’t want to miss this. Sign ups coming soon. ",
+      "ctas": []
+    }
+  ],
+  "savetheDates": [],
+  "thisWeek": [
+    {
+      "title": "Praise & Prayer",
+      "day": "Sunday",
+      "time": "7:30 AM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "1st Service",
+      "day": "Sunday",
+      "time": "8:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "2nd Service",
+      "day": "Sunday",
+      "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Men's Discipleship ",
+      "day": "Tuesday",
+      "time": "5 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Women's Inductive Bible Study ",
+      "day": "Tuesday",
+      "time": "5 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Men's Bible Study Through Galatians ",
+      "day": "Tuesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Women's Summer Book Club ",
+      "day": "Tuesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Praise and Prayer ",
+      "day": "Wednesday",
+      "time": "5:30 PM ",
+      "location": "Westminister Room ",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Wednesday Evening Service Through Revelation ",
+      "day": "Wednesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Senior's Study ",
+      "day": "Thursday",
+      "time": "10 AM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Grounds for Grace High School Bible Study at Amate Coffee",
+      "day": "Friday",
+      "time": "6 PM - 8 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    }
+  ],
+  "backToWebsiteEnabled": true,
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
+  "giving": {
+    "url": "https://www.calvarychapelav.org/giving/",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 942-0404",
+    "email": "ccav@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
+  }
+}
