@@ -1,5 +1,5 @@
 {
-  "date": "2026-08-23",
+  "date": "2026-08-30",
   "theme": "\"His Name is Jesus.\" Matthew 1:21 ",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
@@ -27,7 +27,8 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "\"His Name Is Jesus.\" Matthew 1:21"
+    "sermonSeries": "\"His Name Is Jesus.\" Matthew 1:21",
+    "imageUrl": ""
   },
   "scriptureEnabled": true,
   "announcementsEnabled": true,
