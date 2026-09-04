@@ -1,0 +1,162 @@
+{
+  "date": "2026-08-30",
+  "theme": "\"The Birth of the King.\" Matthew 1:18-25",
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": [
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "6:30 PM"
+      }
+    ],
+    "pastor": "Pastor Josh Hueser",
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
+  },
+  "scripture": {
+    "verse": "",
+    "reference": "",
+    "sermonTitle": "",
+    "sermonSeries": "\"The Birth of the King.\" Matthew 1:18-25"
+  },
+  "scriptureEnabled": true,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "announcements",
+    "savetheDates",
+    "service",
+    "thisWeek",
+    "scripture"
+  ],
+  "announcements": [
+    {
+      "title": "Children's Ministry Needs ",
+      "body": "Do you have a heart for children and to pour into the next generation? If so, here are some areas that are available to you to serve. We currently need substitute teachers for all classes. We are also in need of some welcoming greeters/check in/security to be at the children’s ministry gate during 1st service and on Wednesday evenings. If you are interested, please contact Kendra Reyna at 310-365-8396.\n",
+      "ctas": []
+    },
+    {
+      "title": "Women's Fall Bible Study ",
+      "body": "Ladies! We are so excited for our Women’s Fall Bible Study titled “Christ Alone.” We will be studying through the book of Colossians. Our time together will include a time of teaching, worship, group discussion and food. If you desire to grow in your walk with the Lord and in the understanding of the Word then come and join us Tuesday evenings starting Tuesday September 29th at 6:30 PM. Grab a flyer on the Women’s Ministry Table in the foyer and sign up today!We would love for you to join us! ",
+      "ctas": []
+    },
+    {
+      "title": "Marriage Couples Dinner ",
+      "body": "Attention married and engaged couples. Save the date for our upcoming couples dinner on October 17th with guest speaker Pastor Rob Salvato and his wife Denise Salvato from Calvary Chapel Vista. You won’t want to miss this. Sign ups coming soon. ",
+      "ctas": []
+    }
+  ],
+  "savetheDates": [],
+  "thisWeek": [
+    {
+      "title": "Praise & Prayer",
+      "day": "Sunday",
+      "time": "7:30 AM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "1st Service",
+      "day": "Sunday",
+      "time": "8:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "2nd Service",
+      "day": "Sunday",
+      "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Men's Discipleship ",
+      "day": "Tuesday",
+      "time": "5 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Women's Inductive Bible Study ",
+      "day": "Tuesday",
+      "time": "5 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Men's Bible Study Through Galatians ",
+      "day": "Tuesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Women's Summer Book Club ",
+      "day": "Tuesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Praise and Prayer ",
+      "day": "Wednesday",
+      "time": "5:30 PM ",
+      "location": "Westminister Room ",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Wednesday Evening Service Through Matthew",
+      "day": "Wednesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Senior's Study ",
+      "day": "Thursday",
+      "time": "10 AM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    }
+  ],
+  "backToWebsiteEnabled": true,
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
+  "giving": {
+    "url": "https://www.calvarychapelav.org/giving/",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 942-0404",
+    "email": "ccav@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
+  }
+}
