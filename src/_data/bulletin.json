@@ -1,5 +1,5 @@
 {
-  "date": "2026-08-30",
+  "date": "2026-09-06",
   "theme": "\"The Birth of the King.\" Matthew 1:18-25",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
@@ -27,7 +27,8 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "\"The Birth of the King.\" Matthew 1:18-25"
+    "sermonSeries": "\"The Birth of the King.\" Matthew 1:18-25",
+    "imageUrl": ""
   },
   "scriptureEnabled": true,
   "announcementsEnabled": true,
