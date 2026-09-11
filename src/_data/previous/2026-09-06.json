@@ -1,0 +1,145 @@
+{
+  "date": "2026-09-06",
+  "theme": "\"Tested.\" - Matthew 4:1-11",
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": [
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "6:30 PM"
+      }
+    ],
+    "pastor": "Pastor Josh Hueser",
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
+  },
+  "scripture": {
+    "verse": "",
+    "reference": "",
+    "sermonTitle": "",
+    "sermonSeries": "\"Tested.\" - Matthew 4:1-11"
+  },
+  "scriptureEnabled": true,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "announcements",
+    "savetheDates",
+    "service",
+    "thisWeek",
+    "scripture"
+  ],
+  "announcements": [
+    {
+      "title": "Office Closed Tuesday ",
+      "body": "Office will be closed Tuesday September 8th due to Labor Day. We will reopen Wednesday September 9th .\n",
+      "ctas": []
+    },
+    {
+      "title": "Men's and Women's Studies on Break ",
+      "body": "Men’s and Women’s Study will now be on break until we start back up our Fall Bible Studies on Tuesday September 29th. \n",
+      "ctas": []
+    },
+    {
+      "title": "Women's Fall Bible Study ",
+      "body": "Ladies! We are so excited for our Women’s Fall Bible Study titled “Christ Alone.” We will be studying through the book of Colossians. Our time together will include a time of teaching, worship, group discussion and food. If you desire to grow in your walk with the Lord and in the understanding of the Word then come and join us Tuesday evenings starting Tuesday September 29th at 6:30 PM. Grab a flyer on the Women’s Ministry Table in the foyer and sign up today!We would love for you to join us! ",
+      "ctas": []
+    },
+    {
+      "title": "Men's Bible Study ",
+      "body": "Men! Come join us starting Tuesday September 29th at 6:30 PM for our Men’s Bible Study through Colossians. This time together will include worship, the Word, food, and fellowship with your brothers in Christ. \n",
+      "ctas": []
+    },
+    {
+      "title": "Marriage Couples Dinner ",
+      "body": "Attention married and engaged couples. Save the date for our upcoming couples dinner on October 17th with guest speaker Pastor Rob Salvato and his wife Denise Salvato from Calvary Chapel Vista. You won’t want to miss this. Sign ups coming soon. ",
+      "ctas": []
+    },
+    {
+      "title": "2026 Men's Retreat ",
+      "body": "Men! Come join us November 6th - 8th at Pinecrest Christian Conference Center for this years Men’s Retreat. The cost is $220 which includes the conference, lodging, and 5 meals during that weekend. Please sign up in the foyer. ",
+      "ctas": []
+    }
+  ],
+  "savetheDates": [],
+  "thisWeek": [
+    {
+      "title": "Praise & Prayer",
+      "day": "Sunday",
+      "time": "7:30 AM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "1st Service",
+      "day": "Sunday",
+      "time": "8:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "2nd Service",
+      "day": "Sunday",
+      "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Praise and Prayer ",
+      "day": "Wednesday",
+      "time": "5:30 PM ",
+      "location": "Westminister Room ",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Wednesday Evening Service Through Matthew",
+      "day": "Wednesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Senior's Study ",
+      "day": "Thursday",
+      "time": "10 AM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    }
+  ],
+  "backToWebsiteEnabled": true,
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
+  "giving": {
+    "url": "https://www.calvarychapelav.org/giving/",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 942-0404",
+    "email": "ccav@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
+  }
+}
