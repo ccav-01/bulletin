@@ -1,0 +1,150 @@
+{
+  "date": "2026-09-13",
+  "theme": "\"Tested.\" - Matthew 4:1-11",
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": [
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "6:30 PM"
+      }
+    ],
+    "pastor": "Pastor Josh Hueser",
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
+  },
+  "scripture": {
+    "verse": "",
+    "reference": "",
+    "sermonTitle": "",
+    "sermonSeries": "\"Tested.\" - Matthew 4:1-11"
+  },
+  "scriptureEnabled": true,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "announcements",
+    "savetheDates",
+    "service",
+    "thisWeek",
+    "scripture"
+  ],
+  "announcements": [
+    {
+      "title": "Women's Fall Bible Study ",
+      "body": "Ladies! We are so excited for our Women’s Fall Bible Study titled “Christ Alone.” We will be studying through the book of Colossians. Our time together will include a time of teaching, worship, group discussion and food. If you desire to grow in your walk with the Lord and in the understanding of the Word then come and join us Tuesday evenings starting Tuesday September 29th at 6:30 PM. Grab a flyer on the Women’s Ministry Table in the foyer and sign up today!We would love for you to join us! ",
+      "ctas": []
+    },
+    {
+      "title": "Men's Bible Study ",
+      "body": "Men! Come join us starting Tuesday September 29th at 6:30 PM for our Men’s Bible Study through Colossians. This time together will include worship, the Word, food, and fellowship with your brothers in Christ. \n",
+      "ctas": []
+    },
+    {
+      "title": "Marriage Couples Dinner ",
+      "body": "Attention married and engaged couples. Come join us for our Couples Dinner on October 17th at 5 PM with guest speaker Pastor Rob Salvato and his wife Denise Salvato from CC Vista. The cost is $60 per couple. Sign up using the QR code on the flyer in the foyer.\n",
+      "ctas": []
+    },
+    {
+      "title": "Servants for Couples Dinner ",
+      "body": "Calling all singles, there is an opptortunity to serve at our couples dinner on Saturday October 17th . Weneed lots of help. Your serving may include serving food, helping with the food in the kitcen, cleaning up, greeting and welcoming the couples and lots of fun fellowship with those you are serving with. So, if you are single, at least 16 years or older, and would like to help serve and be part of this special evening, please sign up in the foyer . \n",
+      "ctas": []
+    },
+    {
+      "title": "Trunk or Treat ",
+      "body": "Trunk or treat\nCome serve and bless our community with our trunk or treat event Saturday October 31st from 6 PM - 8 PM. We need volunteers to decorate their trunks and hand out candy so please fill out a registration form to help out with that! If you are unable to decorate a trunk but still want to help serve we are gladly accepting candy donations! \n",
+      "ctas": []
+    },
+    {
+      "title": "2026 Men's Retreat ",
+      "body": "Men! Come join us November 6th - 8th at Pinecrest Christian Conference Center for this years Men’s Retreat. The cost is $220 which includes the conference, lodging, and 5 meals during that weekend. Please sign up in the foyer. ",
+      "ctas": []
+    },
+    {
+      "title": "Operation Christmas Child Prayer Breakfast ",
+      "body": "Come join us as the Samaritan’s Purse Antelope Valley Area Team hosts its annual Project Leader Prayer Breakfast on Saturday September 26th at 9 AM here at the church. \nRSVP at https://forms.gle/ru7ybZZnMbHW2tSy9",
+      "ctas": []
+    }
+  ],
+  "savetheDates": [],
+  "thisWeek": [
+    {
+      "title": "Praise & Prayer",
+      "day": "Sunday",
+      "time": "7:30 AM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "1st Service",
+      "day": "Sunday",
+      "time": "8:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "2nd Service",
+      "day": "Sunday",
+      "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Praise and Prayer ",
+      "day": "Wednesday",
+      "time": "5:30 PM ",
+      "location": "Westminister Room ",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Wednesday Evening Service Through Matthew",
+      "day": "Wednesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Senior's Study ",
+      "day": "Thursday",
+      "time": "10 AM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    }
+  ],
+  "backToWebsiteEnabled": true,
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
+  "giving": {
+    "url": "https://www.calvarychapelav.org/giving/",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 942-0404",
+    "email": "ccav@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
+  }
+}
