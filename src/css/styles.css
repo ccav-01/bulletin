@@ -1,3 +1,4 @@
+/* Public-page typefaces are self-hosted in editorial.css. */
 /* ================================================================
    CCAV E-Bulletin — Styles
    Built on the Calvary Chapel Antelope Valley Design System
@@ -13,7 +14,7 @@
 }
 
 /* ---- Google Fonts ----------------------------------------- */
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,500;1,600&display=swap");
+
 
 /* ---- Color Tokens ----------------------------------------- */
 :root {
@@ -281,7 +282,7 @@ h3 {
 }
 .bulletin-hero__inner {
   position: relative;
-  max-width: 680px;
+  max-width: 900px;
   margin: 0 auto;
 }
 .bulletin-hero__date {
@@ -296,7 +297,9 @@ h3 {
 }
 .bulletin-hero h1 {
   color: var(--paper);
-  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  text-wrap: balance;
+  overflow-wrap: break-word;
   margin-bottom: var(--space-4);
 }
 .bulletin-hero__welcome {
@@ -832,9 +835,9 @@ h3 {
 /* ---- Giving Card ------------------------------------------ */
 .giving-card {
   text-align: center;
-  background: var(--ink) !important;
-  border-color: var(--ink) !important;
-  padding: var(--space-7) var(--space-6) !important;
+  background: var(--ink);
+  border-color: var(--ink);
+  padding: var(--space-7) var(--space-6);
 }
 .giving-card__divider {
   display: flex;
@@ -1028,3 +1031,15 @@ h3 {
   .section-card { box-shadow: none; border: 1px solid #ccc; page-break-inside: avoid; margin-bottom: 1rem; }
   .bulletin-hero { background: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+
+/* Header references stay readable without splitting verse ranges. */
+.reference-range { white-space: nowrap; }
+.bulletin-hero__reference { font-family: var(--font-condensed); font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 600; letter-spacing: .06em; text-transform:uppercase; color: var(--ochre); margin: 0 auto var(--space-5); text-wrap: balance; }
+.bulletin-hero h1.bulletin-hero__reference-only { font-size: clamp(2rem, 4vw, 3rem); }
+.bulletin-sections, .section-card, .event-item__content, .thisweek-item > div { min-width: 0; }
+.bulletin-layout { grid-template-columns: var(--toc-width) minmax(0, 1fr); }
+.bulletin-layout--archive { grid-template-columns: minmax(0, 1fr); }
+.announcement-item__body, .event-item__desc, .thisweek-item__desc { overflow-wrap: anywhere; }
+.archive-back { margin: 1rem 0 0; }
+.archive-back a { color: var(--paper); }
+@media (max-width: 768px) { .bulletin-layout { grid-template-columns: minmax(0, 1fr); } }

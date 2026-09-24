@@ -1,3 +1,4 @@
+{% if archivedBulletin %}{% set bulletin = archivedBulletin %}{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="icon" type="image/png" href="/assets/dove-ink.png" />
   <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="stylesheet" href="/css/editorial.css" />
   <style>
     :root {
       --logo-h: {{ bulletin.appearance.logoDesktop or 38 }}px;
@@ -26,9 +28,11 @@
     }
   </style>
   <script src="/assets/js/lucide.min.js" defer></script>
+  <script src="/assets/js/bulletin.js" defer></script>
   <script>document.addEventListener('DOMContentLoaded', () => lucide.createIcons());</script>
 </head>
-<body>
+<body{% if bulletin.contact.website and bulletin.backToWebsiteEnabled !== false %} class="has-back-link"{% endif %}>
+  <a href="#main-content" class="skip-link">Skip to bulletin</a>
 
   <header class="site-header" role="banner">
     <div class="site-header__inner">
@@ -45,8 +49,8 @@
     </div>
   </header>
 
-  <main id="main-content">
-    {{ content | safe }}
+  <main id="main-content" tabindex="-1">
+    {% block content %}{{ content | safe }}{% endblock %}
   </main>
 
   <footer class="site-footer" role="contentinfo">
@@ -56,7 +60,7 @@
       </a>
 
       <div class="site-footer__address">
-        1661 W Lancaster Blvd., Lancaster, CA 93534
+        {{ bulletin.service.address }}
       </div>
 
       <nav class="site-footer__contact" aria-label="Contact information">
@@ -71,6 +75,15 @@
         {% endif %}
       </nav>
 
+      <div class="site-footer__actions">
+        {% if bulletin.giving and bulletin.giving.url %}
+        <a href="{{ bulletin.giving.url }}" target="_blank" rel="noopener" class="btn btn--ochre">{{ bulletin.giving.text or "Give Online" }}</a>
+        {% endif %}
+        {% if bulletin.contact.website and bulletin.backToWebsiteEnabled !== false %}
+        <a href="{{ bulletin.contact.website }}" class="btn btn--inv-outline">Visit Our Website <span aria-hidden="true">↗</span></a>
+        {% endif %}
+      </div>
+
       <p class="site-footer__copy">
         Calvary Chapel Antelope Valley &mdash; Acts 2:42
       </p>
@@ -79,7 +92,7 @@
 
   {% if bulletin.contact.website and bulletin.backToWebsiteEnabled !== false %}
   <a href="{{ bulletin.contact.website }}" class="btn btn--ochre back-to-website">
-    <i data-lucide="arrow-left"></i> Back to Website
+    <i data-lucide="arrow-left" aria-hidden="true"></i> Back to Website
   </a>
   {% endif %}
 

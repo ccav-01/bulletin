@@ -10,7 +10,7 @@ module.exports = function () {
     .filter((f) => f.endsWith(".json"))
     .map((f) => {
       const raw = JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"));
-      return { date: raw.date, theme: raw.theme || "" };
+      return { date: raw.date, theme: require("../../lib/bulletin").headlineTheme(raw) };
     })
     .sort((a, b) => (a.date < b.date ? 1 : -1));
 };

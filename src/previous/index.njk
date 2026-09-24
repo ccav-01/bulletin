@@ -4,6 +4,7 @@ title: Past Bulletins
 ---
 
 <header class="page-header">
+  <img class="bulletin-hero__landscape" src="/assets/mountain-hero.png" alt="" aria-hidden="true" />
   <h1>Past Bulletins</h1>
   <p>Weekly bulletins from Calvary Chapel Antelope Valley.</p>
 </header>
@@ -16,9 +17,9 @@ title: Past Bulletins
       <a href="/previous/{{ item.date }}/" class="bulletin-list-item">
         <div>
           <div class="bulletin-list-item__date">{{ item.date | readableDate }}</div>
-          {% if item.theme %}
-          <div class="bulletin-list-item__theme">{{ item.theme }}</div>
-          {% endif %}
+          {% set heading = item | headline %}
+          <div class="bulletin-list-item__theme">{{ heading.title or heading.reference or "Weekly Bulletin" }}</div>
+          {% if heading.title and heading.reference %}<div class="bulletin-list-item__reference">{{ heading.reference | referenceHtml | safe }}</div>{% endif %}
         </div>
         <span class="bulletin-list-item__arrow">
           <i data-lucide="arrow-right"></i>

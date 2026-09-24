@@ -16,7 +16,7 @@
       </div>
       {% endif %}
       <div class="announcement-item__header">
-        <div class="announcement-item__title">{{ item.title }}</div>
+        <h3 class="announcement-item__title">{{ item.title }}</h3>
       </div>
       <p class="announcement-item__body">{{ item.body }}</p>
       {% if item.ctas and item.ctas.length %}
@@ -27,6 +27,7 @@
             <i data-lucide="external-link"></i>
             {{ cta.label }}
           </a>
+          {% if cta.showQr !== false %}
           <figure class="cta-qr-wrap">
             <img
               src="{{ cta.url | qrDataUri }}"
@@ -34,6 +35,7 @@
             />
             <figcaption class="cta-qr-label">Scan to {{ cta.label }}</figcaption>
           </figure>
+          {% endif %}
         </div>
         {% endfor %}
       </div>

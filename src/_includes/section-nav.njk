@@ -1,0 +1,16 @@
+{% set sectionMeta = {
+  "service": { id: "service", label: "Service Info" },
+  "scripture": { id: "scripture", label: "Message" },
+  "announcements": { id: "announcements", label: "Announcements" },
+  "savetheDates": { id: "savedates", label: "Save the Dates" },
+  "thisWeek": { id: "thisweek", label: "This Week" }
+} %}
+{% if sectionOrder.length %}
+<nav class="section-nav" aria-label="Jump to section">
+  <ul role="list">
+    {% for key in sectionOrder %}
+    <li><a href="#{{ sectionMeta[key].id }}" data-toc-target="{{ sectionMeta[key].id }}">{{ sectionMeta[key].label }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
+{% endif %}

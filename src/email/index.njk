@@ -42,8 +42,9 @@ permalink: /email/index.html
             <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:3px;text-transform:uppercase;">Calvary Chapel Antelope Valley</p>
             <h1 style="margin:0 0 16px;font-family:Georgia,'Times New Roman',serif;color:#F7F3EC;font-size:30px;font-weight:normal;letter-spacing:2px;">Weekly Bulletin</h1>
             <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#F7F3EC;font-size:15px;">{{ bulletin.date | readableDate }}</p>
-            {% if bulletin.theme %}
-            <p style="margin:8px 0 0;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:13px;font-style:italic;">{{ bulletin.theme }}</p>
+            {% set emailHeadline = bulletin | headline %}
+            {% if emailHeadline.title or emailHeadline.reference %}
+            <p style="margin:8px 0 0;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:13px;font-style:italic;">{% if emailHeadline.title %}{{ emailHeadline.title }}{% endif %}{% if emailHeadline.title and emailHeadline.reference %}<br>{% endif %}{{ emailHeadline.reference }}</p>
             {% endif %}
           </td>
         </tr>

@@ -36,6 +36,7 @@
                   <i data-lucide="external-link"></i>
                   {{ cta.label }}
                 </a>
+                {% if cta.showQr !== false %}
                 <figure class="cta-qr-wrap">
                   <img
                     src="{{ cta.url | qrDataUri }}"
@@ -43,6 +44,7 @@
                   />
                   <figcaption class="cta-qr-label">Scan to {{ cta.label }}</figcaption>
                 </figure>
+                {% endif %}
               </div>
               {% endfor %}
             </div>

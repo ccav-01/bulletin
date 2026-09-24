@@ -1,0 +1,18 @@
+{% set heading = bulletin | headline %}
+<header class="bulletin-hero">
+  <img class="bulletin-hero__landscape" src="/assets/mountain-hero.png" alt="" aria-hidden="true" fetchpriority="high" />
+  <div class="bulletin-hero__inner">
+    <img src="/assets/ccav-badge-black.png" alt="" aria-hidden="true" class="bulletin-hero__badge" />
+    <span class="bulletin-hero__date">{{ bulletin.date | readableDate }}</span>
+    {% if heading.title %}
+      <h1>{{ heading.title }}</h1>
+      {% if heading.reference %}<p class="bulletin-hero__reference">{{ heading.reference | referenceHtml | safe }}</p>{% endif %}
+    {% elif heading.reference %}
+      <h1 class="bulletin-hero__reference-only">{{ heading.reference | referenceHtml | safe }}</h1>
+    {% else %}
+      <h1>Weekly Bulletin</h1>
+    {% endif %}
+    {% if bulletin.welcomeMessage %}<p class="bulletin-hero__welcome">{{ bulletin.welcomeMessage }}</p>{% endif %}
+    {% if isArchive %}<p class="archive-back"><a href="/previous/">← All Bulletins</a></p>{% endif %}
+  </div>
+</header>

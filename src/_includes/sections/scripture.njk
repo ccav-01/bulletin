@@ -6,12 +6,18 @@
     <h2 class="section-card__title" id="scripture-heading">This Week's Message</h2>
   </div>
 
+  {% if (bulletin.scripture.verse or '') | trim or (bulletin.scripture.reference or '') | trim %}
   <div class="scripture-block">
+    {% if (bulletin.scripture.verse or '') | trim %}
     <p class="scripture-verse">"{{ bulletin.scripture.verse }}"</p>
+    {% endif %}
+    {% if (bulletin.scripture.reference or '') | trim %}
     <cite class="scripture-reference">— {{ bulletin.scripture.reference }}</cite>
+    {% endif %}
   </div>
+  {% endif %}
 
-  {% if bulletin.scripture.sermonTitle or bulletin.scripture.sermonSeries %}
+  {% if bulletin.scripture.sermonTitle or bulletin.scripture.sermonSeries or bulletin.scripture.imageUrl %}
   <div class="sermon-info">
     {% if bulletin.scripture.imageUrl %}
     <div class="item-image item-image--1x1">
