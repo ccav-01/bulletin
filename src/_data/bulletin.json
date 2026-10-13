@@ -1,6 +1,10 @@
 {
-  "date": "2026-09-20",
-  "theme": "\"The Sermon on the Mount\" - Matthew 5:1-2",
+  "date": "2026-09-27",
+  "headline": {
+    "title": "\"The Sermon on the Mount\"",
+    "reference": "Matthew 5:1-2"
+  },
+  "theme": "\"The Sermon on the Mount\" — Matthew 5:1-2",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -27,7 +31,8 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 "
+    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 ",
+    "imageUrl": ""
   },
   "scriptureEnabled": true,
   "announcementsEnabled": true,
