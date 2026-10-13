@@ -32,7 +32,7 @@
     "sermonTitle": "",
     "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 "
   },
-  "scriptureEnabled": true,
+  "scriptureEnabled": false,
   "announcementsEnabled": true,
   "savetheDatesEnabled": true,
   "thisWeekEnabled": true,
