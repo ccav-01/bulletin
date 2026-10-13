@@ -1,10 +1,9 @@
 {
-  "date": "2026-09-27",
+  "date": "2026-10-18",
   "headline": {
     "title": "\"The Sermon on the Mount\"",
-    "reference": "Matthew 5:1-2"
+    "reference": "Matthew 5:7"
   },
-  "theme": "\"The Sermon on the Mount\" — Matthew 5:1-2",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -31,8 +30,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 ",
-    "imageUrl": ""
+    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 "
   },
   "scriptureEnabled": true,
   "announcementsEnabled": true,
@@ -73,12 +71,8 @@
     },
     {
       "title": "2026 Men's Retreat ",
-      "body": "Men! Come join us November 6th - 8th at Pinecrest Christian Conference Center for this years Men’s Retreat. The cost is $220 which includes the conference, lodging, and 5 meals during that weekend. Please sign up in the foyer. ",
-      "ctas": []
-    },
-    {
-      "title": "Operation Christmas Child Prayer Breakfast ",
-      "body": "Come join us as the Samaritan’s Purse Antelope Valley Area Team hosts its annual Project Leader Prayer Breakfast on Saturday September 26th at 9 AM here at the church. \nRSVP at https://forms.gle/ru7ybZZnMbHW2tSy9",
+      "body": "Men! Come join us November 13th - 15th at Pinecrest Christian Conference Center for this years Men’s Retreat. The cost is $220 which includes the conference, lodging, and 5 meals during that weekend. Please sign up in the foyer. ",
+      "imageUrl": "/assets/images/uploads/ann-1000068311-2-1791911847472.jpg",
       "ctas": []
     }
   ],
@@ -151,5 +145,6 @@
     "facebook": "",
     "instagram": "",
     "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
-  }
+  },
+  "theme": "\"The Sermon on the Mount\" — Matthew 5:7"
 }
