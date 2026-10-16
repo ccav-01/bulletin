@@ -1,0 +1,10 @@
+---
+pagination:
+  data: previousBulletins
+  size: 1
+  alias: archivedBulletin
+permalink: "email/{{ archivedBulletin.date }}/index.html"
+eleventyExcludeFromCollections: true
+---
+{% set bulletin = archivedBulletin %}
+{% include "email-body.njk" %}
