@@ -1,8 +1,8 @@
 {
   "date": "2026-10-18",
   "headline": {
-    "title": "\"The Sermon on the Mount\"",
-    "reference": "Matthew 5:7"
+    "title": "Guest Speaker: Rob Salvato from CC Vista",
+    "reference": ""
   },
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
@@ -45,6 +45,11 @@
   ],
   "announcements": [
     {
+      "title": "Trunk Or Treat Servants Meeting ",
+      "body": "For all of those who are serving in the trunk or treat we are having a meeting after 2nd service in the 4th and 5th grade classroom Sunday October 18th.\n",
+      "ctas": []
+    },
+    {
       "title": "Women's Fall Bible Study ",
       "body": "Ladies! We are so excited for our Women’s Fall Bible Study titled “Christ Alone.” We will be studying through the book of Colossians. Our time together will include a time of teaching, worship, group discussion and food. If you desire to grow in your walk with the Lord and in the understanding of the Word then come and join us Tuesday evenings starting Tuesday September 29th at 6:30 PM. Grab a flyer on the Women’s Ministry Table in the foyer and sign up today!We would love for you to join us! ",
       "ctas": []
@@ -60,11 +65,6 @@
       "ctas": []
     },
     {
-      "title": "Servants for Couples Dinner ",
-      "body": "Calling all singles, there is an opptortunity to serve at our couples dinner on Saturday October 17th . Weneed lots of help. Your serving may include serving food, helping with the food in the kitcen, cleaning up, greeting and welcoming the couples and lots of fun fellowship with those you are serving with. So, if you are single, at least 16 years or older, and would like to help serve and be part of this special evening, please sign up in the foyer . \n",
-      "ctas": []
-    },
-    {
       "title": "Trunk or Treat ",
       "body": "Trunk or treat\nCome serve and bless our community with our trunk or treat event Saturday October 31st from 6 PM - 8 PM. We need volunteers to decorate their trunks and hand out candy so please fill out a registration form to help out with that! If you are unable to decorate a trunk but still want to help serve we are gladly accepting candy donations! \n",
       "ctas": []
@@ -73,6 +73,16 @@
       "title": "2026 Men's Retreat ",
       "body": "Men! Come join us November 13th - 15th at Pinecrest Christian Conference Center for this years Men’s Retreat. The cost is $220 which includes the conference, lodging, and 5 meals during that weekend. Please sign up in the foyer. ",
       "imageUrl": "/assets/images/uploads/ann-1000068311-2-1791911847472.jpg",
+      "ctas": []
+    },
+    {
+      "title": "Meals  Ministry",
+      "body": "Our Meals Ministry provides meal to families in time of need. Whether it be after surgery, an illness, new birth, death, etc… Our goal is to provide meals for a period of time so that the family in need doesnt have to think about grocery shopping or preparing a meal. Sign up today in the foyer to be a part of blessing families in need.\n",
+      "ctas": []
+    },
+    {
+      "title": "Operation Christmas Child ",
+      "body": "Demonstrate God's love to a child through a gift filled shoe box presented with the gospel of Jesus Christ.  Instructions, boxes, labels, available in the courtyard.  Return filled shoe boxes by National Collection Week, Nov. 16-23, 2026",
       "ctas": []
     }
   ],
@@ -146,5 +156,5 @@
     "instagram": "",
     "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
   },
-  "theme": "\"The Sermon on the Mount\" — Matthew 5:7"
+  "theme": "Guest Speaker: Rob Salvato from CC Vista"
 }
