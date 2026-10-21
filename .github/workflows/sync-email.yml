@@ -15,6 +15,8 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    # A stuck run holds the mailchimp-sync slot; newer pushes would wait behind it
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
 

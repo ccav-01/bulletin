@@ -12,12 +12,12 @@ const render = data => new JSDOM(env.render('bulletin-body.njk', { bulletin: dat
 
 test('empty or disabled messages have no section or navigation link; partial messages are usable', () => {
   for (const scripture of [{}, {verse:'  ', reference:'\n', sermonSeries:' '}]) {
-    const doc = render({...current, scripture});
+    const doc = render({...current, scriptureEnabled:true, scripture});
     assert.equal(doc.querySelector('#scripture'), null);
     assert.equal(doc.querySelector('[href="#scripture"]'), null);
   }
   for (const scripture of [{sermonSeries:'Poor in Spirit'}, {reference:'Matthew 5'}, {imageUrl:'/assets/ccav-badge-black.png'}]) {
-    const doc = render({...current, scripture});
+    const doc = render({...current, scriptureEnabled:true, scripture});
     assert.ok(doc.querySelector('#scripture'));
     assert.equal(doc.querySelector('.scripture-verse'), null);
     assert.equal(Boolean(doc.querySelector('.scripture-block')), Boolean(scripture.reference));
@@ -48,7 +48,7 @@ test('announcement optional images and independently optional QR codes leave no 
 
 test('responsive columns preserve configured order, unique sections and keyboard focus', () => {
   const order = ['scripture','announcements','thisWeek','service','savetheDates'];
-  const data = {...current, sectionOrder:order, savetheDates:[{title:'Event',date:'2026-10-17',ctas:[]}]};
+  const data = {...current, scriptureEnabled:true, sectionOrder:order, savetheDates:[{title:'Event',date:'2026-10-17',ctas:[]}]};
   const dom = new JSDOM(env.render('bulletin-body.njk',{bulletin:data}), {url:'https://example.com/',runScripts:'outside-only'});
   const {window:w} = dom;
   let listener;

@@ -106,7 +106,8 @@ let deployPollGeneration = 0;
 
 // Polls the Actions runs for the given commit and walks the status bar
 // through committed → queued → building → live/failed. Fire-and-forget.
-async function trackDeploy(sha, initialMsg = 'Committed — waiting for GitHub to start building…') {
+// emailSkipped: the sync script won't touch this bulletin's email (its date has passed).
+async function trackDeploy(sha, initialMsg = 'Committed — waiting for GitHub to start building…', { emailSkipped = false } = {}) {
   const gen = ++deployPollGeneration;
   const deadline = Date.now() + 6 * 60 * 1000;
   setStatus(initialMsg, 'info', '⏳');
@@ -138,6 +139,10 @@ async function trackDeploy(sha, initialMsg = 'Committed — waiting for GitHub t
     }
     if (deploy.conclusion !== 'success') {
       setStatus(`Site deploy failed (${deploy.name}).`, 'error', '❌', { url: deploy.html_url, text: 'View the failed run' });
+      return;
+    }
+    if (emailSkipped) {
+      setStatus('Site is live. This bulletin’s date has passed, so its Mailchimp email was not changed.', 'success', '✅');
       return;
     }
     // Site is live — report the email sync separately
@@ -1411,7 +1416,7 @@ document.getElementById('publish-btn').addEventListener('click', async () => {
         publishedShaByPath.get(targetPath)
       );
       completePublishedSave(targetPath, data, res.content?.sha);
-      trackDeploy(res.commit.sha);
+      trackDeploy(res.commit.sha, undefined, { emailSkipped: bulletinDateHasPassed(data.date) });
     } catch (err) { setStatus('Error saving archive: ' + err.message, 'error', '❌'); }
     finally { btn.disabled = false; setPersistenceOperationActive(false); }
   } else {

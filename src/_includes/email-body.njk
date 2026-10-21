@@ -55,7 +55,7 @@
         {% if bulletin.welcomeMessage %}
         <tr>
           <td bgcolor="#F7F3EC" style="padding:28px 32px;" class="section-pad dm-bg-content">
-            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:15px;line-height:1.8;text-align:center;font-style:italic;" class="dm-text-primary">{{ bulletin.welcomeMessage }}</p>
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:15px;line-height:1.8;text-align:center;font-style:italic;" class="dm-text-primary">{{ bulletin.welcomeMessage | escape | nl2br }}</p>
           </td>
         </tr>
         <tr>
@@ -65,8 +65,11 @@
         </tr>
         {% endif %}
 
+        {# Same sections, toggles and order as the website (see visibleSections) #}
+        {% for section in bulletin | visibleSections %}
+
         {# ── SERVICE INFO ────────────────────────────────────── #}
-        {% if bulletin.service %}
+        {% if section === "service" and bulletin.service %}
         {% set groupedTimes = bulletin.service.times | groupThisWeek %}
         {% for group in groupedTimes %}
         <tr>
@@ -97,31 +100,32 @@
             {% endif %}
           </td>
         </tr>
-        {% endif %}
 
         {# ── SCRIPTURE ───────────────────────────────────────── #}
-        {% if bulletin.scripture %}
+        {% elif section === "scripture" %}
         <tr>
           <td bgcolor="#0B0B0C" style="padding:32px 32px;" class="section-pad">
             <p style="margin:0 0 10px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;">This Week&rsquo;s Message</p>
+            {% if bulletin.scripture.imageUrl | absoluteUrl %}
+            <img src="{{ bulletin.scripture.imageUrl | absoluteUrl }}" alt="{{ bulletin.scripture.sermonSeries or bulletin.scripture.sermonTitle }}" width="240" style="display:block;width:240px;max-width:100%;height:auto;border:0;margin:0 0 18px;" />
+            {% endif %}
             {% if bulletin.scripture.sermonTitle %}
             <h2 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;color:#F7F3EC;font-size:22px;font-weight:normal;line-height:1.3;">{{ bulletin.scripture.sermonTitle }}</h2>
             {% endif %}
-            {% if bulletin.scripture.verse %}
-            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#E8E2D8;font-size:16px;line-height:1.75;font-style:italic;">&ldquo;{{ bulletin.scripture.verse }}&rdquo;</p>
+            {% if (bulletin.scripture.verse or '') | trim %}
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#E8E2D8;font-size:16px;line-height:1.75;font-style:italic;">&ldquo;{{ (bulletin.scripture.verse or '') | trim | escape | nl2br }}&rdquo;</p>
             {% endif %}
-            {% if bulletin.scripture.reference %}
+            {% if (bulletin.scripture.reference or '') | trim %}
             <p style="margin:12px 0 0;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:13px;">&mdash;&thinsp;{{ bulletin.scripture.reference }}</p>
             {% endif %}
-            {% if bulletin.scripture.sermonSeries %}
+            {% if (bulletin.scripture.sermonSeries or '') | trim %}
             <p style="margin:10px 0 0;font-family:Georgia,'Times New Roman',serif;color:#666;font-size:11px;letter-spacing:1px;text-transform:uppercase;">Series: {{ bulletin.scripture.sermonSeries }}</p>
             {% endif %}
           </td>
         </tr>
-        {% endif %}
 
         {# ── ANNOUNCEMENTS ───────────────────────────────────── #}
-        {% if bulletin.announcements and bulletin.announcements.length %}
+        {% elif section === "announcements" and bulletin.announcements and bulletin.announcements.length %}
         <tr>
           <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad dm-bg-content">
             <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">Announcements</p>
@@ -130,8 +134,11 @@
         {% for item in bulletin.announcements %}
         <tr>
           <td bgcolor="#F7F3EC" style="padding:0 32px {% if loop.last %}24px{% else %}16px{% endif %};" class="section-pad dm-bg-content">
+            {% if item.imageUrl | absoluteUrl %}
+            <img src="{{ item.imageUrl | absoluteUrl }}" alt="{{ item.title }}" width="536" style="display:block;width:100%;max-width:536px;height:auto;border:0;margin:0 0 12px;" />
+            {% endif %}
             <h3 style="margin:0 0 6px;font-family:Georgia,'Times New Roman',serif;color:#0B0B0C;font-size:16px;font-weight:bold;" class="dm-text-primary">{{ item.title }}</h3>
-            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.7;" class="dm-text-secondary">{{ item.body }}</p>
+            <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.7;" class="dm-text-secondary">{{ (item.body or '') | trim | escape | nl2br }}</p>
             {% if item.ctas and item.ctas.length %}
             <p style="margin:10px 0 0;">
               {% for cta in item.ctas %}
@@ -149,10 +156,9 @@
         </tr>
         {% endif %}
         {% endfor %}
-        {% endif %}
 
         {# ── SAVE THE DATES ──────────────────────────────────── #}
-        {% if bulletin.savetheDates and bulletin.savetheDates.length %}
+        {% elif section === "savetheDates" %}
         <tr>
           <td bgcolor="#EDE7DB" style="padding:24px 32px 4px;" class="section-pad dm-bg-std">
             <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">Save the Date</p>
@@ -161,6 +167,9 @@
         {% for event in bulletin.savetheDates %}
         <tr>
           <td bgcolor="#EDE7DB" style="padding:0 32px {% if loop.last %}24px{% else %}16px{% endif %};" class="section-pad dm-bg-std">
+            {% if event.imageUrl | absoluteUrl %}
+            <img src="{{ event.imageUrl | absoluteUrl }}" alt="{{ event.title }}" width="536" style="display:block;width:100%;max-width:536px;height:auto;border:0;margin:0 0 12px;" />
+            {% endif %}
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td class="date-block" width="56" valign="top" style="padding-right:16px;">
@@ -183,7 +192,7 @@
                   <p style="margin:0 0 4px;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:13px;" class="dm-text-secondary">{{ event.time }}</p>
                   {% endif %}
                   {% if event.description %}
-                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.6;" class="dm-text-secondary">{{ event.description }}</p>
+                  <p style="margin:0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:14px;line-height:1.6;" class="dm-text-secondary">{{ (event.description or '') | trim | escape | nl2br }}</p>
                   {% endif %}
                   {% if event.ctas and event.ctas.length %}
                   <p style="margin:8px 0 0;">
@@ -205,18 +214,19 @@
         </tr>
         {% endif %}
         {% endfor %}
-        {% endif %}
 
         {# ── THIS WEEK ───────────────────────────────────────── #}
-        {% if bulletin.thisWeek and bulletin.thisWeek.length %}
+        {% elif section === "thisWeek" %}
         <tr>
           <td bgcolor="#F7F3EC" style="padding:24px 32px 4px;" class="section-pad dm-bg-content">
             <p style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;border-bottom:1px solid #C8922E;padding-bottom:8px;">This Week</p>
           </td>
         </tr>
-        {% for item in bulletin.thisWeek %}
+        {% for group in bulletin.thisWeek | groupThisWeek %}
+        {% set lastGroup = loop.last %}
+        {% for item in group.items %}
         <tr>
-          <td bgcolor="#F7F3EC" style="padding:0 32px {% if loop.last %}24px{% else %}12px{% endif %};" class="section-pad dm-bg-content">
+          <td bgcolor="#F7F3EC" style="padding:0 32px {% if lastGroup and loop.last %}24px{% else %}12px{% endif %};" class="section-pad dm-bg-content">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
                 <td width="90" valign="top">
@@ -230,16 +240,29 @@
                   {% if item.location %}
                   <p style="margin:2px 0 0;font-family:Georgia,'Times New Roman',serif;color:#555;font-size:12px;" class="dm-text-secondary">{{ item.location }}</p>
                   {% endif %}
+                  {% if item.description %}
+                  <p style="margin:4px 0 0;font-family:Georgia,'Times New Roman',serif;color:#444;font-size:13px;line-height:1.6;" class="dm-text-secondary">{{ (item.description or '') | trim | escape | nl2br }}</p>
+                  {% endif %}
+                  {% if item.ctas and item.ctas.length %}
+                  <p style="margin:6px 0 0;">
+                    {% for cta in item.ctas %}
+                    <a href="{{ cta.url }}" style="display:inline-block;color:#C8922E;font-family:Georgia,'Times New Roman',serif;font-size:12px;text-decoration:underline;margin-right:12px;">{{ cta.label }} &rarr;</a>
+                    {% endfor %}
+                  </p>
+                  {% endif %}
                 </td>
               </tr>
             </table>
           </td>
         </tr>
         {% endfor %}
+        {% endfor %}
         {% endif %}
 
+        {% endfor %}
+
         {# ── GIVING ──────────────────────────────────────────── #}
-        {% if bulletin.giving %}
+        {% if bulletin.giving and bulletin.giving.url %}
         <tr>
           <td bgcolor="#0B0B0C" style="padding:32px;" align="center" class="section-pad">
             <p style="margin:0 0 8px;font-family:Georgia,'Times New Roman',serif;color:#C8922E;font-size:10px;letter-spacing:2px;text-transform:uppercase;">Support Our Ministry</p>

@@ -25,6 +25,8 @@ const PREVIOUS_DIR = path.join(__dirname, "../src/_data/previous");
 
 // Campaigns in these states can still be edited; 'sent'/'sending' cannot.
 const EDITABLE_STATUSES = ["save", "paused", "schedule"];
+// A hung request would hold the workflow's concurrency slot and block later syncs
+const REQUEST_TIMEOUT_MS = 30000;
 
 if (!API_KEY || !LIST_ID) {
   console.error("Missing MAILCHIMP_API_KEY or MAILCHIMP_LIST_ID env vars.");
@@ -61,6 +63,9 @@ function request(method, endpoint, body = null) {
       });
     });
 
+    req.setTimeout(REQUEST_TIMEOUT_MS, () => {
+      req.destroy(new Error(`Mailchimp ${method} ${endpoint} timed out`));
+    });
     req.on("error", reject);
     if (payload) req.write(payload);
     req.end();
@@ -78,11 +83,19 @@ function bulletinsToSync() {
   const current = JSON.parse(fs.readFileSync(BULLETIN_JSON, "utf-8"));
   const today = todayPacific();
   const targets = [{ bulletin: current, html: path.join(SITE_DIR, "email/index.html") }];
+  const unreadable = [];
 
   if (fs.existsSync(PREVIOUS_DIR)) {
     for (const f of fs.readdirSync(PREVIOUS_DIR)) {
       if (!f.endsWith(".json")) continue;
-      const archived = JSON.parse(fs.readFileSync(path.join(PREVIOUS_DIR, f), "utf-8"));
+      let archived;
+      try {
+        archived = JSON.parse(fs.readFileSync(path.join(PREVIOUS_DIR, f), "utf-8"));
+      } catch (err) {
+        // One bad archive shouldn't stop the other drafts from syncing
+        unreadable.push(`${f}: ${err.message}`);
+        continue;
+      }
       if (!archived.date || archived.date < today) continue;
       if (archived.date === current.date) continue;
       targets.push({
@@ -91,7 +104,14 @@ function bulletinsToSync() {
       });
     }
   }
-  return targets;
+  return { targets, unreadable, today };
+}
+
+// Shown on the workflow run page, so "synced" vs "skipped" is visible without
+// reading the raw log.
+function writeSummary(lines) {
+  if (!process.env.GITHUB_STEP_SUMMARY) return;
+  fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, ["### Mailchimp sync", "", ...lines, ""].join("\n"));
 }
 
 async function syncBulletin(bulletin, htmlPath, allCampaigns) {
@@ -113,7 +133,7 @@ async function syncBulletin(bulletin, htmlPath, allCampaigns) {
     console.log(
       `• "${campaignTitle}" was already sent (status: ${matches[0].status}) — skipping.`
     );
-    return;
+    return `- ${date}: skipped — already ${matches[0].status} in Mailchimp, so edits can't reach that email`;
   }
 
   let campaign;
@@ -156,16 +176,17 @@ async function syncBulletin(bulletin, htmlPath, allCampaigns) {
 
   console.log(`  ✓ Draft synced: "${campaignTitle}"`);
   console.log(`    Status  : draft (not sent — review in Mailchimp before sending)`);
-  console.log(
-    `    View at : https://${DC}.admin.mailchimp.com/campaigns/edit?id=${campaign.web_id}`
-  );
+  const viewUrl = `https://${DC}.admin.mailchimp.com/campaigns/edit?id=${campaign.web_id}`;
+  console.log(`    View at : ${viewUrl}`);
+  return `- ${date}: draft ${editable ? "updated" : "created"} — [open in Mailchimp](${viewUrl})`;
 }
 
 async function main() {
-  const targets = bulletinsToSync();
+  const { targets, unreadable, today } = bulletinsToSync();
   console.log(
     `Syncing ${targets.length} bulletin(s): ${targets.map((t) => t.bulletin.date).join(", ")}`
   );
+  const summary = [];
 
   // Fetch the campaign list once, newest first, so title matching sees recent drafts
   const search = await request(
@@ -181,12 +202,20 @@ async function main() {
   const failures = [];
   for (const t of targets) {
     try {
-      await syncBulletin(t.bulletin, t.html, allCampaigns);
+      summary.push(await syncBulletin(t.bulletin, t.html, allCampaigns));
     } catch (err) {
       console.error(`✗ ${t.bulletin.date}: ${err.message}`);
+      summary.push(`- ${t.bulletin.date}: **failed** — ${err.message}`);
       failures.push(t.bulletin.date);
     }
   }
+  for (const u of unreadable) {
+    console.error(`✗ Could not read archive ${u}`);
+    summary.push(`- **failed** to read archive ${u}`);
+    failures.push(u.split(":")[0]);
+  }
+  summary.push("", `Archives dated before ${today} aren't synced; their emails have already gone out.`);
+  writeSummary(summary);
 
   if (failures.length) {
     console.error(`\nSync failed for: ${failures.join(", ")}`);

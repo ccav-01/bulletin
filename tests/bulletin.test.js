@@ -197,6 +197,8 @@ test('deployment outcomes distinguish a live site from an email sync failure',as
     w.setTimeout=(fn,ms,...args)=>realTimeout(fn,ms===5000?0:ms,...args);
     await w.trackDeploy('test-commit');
     assert.match(w.document.querySelector('#status-msg').textContent,/Site is live and the email draft synced/);
+    await w.trackDeploy('test-commit',undefined,{emailSkipped:true});
+    assert.match(w.document.querySelector('#status-msg').textContent,/date has passed, so its Mailchimp email was not changed/);
     const previousFetch=w.fetch;
     w.fetch=async(url,options)=>String(url).includes('/actions/runs')?{ok:true,json:async()=>({workflow_runs:[
       {path:'.github/workflows/deploy.yml',status:'completed',conclusion:'success'},
