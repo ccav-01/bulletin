@@ -45,6 +45,12 @@
   ],
   "announcements": [
     {
+      "title": "Trunk or Treat ",
+      "body": "Come on out Saturday, October 31st from 6 to 8 PM, for our trunk or treat event with free food and candy.",
+      "imageUrl": "/assets/images/uploads/ann-trunk-or-treat-16x92-1793397822643.jpg",
+      "ctas": []
+    },
+    {
       "title": "Women's Fall Bible Study ",
       "body": "Ladies! We are so excited for our Women’s Fall Bible Study titled “Christ Alone.” We will be studying through the book of Colossians. Our time together will include a time of teaching, worship, group discussion and food. If you desire to grow in your walk with the Lord and in the understanding of the Word then come and join us Tuesday evenings starting Tuesday September 29th at 6:30 PM. Grab a flyer on the Women’s Ministry Table in the foyer and sign up today!We would love for you to join us! ",
       "ctas": []
@@ -52,11 +58,6 @@
     {
       "title": "Men's Bible Study ",
       "body": "Men! Come join us starting Tuesday September 29th at 6:30 PM for our Men’s Bible Study through Colossians. This time together will include worship, the Word, food, and fellowship with your brothers in Christ. \n",
-      "ctas": []
-    },
-    {
-      "title": "Trunk or Treat ",
-      "body": "Trunk or treat\nCome serve and bless our community with our trunk or treat event Saturday October 31st from 6 PM - 8 PM. We need volunteers to decorate their trunks and hand out candy so please fill out a registration form to help out with that! If you are unable to decorate a trunk but still want to help serve we are gladly accepting candy donations! \n",
       "ctas": []
     },
     {
