@@ -1,10 +1,9 @@
 {
   "date": "2026-11-08",
   "headline": {
-    "title": "\"The Sermon on the Mount\"",
-    "reference": "Matthew 5:9-10"
+    "title": "\"Socialism's Rise In America. A Biblical Response For The Church.\"",
+    "reference": "With Guest Speaker: Charlie Campbell "
   },
-  "theme": "\"The Sermon on the Mount\" — Matthew 5:9-10",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -31,8 +30,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 ",
-    "imageUrl": ""
+    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 "
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -47,19 +45,13 @@
   ],
   "announcements": [
     {
-      "title": "Trunk or Treat ",
-      "body": "Come on out Saturday, October 31st from 6 to 8 PM, for our trunk or treat event with free food and candy.",
-      "imageUrl": "/assets/images/uploads/ann-trunk-or-treat-16x92-1793397822643.jpg",
-      "ctas": []
-    },
-    {
       "title": "Women's Fall Bible Study ",
-      "body": "Ladies! We are so excited for our Women’s Fall Bible Study titled “Christ Alone.” We will be studying through the book of Colossians. Our time together will include a time of teaching, worship, group discussion and food. If you desire to grow in your walk with the Lord and in the understanding of the Word then come and join us Tuesday evenings starting Tuesday September 29th at 6:30 PM. Grab a flyer on the Women’s Ministry Table in the foyer and sign up today!We would love for you to join us! ",
+      "body": "Ladies! We are so excited for our Women’s Fall Bible Study titled “Christ Alone.” We will be studying through the book of Colossians. Our time together will include a time of teaching, worship, group discussion and food. If you desire to grow in your walk with the Lord and in the understanding of the Word then come and join us Tuesday evenings at 6:30 PM. Grab a flyer on the Women’s Ministry Table in the foyer and sign up today!We would love for you to join us! ",
       "ctas": []
     },
     {
       "title": "Men's Bible Study ",
-      "body": "Men! Come join us starting Tuesday September 29th at 6:30 PM for our Men’s Bible Study through Colossians. This time together will include worship, the Word, food, and fellowship with your brothers in Christ. \n",
+      "body": "Men! Come join us Tuesday evenings at 6:30 PM for our Men’s Bible Study through Colossians. This time together will include worship, the Word, food, and fellowship with your brothers in Christ. \n",
       "ctas": []
     },
     {
@@ -91,6 +83,11 @@
     {
       "title": "Baptism",
       "body": "Come join us December 6th after second service for food, fellowship, and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized.\n",
+      "ctas": []
+    },
+    {
+      "title": "Youth Friendsgiving Event ",
+      "body": "High School and Junior High! Come out and join us for our Youth Friendsgiving Event on Friday November 20th from 4 PM - 8 PM. This is a potluck event so bring your favorite side dish or dessert or drinks to share!  Flyers and  sign up in the foyer.\n",
       "ctas": []
     }
   ],
@@ -179,5 +176,6 @@
     "facebook": "",
     "instagram": "",
     "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
-  }
+  },
+  "theme": "\"Socialism's Rise In America. A Biblical Response For The Church.\" — With Guest Speaker: Charlie Campbell"
 }
