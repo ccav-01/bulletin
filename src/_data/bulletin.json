@@ -1,10 +1,9 @@
 {
   "date": "2026-11-15",
   "headline": {
-    "title": "\"Socialism's Rise In America. A Biblical Response For The Church.\"",
-    "reference": "With Guest Speaker: Charlie Campbell"
+    "title": "\"Our Advocate and Propitiation.\" - 1 John 2:1-2",
+    "reference": "With Guest Speaker: Zeke Flores from CC Phelan "
   },
-  "theme": "\"Socialism's Rise In America. A Biblical Response For The Church.\" — With Guest Speaker: Charlie Campbell",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -31,8 +30,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 ",
-    "imageUrl": ""
+    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 "
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -57,14 +55,8 @@
       "ctas": []
     },
     {
-      "title": "2026 Men's Retreat ",
-      "body": "Men! Come join us November 13th - 15th at Pinecrest Christian Conference Center for this years Men’s Retreat. The cost is $220 which includes the conference, lodging, and 5 meals during that weekend. Please sign up in the foyer. ",
-      "imageUrl": "/assets/images/uploads/ann-1000068311-2-1791911847472.jpg",
-      "ctas": []
-    },
-    {
       "title": "Operation Christmas Child",
-      "body": "Demonstrate God's love to a child through a gift filled shoe box presented with the gospel of Jesus Christ.  Instructions, boxes, labels, available in the courtyard.  Return filled shoe boxes by National Collection Week, Nov. 16-23, 2026.\n",
+      "body": "It’s National Collection Week and CCAV is an Operation Christmas Child drop-off location for the Antelope Valley so come drop off your filled shoeboxes this week no later than next Sunday November 22nd.\n",
       "ctas": []
     },
     {
@@ -90,6 +82,11 @@
     {
       "title": "Youth Friendsgiving Event ",
       "body": "High School and Junior High! Come out and join us for our Youth Friendsgiving Event on Friday November 20th from 4 PM - 8 PM. This is a potluck event so bring your favorite side dish or dessert or drinks to share!  Flyers and  sign up in the foyer.\n",
+      "ctas": []
+    },
+    {
+      "title": "Magical Blvd Christmas Outreach ",
+      "body": "Saturday December 12th from 5 PM - 9 PM, we will be passing out hot chocolate and the good news of Jesus Christ at the city of Lancaster’s Magical BLVD Christmas Event. Please bring donations of hot chocolate canisters to the church by Sunday December 5th. ",
       "ctas": []
     }
   ],
@@ -120,6 +117,22 @@
       "ctas": []
     },
     {
+      "title": "OCC Shoebox Collection ",
+      "day": "Tuesday",
+      "time": "2 PM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Monday",
+      "time": "2 PM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
       "title": "Woman's Bible Study Through Colossians ",
       "day": "Tuesday",
       "time": "6:30 PM ",
@@ -131,6 +144,14 @@
       "title": "Men's Bible Study Through Colossians ",
       "day": "Tuesday",
       "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Wednesday",
+      "time": "2 PM - 6 PM ",
       "location": "",
       "description": "",
       "ctas": []
@@ -158,6 +179,30 @@
       "location": "",
       "description": "",
       "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Thursday",
+      "time": "2 PM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Friday",
+      "time": "2 PM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Saturday",
+      "time": "11 AM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
     }
   ],
   "backToWebsiteEnabled": true,
@@ -178,5 +223,6 @@
     "facebook": "",
     "instagram": "",
     "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
-  }
+  },
+  "theme": "\"Our Advocate and Propitiation.\" - 1 John 2:1-2 — With Guest Speaker: Zeke Flores from CC Phelan"
 }
