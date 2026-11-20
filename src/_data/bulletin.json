@@ -1,10 +1,9 @@
 {
   "date": "2026-11-22",
   "headline": {
-    "title": "\"Our Advocate and Propitiation.\" - 1 John 2:1-2",
-    "reference": "With Guest Speaker: Zeke Flores from CC Phelan"
+    "title": "In James Chapter 3 ",
+    "reference": "Assistant Pastor Jim Eckmann"
   },
-  "theme": "\"Our Advocate and Propitiation.\" - 1 John 2:1-2 — With Guest Speaker: Zeke Flores from CC Phelan",
   "headerImage": "",
   "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
   "service": {
@@ -31,8 +30,7 @@
     "verse": "",
     "reference": "",
     "sermonTitle": "",
-    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 ",
-    "imageUrl": ""
+    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 "
   },
   "scriptureEnabled": false,
   "announcementsEnabled": true,
@@ -47,13 +45,13 @@
   ],
   "announcements": [
     {
-      "title": "Women's Fall Bible Study ",
-      "body": "Ladies! We are so excited for our Women’s Fall Bible Study titled “Christ Alone.” We will be studying through the book of Colossians. Our time together will include a time of teaching, worship, group discussion and food. If you desire to grow in your walk with the Lord and in the understanding of the Word then come and join us Tuesday evenings at 6:30 PM. Grab a flyer on the Women’s Ministry Table in the foyer and sign up today!We would love for you to join us! ",
+      "title": "No Men's and Women's Study This Week ",
+      "body": "Our Men’s and Women’s Bible Study will be on break this week due to Thanksgiving. We will resume studies Tuesday December 5th at 6:30 PM.",
       "ctas": []
     },
     {
-      "title": "Men's Bible Study ",
-      "body": "Men! Come join us Tuesday evenings at 6:30 PM for our Men’s Bible Study through Colossians. This time together will include worship, the Word, food, and fellowship with your brothers in Christ. \n",
+      "title": "No Senior Study ",
+      "body": "The Senior Bible study will be on break this week due to Thanksgiving. \nStudy will resume Thursday December 3rd at 10 AM.\n",
       "ctas": []
     },
     {
@@ -68,7 +66,7 @@
     },
     {
       "title": "Thanksgiving Service ",
-      "body": "Come and join us Wednesday November 25th at 6:30 PM for a night of prayer and worship and a special time of giving thanks to the Lord.\n",
+      "body": "Come and join us Wednesday November 25th at 6:30 PM for a night of prayer and worship and a special time of giving thanks to the Lord. This service will not be livestreamed, so come worship, pray and give thanks in person with the body of Christ.\n\n",
       "ctas": []
     },
     {
@@ -79,11 +77,6 @@
     {
       "title": "Baptism",
       "body": "Come join us December 6th after second service for food, fellowship, and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized.\n",
-      "ctas": []
-    },
-    {
-      "title": "Youth Friendsgiving Event ",
-      "body": "High School and Junior High! Come out and join us for our Youth Friendsgiving Event on Friday November 20th from 4 PM - 8 PM. This is a potluck event so bring your favorite side dish or dessert or drinks to share!  Flyers and  sign up in the foyer.\n",
       "ctas": []
     },
     {
@@ -119,46 +112,6 @@
       "ctas": []
     },
     {
-      "title": "OCC Shoebox Collection ",
-      "day": "Tuesday",
-      "time": "2 PM - 6 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "OCC Shoebox Collection ",
-      "day": "Monday",
-      "time": "2 PM - 6 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Woman's Bible Study Through Colossians ",
-      "day": "Tuesday",
-      "time": "6:30 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Men's Bible Study Through Colossians ",
-      "day": "Tuesday",
-      "time": "6:30 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "OCC Shoebox Collection ",
-      "day": "Wednesday",
-      "time": "2 PM - 6 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
       "title": "Praise and Prayer ",
       "day": "Wednesday",
       "time": "5:30 PM ",
@@ -167,49 +120,9 @@
       "ctas": []
     },
     {
-      "title": "Wednesday Evening Service Through Matthew",
+      "title": "Thanksgiving Prayer and Worship Service ",
       "day": "Wednesday",
       "time": "6:30 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Senior's Study ",
-      "day": "Thursday",
-      "time": "10 AM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "OCC Shoebox Collection ",
-      "day": "Thursday",
-      "time": "2 PM - 6 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "OCC Shoebox Collection ",
-      "day": "Friday",
-      "time": "2 PM - 6 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "Youth Friendsgiving ",
-      "day": "Friday",
-      "time": "4 PM - 8 PM ",
-      "location": "",
-      "description": "",
-      "ctas": []
-    },
-    {
-      "title": "OCC Shoebox Collection ",
-      "day": "Saturday",
-      "time": "11 AM - 6 PM ",
       "location": "",
       "description": "",
       "ctas": []
@@ -233,5 +146,6 @@
     "facebook": "",
     "instagram": "",
     "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
-  }
+  },
+  "theme": "In James Chapter 3 — Assistant Pastor Jim Eckmann"
 }
