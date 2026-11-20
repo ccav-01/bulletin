@@ -1,0 +1,236 @@
+{
+  "date": "2026-11-15",
+  "headline": {
+    "title": "\"Our Advocate and Propitiation.\" - 1 John 2:1-2",
+    "reference": "With Guest Speaker: Zeke Flores from CC Phelan"
+  },
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": [
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "6:30 PM"
+      }
+    ],
+    "pastor": "Pastor Josh Hueser",
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
+  },
+  "scripture": {
+    "verse": "",
+    "reference": "",
+    "sermonTitle": "",
+    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 "
+  },
+  "scriptureEnabled": false,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "announcements",
+    "savetheDates",
+    "service",
+    "thisWeek",
+    "scripture"
+  ],
+  "announcements": [
+    {
+      "title": "Women's Fall Bible Study ",
+      "body": "Ladies! We are so excited for our Women’s Fall Bible Study titled “Christ Alone.” We will be studying through the book of Colossians. Our time together will include a time of teaching, worship, group discussion and food. If you desire to grow in your walk with the Lord and in the understanding of the Word then come and join us Tuesday evenings at 6:30 PM. Grab a flyer on the Women’s Ministry Table in the foyer and sign up today!We would love for you to join us! ",
+      "ctas": []
+    },
+    {
+      "title": "Men's Bible Study ",
+      "body": "Men! Come join us Tuesday evenings at 6:30 PM for our Men’s Bible Study through Colossians. This time together will include worship, the Word, food, and fellowship with your brothers in Christ. \n",
+      "ctas": []
+    },
+    {
+      "title": "Operation Christmas Child",
+      "body": "It’s National Collection Week and CCAV is an Operation Christmas Child drop-off location for the Antelope Valley so come drop off your filled shoeboxes this week no later than next Sunday November 22nd.\n",
+      "ctas": []
+    },
+    {
+      "title": "Young Adults Friendsgiving ",
+      "body": "Young Adults! Come join us Monday November 23rd at 6PM for fellowship, food, worship, and time in the Word at our friendsgiving event. This is a potluck event so please bring your favorite thanksgiving dish to share, Sign up in the foyer for the address",
+      "ctas": []
+    },
+    {
+      "title": "Thanksgiving Service ",
+      "body": "Come and join us Wednesday November 25th at 6:30 PM for a night of prayer and worship and a special time of giving thanks to the Lord.\n",
+      "ctas": []
+    },
+    {
+      "title": "Woman's Christmas Dinner",
+      "body": "Ladies! You’re invited to our annual Woman’s Christmas Dinner here at the church Saturday December 5th at 5 PM. Cost is $35 per person. Register by November 29th using the QR code on the flyer or by signing up and paying in the bookstore. \n",
+      "ctas": []
+    },
+    {
+      "title": "Baptism",
+      "body": "Come join us December 6th after second service for food, fellowship, and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized.\n",
+      "ctas": []
+    },
+    {
+      "title": "Youth Friendsgiving Event ",
+      "body": "High School and Junior High! Come out and join us for our Youth Friendsgiving Event on Friday November 20th from 4 PM - 8 PM. This is a potluck event so bring your favorite side dish or dessert or drinks to share!  Flyers and  sign up in the foyer.\n",
+      "ctas": []
+    },
+    {
+      "title": "Magical Blvd Christmas Outreach ",
+      "body": "Saturday December 12th from 5 PM - 9 PM, we will be passing out hot chocolate and the good news of Jesus Christ at the city of Lancaster’s Magical BLVD Christmas Event. Please bring donations of hot chocolate canisters to the church by Sunday December 5th. ",
+      "ctas": []
+    }
+  ],
+  "savetheDates": [],
+  "thisWeek": [
+    {
+      "title": "Praise & Prayer",
+      "day": "Sunday",
+      "time": "7:30 AM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "1st Service",
+      "day": "Sunday",
+      "time": "8:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "2nd Service",
+      "day": "Sunday",
+      "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Tuesday",
+      "time": "2 PM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Monday",
+      "time": "2 PM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Woman's Bible Study Through Colossians ",
+      "day": "Tuesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Men's Bible Study Through Colossians ",
+      "day": "Tuesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Wednesday",
+      "time": "2 PM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Praise and Prayer ",
+      "day": "Wednesday",
+      "time": "5:30 PM ",
+      "location": "Westminister Room ",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Wednesday Evening Service Through Matthew",
+      "day": "Wednesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Senior's Study ",
+      "day": "Thursday",
+      "time": "10 AM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Thursday",
+      "time": "2 PM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Friday",
+      "time": "2 PM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Youth Friendsgiving ",
+      "day": "Friday",
+      "time": "4 PM - 8 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "OCC Shoebox Collection ",
+      "day": "Saturday",
+      "time": "11 AM - 6 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    }
+  ],
+  "backToWebsiteEnabled": true,
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
+  "giving": {
+    "url": "https://www.calvarychapelav.org/giving/",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 942-0404",
+    "email": "ccav@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
+  },
+  "theme": "\"Our Advocate and Propitiation.\" - 1 John 2:1-2 — With Guest Speaker: Zeke Flores from CC Phelan"
+}
