@@ -1,0 +1,151 @@
+{
+  "date": "2026-11-22",
+  "headline": {
+    "title": "In James Chapter 3",
+    "reference": "Assistant Pastor Jim Eckmann"
+  },
+  "headerImage": "",
+  "welcomeMessage": "Welcome to Calvary Chapel Antelope Valley! We are glad you are here. Whether you are joining us in person or online, may God bless you today.",
+  "service": {
+    "times": [
+      {
+        "day": "Sunday",
+        "time": "8:30 AM"
+      },
+      {
+        "day": "Sunday",
+        "time": "10:30 AM"
+      },
+      {
+        "day": "Wednesday",
+        "time": "6:30 PM"
+      }
+    ],
+    "pastor": "Pastor Josh Hueser",
+    "location": "Calvary Chapel Antelope Valley",
+    "address": "1661 W Lancaster Blvd, Lancaster, CA 93535",
+    "livestream": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/streams"
+  },
+  "scripture": {
+    "verse": "",
+    "reference": "",
+    "sermonTitle": "",
+    "sermonSeries": "\"Poor in Spirit.\" - Matthew 5 "
+  },
+  "scriptureEnabled": false,
+  "announcementsEnabled": true,
+  "savetheDatesEnabled": true,
+  "thisWeekEnabled": true,
+  "sectionOrder": [
+    "announcements",
+    "savetheDates",
+    "service",
+    "thisWeek",
+    "scripture"
+  ],
+  "announcements": [
+    {
+      "title": "No Men's and Women's Study This Week ",
+      "body": "Our Men’s and Women’s Bible Study will be on break this week due to Thanksgiving. We will resume studies Tuesday December 5th at 6:30 PM.",
+      "ctas": []
+    },
+    {
+      "title": "No Senior Study ",
+      "body": "The Senior Bible study will be on break this week due to Thanksgiving. \nStudy will resume Thursday December 3rd at 10 AM.\n",
+      "ctas": []
+    },
+    {
+      "title": "Operation Christmas Child",
+      "body": "It’s National Collection Week and CCAV is an Operation Christmas Child drop-off location for the Antelope Valley so come drop off your filled shoeboxes this week no later than next Sunday November 22nd.\n",
+      "ctas": []
+    },
+    {
+      "title": "Young Adults Friendsgiving ",
+      "body": "Young Adults! Come join us Monday November 23rd at 6PM for fellowship, food, worship, and time in the Word at our friendsgiving event. This is a potluck event so please bring your favorite thanksgiving dish to share, Sign up in the foyer for the address",
+      "ctas": []
+    },
+    {
+      "title": "Thanksgiving Service ",
+      "body": "Come and join us Wednesday November 25th at 6:30 PM for a night of prayer and worship and a special time of giving thanks to the Lord. This service will not be livestreamed, so come worship, pray and give thanks in person with the body of Christ.\n\n",
+      "ctas": []
+    },
+    {
+      "title": "Woman's Christmas Dinner",
+      "body": "Ladies! You’re invited to our annual Woman’s Christmas Dinner here at the church Saturday December 5th at 5 PM. Cost is $35 per person. Register by November 29th using the QR code on the flyer or by signing up and paying in the bookstore. \n",
+      "ctas": []
+    },
+    {
+      "title": "Baptism",
+      "body": "Come join us December 6th after second service for food, fellowship, and to celebrate with those publicly declaring their faith in Jesus through baptism. Please sign up in the foyer if you want to be baptized.\n",
+      "ctas": []
+    },
+    {
+      "title": "Magical Blvd Christmas Outreach ",
+      "body": "Saturday December 12th from 5 PM - 9 PM, we will be passing out hot chocolate and the good news of Jesus Christ at the city of Lancaster’s Magical BLVD Christmas Event. Please bring donations of hot chocolate canisters to the church by Sunday December 5th. ",
+      "ctas": []
+    }
+  ],
+  "savetheDates": [],
+  "thisWeek": [
+    {
+      "title": "Praise & Prayer",
+      "day": "Sunday",
+      "time": "7:30 AM",
+      "location": "Westminster Room",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "1st Service",
+      "day": "Sunday",
+      "time": "8:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "2nd Service",
+      "day": "Sunday",
+      "time": "10:30 AM",
+      "location": "",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Praise and Prayer ",
+      "day": "Wednesday",
+      "time": "5:30 PM ",
+      "location": "Westminister Room ",
+      "description": "",
+      "ctas": []
+    },
+    {
+      "title": "Thanksgiving Prayer and Worship Service ",
+      "day": "Wednesday",
+      "time": "6:30 PM ",
+      "location": "",
+      "description": "",
+      "ctas": []
+    }
+  ],
+  "backToWebsiteEnabled": true,
+  "appearance": {
+    "logoDesktop": 38,
+    "logoMobile": 32,
+    "badgeDesktop": 100,
+    "badgeMobile": 80
+  },
+  "giving": {
+    "url": "https://www.calvarychapelav.org/giving/",
+    "text": "Give Online"
+  },
+  "contact": {
+    "phone": "(661) 942-0404",
+    "email": "ccav@calvarychapelav.org",
+    "website": "https://calvarychapelav.org",
+    "facebook": "",
+    "instagram": "",
+    "youtube": "https://www.youtube.com/@CalvaryChapelAntelopeVal-cw6qu/"
+  },
+  "theme": "In James Chapter 3 — Assistant Pastor Jim Eckmann"
+}
